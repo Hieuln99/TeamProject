@@ -11,7 +11,7 @@ namespace Project.Controllers
         // GET: Trainer
         public ActionResult Index()
         {
-            return View();
+            return Content("hello world");
         }
     }
 }

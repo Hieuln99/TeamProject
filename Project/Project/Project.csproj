@@ -143,6 +143,11 @@
     <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="EF\TrainingContext.cs" />
+    <Compile Include="EF\TrainingMigrations\202110100402542_InitialCreate.cs" />
+    <Compile Include="EF\TrainingMigrations\202110100402542_InitialCreate.designer.cs">
+      <DependentUpon>202110100402542_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TrainingMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +239,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EF\TrainingMigrations\202110100402542_InitialCreate.resx">
+      <DependentUpon>202110100402542_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
