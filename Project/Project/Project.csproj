@@ -147,6 +147,10 @@
     <Compile Include="EF\TrainingMigrations\202110100402542_InitialCreate.designer.cs">
       <DependentUpon>202110100402542_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="EF\TrainingMigrations\202110100800573_InitialCreate1.cs" />
+    <Compile Include="EF\TrainingMigrations\202110100800573_InitialCreate1.designer.cs">
+      <DependentUpon>202110100800573_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="EF\TrainingMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,6 +249,9 @@
   <ItemGroup>
     <EmbeddedResource Include="EF\TrainingMigrations\202110100402542_InitialCreate.resx">
       <DependentUpon>202110100402542_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\TrainingMigrations\202110100800573_InitialCreate1.resx">
+      <DependentUpon>202110100800573_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
