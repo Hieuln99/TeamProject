@@ -18,5 +18,11 @@ namespace Project.Controllers
         {
             return View();
         }
+
+
+         public ActionResult TraineeEdit()
+        {
+            return View();
+        }
     }
 }
