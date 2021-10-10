@@ -17,7 +17,7 @@ namespace Project.Models
         //---------------------
         [DisplayName("Type")]
         [Required(ErrorMessage = "Type can not be null!!")]
-        public bool type { get; set; }
+        public int type { get; set; }
         //---------------------
         [DisplayName("Work Place")]
         [Required(ErrorMessage = "Work place can not be null!!")]

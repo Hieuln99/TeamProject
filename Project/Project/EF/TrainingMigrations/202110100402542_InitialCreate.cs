@@ -87,7 +87,27 @@
                 .ForeignKey("dbo.Course", t => t.Course_id, cascadeDelete: true)
                 .Index(t => t.Trainer_id)
                 .Index(t => t.Course_id);
+
+            Sql("INSERT INTO dbo.Category(name,description) VALUES" +
+             "('Computing', 'Simply put, cloud computing is the delivery of computing services—including servers, storage, databases, networking, software, analytics, and intelligence—over the Internet (“the cloud”) to offer faster innovation, flexible resources, and economies of scale. You typically pay only for cloud services you use, helping you lower your operating costs, run your infrastructure more efficiently, and scale as your business needs change.')," +
+             "('Business', 'Those looking for professional development into new areas will find an array of topics to choose from, including social media and entrepreneurship. Whether you’re looking for online management courses that last a couple of weeks or a business course that spans several months, you’re sure to find one that’s right for you.')," +
+             "('Academic English', 'academic English is about expressing the relationship between ideas. Although the language may be more complex than in everyday English, good academic writers aim to be as clear, precise and simple as possible. They think about what their readers know already, and aim to guide them towards less familiar areas and topics.')," +
+              "('Foundation', 'foundation subjects are not explored as thoroughly, they are still important because they introduce trainees to a wide variety of skills and knowledge. Foundation subjects also give a taster to trainees on what they enjoy and excel at doing to give them a clear idea on what to progress further in their education. ')," +
+             "('Graphic Design', 'Graphic design is a craft where professionals create visual content to communicate messages. By applying visual hierarchy and page layout techniques, designers use typography and pictures to meet users’ specific needs and focus on the logic of displaying elements in interactive designs, to optimize the user experience.')");
             
+            Sql("INSERT INTO dbo.Course(name, description, categoryid) VALUES" +
+                "('Computing','Cloud computing is the on - demand delivery of IT resources over the Internet with a pay -as- you - go policy.Instead of buying, owning, and maintaining physical servers and data centers, you can access technology services, like compute power, storage, and databases, as needed, from cloud service providers such as Amazon Web Services(AWS)',1)," +
+                "('Database','database is an organized collection of structured information, or data, typically stored electronically in a computer system. A database is usually controlled by a database management system (DBMS). Together, the data and the DBMS, along with the applications that are associated with them, are referred to as a database system, often shortened to just database',1)," +
+                "('Internet of Thing','The internet of things, or IoT, is a system of interrelated computing devices, mechanical and digital machines, objects, animals or people that are provided with unique identifiers (UIDs) and the ability to transfer data over a network without requiring human-to-human or human-to-computer interaction.',3)," +
+                "('Internet','The internet of things, or IoT, is a system of interrelated computing devices, mechanical and digital machines, objects, animals or people that are provided with unique identifiers (UIDs) and the ability to transfer data over a network without requiring human-to-human or human-to-computer interaction.',2)," +
+                "('C#','C# is a strongly typed object-oriented programming language. C# is open source, simple, modern, flexible, and versatile. In this article, let’s learn what C# is, what C# can do, and how C# is different than C++ and other programming languages.', 5)");
+
+            Sql("INSERT INTO dbo.Trainee(name, username, password, age, dob, edu, language, toeic, exp, department, location) VALUES" +
+                "(1, 2)," +
+                "(2, 1)," +
+                "(1, 1)," +
+                "(2, 2)");
+
         }
         
         public override void Down()
