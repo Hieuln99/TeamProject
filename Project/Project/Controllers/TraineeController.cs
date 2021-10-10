@@ -18,6 +18,7 @@ namespace Project.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult TraineeAdd()
         {
             return View();

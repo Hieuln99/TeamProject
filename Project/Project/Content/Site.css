@@ -85,11 +85,12 @@ body {
 }
 
 .style{
-    margin-left: 5%;
+    margin-left:5%;
     margin-top:4%;
-    width :90%;
-    height: auto;
+    width:90%;
+    height:auto;
     text-align:center;
+    border:1px;
 }
 .td{
     width:20%;

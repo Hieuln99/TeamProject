@@ -316,7 +316,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\FormHome.cshtml" />
     <Content Include="Views\Trainer\TrainerIndex.cshtml" />
     <Content Include="Views\Trainer\TrainerAdd.cshtml" />
@@ -335,6 +334,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_message.cshtml" />
+    <Content Include="Views\Trainer\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

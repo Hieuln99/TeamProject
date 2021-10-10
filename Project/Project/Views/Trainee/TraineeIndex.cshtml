@@ -8,6 +8,13 @@
 <h1 align="center">Trainee Manage</h1>
 
 <table class="style">
+
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    @Html.Partial("_message")
+
     <tr>
         <td><b>#</b></td>
         <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>

@@ -4,7 +4,17 @@
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
+<br />
+<h1 align="center">Trainer Manage</h1>
+
 <table class="style">
+
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    @Html.Partial("_message")
+
     <tr>
         <td><b>#</b></td>
         <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
@@ -18,24 +28,24 @@
 
     @foreach (var m in Model)
     {
-<tr>
-    <td>@Html.DisplayFor(model => m.id)</td>
-    <td class="td">@Html.DisplayFor(model => m.name)</td>
-    <td class="td">@Html.DisplayFor(model => m.type)</td>
-    <td class="td">@Html.DisplayFor(model => m.workplace)</td>
-    <td class="td">@Html.DisplayFor(model => m.phonenumber)</td>
-    <td class="td">@Html.DisplayFor(model => m.email)</td>
-    <td class="td">
-        <a type="button" class="btn btn-warning" href="@Url.Action("",new { id = m.id})">
-            Edit
-        </a>
-    </td>
-    <td class="td">
-        <a type="button" class="btn btn-danger" data-trainer="@String.Format("{0}|{1}",
+        <tr>
+            <td>@Html.DisplayFor(model => m.id)</td>
+            <td class="td">@Html.DisplayFor(model => m.name)</td>
+            <td class="td">@Html.DisplayFor(model => m.type)</td>
+            <td class="td">@Html.DisplayFor(model => m.workplace)</td>
+            <td class="td">@Html.DisplayFor(model => m.phonenumber)</td>
+            <td class="td">@Html.DisplayFor(model => m.email)</td>
+            <td class="td">
+                <a type="button" class="btn btn-warning" href="@Url.Action("",new { id = m.id})">
+                    Edit
+                </a>
+            </td>
+            <td class="td">
+                <a type="button" class="btn btn-danger" data-trainer="@String.Format("{0}|{1}",
                                 m. ToSeparatedString("|"),
                                 Url.Action("", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
-    </td>
-</tr>
+            </td>
+        </tr>
     }
 </table>
 
@@ -89,7 +99,7 @@
                             <tr>
                                 <th><input type="text" class="form-control" id="email" /></th>
                             </tr>
-                           
+
                         </table>
 
                         <div class="modal-footer">

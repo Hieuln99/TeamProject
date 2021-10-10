@@ -11,11 +11,11 @@ namespace Project.Models
     {
         public int id { get; set; }
         //---------------------
-        [DisplayName("Name")]
+        [DisplayName("Trainer Name")]
         [Required(ErrorMessage = "Name can not be null!!")]
         public string name { get; set; }
         //---------------------
-        [DisplayName("Type")]
+        [DisplayName("Trainer Type")]
         [Required(ErrorMessage = "Type can not be null!!")]
         public string type { get; set; }
         //---------------------
