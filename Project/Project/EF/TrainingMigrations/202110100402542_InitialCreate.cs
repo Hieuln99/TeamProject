@@ -103,13 +103,45 @@
                 "('C#','C# is a strongly typed object-oriented programming language. C# is open source, simple, modern, flexible, and versatile. In this article, let’s learn what C# is, what C# can do, and how C# is different than C++ and other programming languages.', 5)");
 
             Sql("INSERT INTO dbo.Trainee(name, username, password, age, dob, edu, language, toeic, exp, department, location) VALUES" +
+                "('Joihn','Joihn123','12345678', 30, '1991-01-17', 'Greenwich', 'C#', 500, '1 year with c#','IT','thai binh')," +
+                "('Tony','Tony123','12345678', 20, '1991-01-17', 'FPT', 'Java', 500, '1 year with Java','IT','hoa binh')," +
+                "('Stark','Stark123','12345678', 20, '1991-01-17', 'HNU', 'C#', 500, '1 year with c#','IT','thai binh')," +
+                "('Maguire','Maguire123','12345678', 40, '1991-01-17', 'HNU', 'Java', 500, '2 year with java','IT','ha noi')," +
+                "('JoiMaguire','JoiMaguire123','12345678', 20, '1991-01-17', 'FPT', 'C#', 500, '1 year with c#','IT','thai binh')," +
+                "('Mary','Mary123','12345678', 10, '1991-01-17', 'FPT', 'Python', 500, '2 year with Python','IT','thai binh')," +
+                "('Maryoihn','Maryoihn','12345678', 20, '1991-01-17', 'HNU', 'Python', 500, '2 year with Python','IT','ha noi')," +
+                "('Tobey','Tobey123','12345678', 42, '1991-01-17', 'HNU', 'Java', 500, '1 year with c#','IT','thai binh')," +
+                "('Maguire','Maguire123','12345678', 33, '1991-01-17', 'Greenwich', 'C#', 500, '1 year with c#','IT','ha noi')," +
+                "('Joihn','Joihn123','12345678', 23, '1991-01-17', 'Greenwich', 'C#', 500, '1 year with c#','IT','thai binh')," +
+                "('Joihn','Joihn123','12345678', 23, '1991-01-17', 'Greenwich', 'C#', 500, '1 year with c#','IT','thai binh')");
+
+            Sql("INSERT INTO dbo.Trainer( name, type, workplace, email, phonenumber) VALUES" +
+               "('JoiMaguire', 1 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('Mary',1 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('Maryoihn',0 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('Tobey', 0 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('Maguire',1 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('John Main', 0 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')," +
+                "('Tobey Maguire',1 ,'ha noi', 'JoiMaguire123@gmail.com', '0919919999')");
+
+            Sql("INSERT INTO dbo.TraineeCourses(Trainee_id, Course_id) VALUES" +
                 "(1, 2)," +
-                "(2, 1)," +
+                "(3, 2)," +
+                "(2, 3)," +
+                "(5, 2)," +
+                "(3, 3)," +
+                "(4, 4)");
+
+            Sql("INSERT INTO dbo.TrainerCourses(Trainer_id, Course_id) VALUES" +
                 "(1, 1)," +
-                "(2, 2)");
+                "(2, 2)," +
+                "(3, 3)," +
+                "(4, 4)," +
+                "(5, 3)," +
+                "(6, 2)");
 
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.TrainerCourses", "Course_id", "dbo.Course");
