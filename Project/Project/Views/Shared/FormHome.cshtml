@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+</head>
+<body>
+    @Html.Partial("_Nav1")
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <div role="alertdialog">
+        @RenderSection("alertdialog", required: false)
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

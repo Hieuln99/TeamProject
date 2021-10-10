@@ -9,7 +9,12 @@ namespace Project.Controllers
     public class TraineeController : Controller
     {
         // GET: Trainee
-        public ActionResult Index()
+        public ActionResult TraineeIndex()
+        {
+            return View();
+        }
+
+        public ActionResult TraineeAdd()
         {
             return View();
         }

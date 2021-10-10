@@ -9,9 +9,14 @@ namespace Project.Controllers
     public class TrainerController : Controller
     {
         // GET: Trainer
-        public ActionResult Index()
+        public ActionResult TrainerIndex()
         {
-            return Content("hello world");
+            return View();
+        }
+
+        public ActionResult TrainerAdd()
+        {
+            return View();
         }
     }
 }
