@@ -17,7 +17,7 @@ namespace Project.Models
         //---------------------
         [DisplayName("Type")]
         [Required(ErrorMessage = "Type can not be null!!")]
-        public int type { get; set; }
+        public string type { get; set; }
         //---------------------
         [DisplayName("Work Place")]
         [Required(ErrorMessage = "Work place can not be null!!")]
@@ -52,7 +52,7 @@ namespace Project.Models
         }
         public override string ToString()
         {
-            return string.Format("id:{0}; name: {1}; type:{2}; workplace: {3}; phonenumber: {4}; email: {5}",
+            return string.Format("id:{0}; name:{1}; type:{2}; workplace: {3}; phonenumber: {4}; email: {5}",
                 this.id, this.name, this.type, this.workplace, this.phonenumber, this.email);
         }
     }

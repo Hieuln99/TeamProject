@@ -1,8 +1,175 @@
-﻿
+﻿@model IEnumerable<Project.Models.Trainee>
 @{
     ViewBag.Title = "TraineeIndex";
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
-<h2>TraineeIndex</h2>
+<br />
+<h1 align="center">Trainee Manage</h1>
 
+<table class="style">
+    <tr>
+        <td><b>#</b></td>
+        <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
+        <td class="td"><b>@Html.DisplayNameFor(model => model.dob)</b></td>
+        <td class="td"><b>@Html.DisplayNameFor(model => model.edu)</b></td>
+        <td class="td"></td>
+        <td class="td"></td>
+    </tr>
+
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => m.id)</td>
+            <td class="td">@Html.DisplayFor(model => m.name)</td>
+            <td class="td">@Html.DisplayFor(model => m.dob)</td>
+            <td class="td">@Html.DisplayFor(model => m.edu)</td>
+            <td class="td">
+                <a type="button" class="btn btn-warning" href="@Url.Action("",new { id = m.id})">
+                    Edit
+                </a>
+            </td>
+            <td class="td">
+                <a type="button" class="btn btn-danger" data-trainee="@String.Format("{0}|{1}",
+                                m. ToSeparatedString("|"),
+                                Url.Action("", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@section alertdialog
+    {
+    <div class="modal fade" tabindex="-1" id="delete" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <form id="deleteForm" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete a Trainee</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="maxwith">
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Name</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="name" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">User Name</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="username" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Password</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="password" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Age</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="age" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Date of Birth</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="dob" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Education</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="edu" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Programing Language</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="language" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">TOEIC</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="toeic" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Experience</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="exp" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Department</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="department" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Location</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="location" /></th>
+                                </tr>
+                            </table>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="Delete" />
+                            </div>
+                        </div>
+
+                       
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+}
+
+@section scripts
+    {
+    <script type="text/javascript">
+        $('document').ready(function () {
+            $('a[data-trainee]').on('click', function (evt) {
+                let d = $(this).attr('data-trainee').split("|");
+                console.log(d);
+                $('#id').attr('value', d[0]);
+                $('#name').attr('value', d[1]);
+                $('#username').attr('value', d[2]);
+                $('#password').attr('value', d[3]);
+                $('#age').attr('value', d[4]);
+                $('#dob').attr('value', d[5]);
+                $('#edu').attr('value', d[6]);
+                $('#language').attr('value', d[7]);
+                $('#toeic').attr('value', d[8]);
+                $('#exp').attr('value', d[9]);
+                $('#department').attr('value', d[10]);
+                $('#location').attr('value', d[11]);
+
+                $('#deleteForm').attr('action', d[12]);
+            });
+        });
+    </script>
+}

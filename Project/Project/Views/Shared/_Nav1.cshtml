@@ -15,10 +15,10 @@
                     <a class="nav-link" href="@Url.Action("", "")">Staff</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("", "")">Trainer</a>
+                    <a class="nav-link" href="@Url.Action("TrainerIndex", "Trainer")">Trainer</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("", "")">Trainee</a>
+                    <a class="nav-link" href="@Url.Action("TraineeIndex", "Trainee")">Trainee</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -27,8 +27,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="@Url.Action("", "")" ">Staff</a>
-                        <a class="dropdown-item" href="@Url.Action("", "")">Trainer</a>
-                        <a class="dropdown-item" href="@Url.Action("", "")">Trainee</a>
+                        <a class="dropdown-item" href="@Url.Action("TrainerAdd", "Trainer")">Trainer</a>
+                        <a class="dropdown-item" href="@Url.Action("TraineeAdd", "Trainee")">Trainee</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="@Url.Action("", "")">Course Category</a>
                         <a class="dropdown-item" href="@Url.Action("", "")">Course</a>
@@ -53,9 +53,9 @@
 
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-lg-inline-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
     </div>
