@@ -11,7 +11,11 @@ namespace Project.Controllers
         // GET: Trainer
         public ActionResult TrainerIndex()
         {
-            return View();
+            using(var TNCT = new EF.TrainingContext())
+            {
+                var trainers = TNCT.trainers.OrderBy(t => t.id).ToList();
+                return View(trainers);
+            }
         }
 
         public ActionResult TrainerAdd()

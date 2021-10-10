@@ -3,7 +3,8 @@
     "",
     "\\Project",
     "\\Project\\Project",
-    "\\Project\\Project\\Controllers"
+    "\\Project\\Project\\Controllers",
+    "\\Project\\Project\\EF"
   ],
   "SelectedNode": "\\Project\\Project\\Controllers\\TrainerController.cs",
   "PreviewInSolutionExplorer": false

@@ -230,13 +230,15 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\FormHome.cshtml" />
     <Content Include="Views\Trainer\TrainerIndex.cshtml" />
     <Content Include="Views\Trainer\TrainerAdd.cshtml" />
     <Content Include="Views\Trainee\TraineeIndex.cshtml" />
     <Content Include="Views\Trainee\TraineeAdd.cshtml" />
+    <Content Include="Views\Trainee\TraineeEdit.cshtml" />
+    <Content Include="Views\Trainer\TrainerEdit.cshtml" />
+    <Content Include="Views\Shared\_Nav1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
