@@ -1,8 +1,22 @@
-﻿
+﻿@model Project.Models.Trainee
 @{
     ViewBag.Title = "TraineeEdit";
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
-<h2>TraineeEdit</h2>
+<div class="container" style="margin-top:auto">
+    <h1 class="display-2" align="center">Trainee Edit</h1>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(false, "Error", new { @class = "text-danger" })
+    }
+
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.Partial("_Form")
+        <div align="center"><button type="submit" class="btn btn-dark">Submit</button></div>
+    }
+
+</div>
 

@@ -3,27 +3,33 @@
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.name)</b></label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="input name">
+    @Html.EditorFor(m => m.name, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's name" } })
 </div>
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.type)</b></label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="External or Internal">
+    @Html.DropDownList("Type", new List<SelectListItem>
+    {
+    new SelectListItem{Text= "External"},
+    new SelectListItem{Text="Internal"}
+    },
+    new { @class="custom-select d-block w-100"})
+    @*@Html.EditorFor(m => m.type, new { htmlAttributes = new { @class = "form-control", placeholder = "Input type external or internal" } })*@
 </div>
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.workplace)</b></label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="input trainer working place">
+    @Html.EditorFor(m => m.workplace, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer workplace" } })
 </div>
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.phonenumber)</b></label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="input trainer phone number">
+    @Html.EditorFor(m => m.phonenumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's phone number" } })
 </div>
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.email)</b></label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    @Html.EditorFor(m=>m.email, new {htmlAttributes = new {@class= "form-control", placeholder = "Input email like Example@gmail.com" } })
 </div>
 
 @*<div class="mb-3">

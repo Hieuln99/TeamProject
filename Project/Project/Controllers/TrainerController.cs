@@ -27,10 +27,18 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TrainerAdd(Trainer t)
         {
-            using(var TNCT = new EF.TrainingContext())
+            validation(t);
+            if (!ModelState.IsValid)
             {
-                TNCT.trainers.Add(t);
-                TNCT.SaveChanges();
+                return View(t);
+            }
+            else
+            {
+                using (var TNCT = new EF.TrainingContext())
+                {
+                    TNCT.trainers.Add(t);
+                    TNCT.SaveChanges();
+                }
             }
             TempData["message"] = $"Add Successfully a trainer with id: {t.id}";
             return RedirectToAction("TrainerIndex");
@@ -81,10 +89,13 @@ namespace Project.Controllers
             return RedirectToAction("TrainerIndex");
         }
 
-        //public Action validation(Trainer t)
-        //{
-
-        //}
+        private void validation(Trainer t)
+        {
+            if(!string.IsNullOrEmpty(t.phonenumber)&&t.phonenumber[0] != '0')
+            {
+                ModelState.AddModelError("Name", "Phone number must start with 0");
+            }
+        }
 
     }
 }

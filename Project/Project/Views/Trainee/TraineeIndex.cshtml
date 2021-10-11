@@ -32,14 +32,14 @@
             <td class="td">@Html.DisplayFor(model => m.dob)</td>
             <td class="td">@Html.DisplayFor(model => m.edu)</td>
             <td class="td">
-                <a type="button" class="btn btn-warning" href="@Url.Action("",new { id = m.id})">
+                <a type="button" class="btn btn-warning" href="@Url.Action("TraineeEdit",new { id = m.id})">
                     Edit
                 </a>
             </td>
             <td class="td">
                 <a type="button" class="btn btn-danger" data-trainee="@String.Format("{0}|{1}",
                                 m. ToSeparatedString("|"),
-                                Url.Action("", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                Url.Action("TraineeDelete", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
             </td>
         </tr>
     }
