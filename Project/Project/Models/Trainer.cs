@@ -21,6 +21,9 @@ namespace Project.Models
         //--------------------------------------
         [DisplayName("Password")]
         [Required(ErrorMessage = "Password can not be null!!")]
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}$",
+        ErrorMessage = "Password must be 8 characters and one letter, non-letter, special character")]
+
         public string password { get; set; }
         //--------------------------------------
         [DisplayName("Trainer Type")]

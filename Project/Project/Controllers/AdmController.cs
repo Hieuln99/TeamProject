@@ -108,9 +108,23 @@ namespace Project.Controllers
 
         private void validation(Trainer t)
         {
-            if (!string.IsNullOrEmpty(t.phonenumber) && t.phonenumber[0] != '0')
+            
+            if(!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
             {
-                ModelState.AddModelError("Name", "Phone number must start with 0");
+                ModelState.AddModelError("Name", "Trainers's name must be more than 5 characters");
+            }
+            else if(!string.IsNullOrEmpty(t.username) && t.username.Length < 7)
+            {
+                ModelState.AddModelError("Name", "User name must be more than 6");
+            }
+            else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
+            {
+                ModelState.AddModelError("Name", "Password must be more than 7");
+            }
+
+            else if (!string.IsNullOrEmpty(t.phonenumber) && t.phonenumber[0] != '0' && t.phonenumber.Length <10)
+            {
+                ModelState.AddModelError("Name", "Phone number must start with 0 and include 10 numbers");
             }
         }
 
@@ -136,15 +150,21 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult AddStaffAcc(Staff s)
         {
-            
+            validation1(s);
+            if (!ModelState.IsValid)
+            {
+                return View(s);
+            }
+            else
+            {
                 using (var TNCT = new EF.TrainingContext())
                 {
                     TNCT.staffs.Add(s);
                     TNCT.SaveChanges();
                 }
-            
-            TempData["message"] = $"Add Successfully a staff with id: {s.id}";
-            return RedirectToAction("TrainerAcc");
+                TempData["message"] = $"Add Successfully a staff with id: {s.id}";
+                return RedirectToAction("TrainerAcc");
+            }
         }
 
         [HttpGet]
@@ -202,7 +222,18 @@ namespace Project.Controllers
 
         private void validation1(Staff s)
         {
-
+            if (!string.IsNullOrEmpty(s.name) && s.name.Length < 6)
+            {
+                ModelState.AddModelError("Name", "Staff's name must be more than 5 characters");
+            }
+            else if (!string.IsNullOrEmpty(s.username) && s.username.Length < 7)
+            {
+                ModelState.AddModelError("Name", "User name must be more than 6");
+            }
+            else if (!string.IsNullOrEmpty(s.password) && s.password.Length <= 7)
+            {
+                ModelState.AddModelError("Name", "Password must be more than 7");
+            }
         }
 
     }

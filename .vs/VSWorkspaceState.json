@@ -3,11 +3,11 @@
     "",
     "\\Project",
     "\\Project\\Project",
+    "\\Project\\Project\\App_Start",
     "\\Project\\Project\\Controllers",
-    "\\Project\\Project\\EF",
-    "\\Project\\Project\\EF\\TrainingMigrations",
+    "\\Project\\Project\\Models",
     "\\Project\\Project\\Views"
   ],
-  "SelectedNode": "\\Project\\Project\\EF\\TrainingMigrations\\202110100800573_InitialCreate1.cs",
+  "SelectedNode": "\\Project\\Project\\Controllers\\AdmController.cs",
   "PreviewInSolutionExplorer": false
 }

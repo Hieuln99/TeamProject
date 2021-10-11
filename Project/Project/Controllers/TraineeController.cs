@@ -114,11 +114,11 @@ namespace Project.Controllers
             }
             else if(!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
             {
-                ModelState.AddModelError("Name", "Trainees's name must be more than 6 characters");
+                ModelState.AddModelError("Name", "Trainees's name must be more than 5 characters");
             }
             else if(!string.IsNullOrEmpty(t.username) && t.username.Length < 7)
             {
-                ModelState.AddModelError("Name", "User name must be more than 7");
+                ModelState.AddModelError("Name", "User name must be more than 6");
             }
             else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
             {
