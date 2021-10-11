@@ -11,13 +11,24 @@ namespace Project.Models
     {
         public int id { get; set; }
         //---------------------
-        [DisplayName("Name")]
+        [DisplayName("Trainer Name")]
         [Required(ErrorMessage = "Name can not be null!!")]
         public string name { get; set; }
         //---------------------
-        [DisplayName("Type")]
+        [DisplayName("User Name")]
+        [Required(ErrorMessage = "User Name can not be null!!")]
+        public string username { get; set; }
+        //--------------------------------------
+        [DisplayName("Password")]
+        [Required(ErrorMessage = "Password can not be null!!")]
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z0-9@$!%*#?&]{8,}$",
+        ErrorMessage = "Password must be 8 characters and one letter, non-letter, special character")]
+
+        public string password { get; set; }
+        //--------------------------------------
+        [DisplayName("Trainer Type")]
         [Required(ErrorMessage = "Type can not be null!!")]
-        public int type { get; set; }
+        public string type { get; set; }
         //---------------------
         [DisplayName("Work Place")]
         [Required(ErrorMessage = "Work place can not be null!!")]
@@ -43,8 +54,10 @@ namespace Project.Models
 
         public string ToSeparatedString(string r)
         {
-            return $"{this.id}{r}" +
+            return  $"{this.id}{r}" +
                     $"{this.name}{r}" +
+                    $"{this.username}{r}" +
+                    $"{this.password}{r}" +
                     $"{this.type}{r}" +
                     $"{this.workplace}{r}" +
                     $"{this.phonenumber}{r}" +
@@ -52,8 +65,8 @@ namespace Project.Models
         }
         public override string ToString()
         {
-            return string.Format("id:{0}; name: {1}; type:{2}; workplace: {3}; phonenumber: {4}; email: {5}",
-                this.id, this.name, this.type, this.workplace, this.phonenumber, this.email);
+            return string.Format("id:{0}; name:{1}; username:{2}; password:{3}; type:{4}; workplace: {5}; phonenumber: {6}; email: {7}",
+                this.id, this.name, this.username, this.password, this.type, this.workplace, this.phonenumber, this.email);
         }
     }
 }

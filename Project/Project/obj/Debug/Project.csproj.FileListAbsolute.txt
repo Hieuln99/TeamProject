@@ -181,3 +181,6 @@ C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Proje
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.dll
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.pdb
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.TrainingMigrations.InitialCreate1.resources
+C:\Users\hieut\source\repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.TrainingMigrations.InitialCreate2.resources
+C:\Users\hieut\source\repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.TrainingMigrations.InitialCreate3.resources
+C:\Users\hieut\source\repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.TrainingMigrations.InitialCreate4.resources

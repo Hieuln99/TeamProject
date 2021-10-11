@@ -18,13 +18,23 @@ namespace Project.EF
         public DbSet<Course> courses { get; set; }
         public DbSet<Trainer> trainers { get; set; }
         public DbSet<Trainee> trainees { get; set; }
-
+        public DbSet<Staff> staffs { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Staff>().ToTable("Staff");
+            modelBuilder.Entity<Staff>().HasKey<int>(b => b.id);
+            modelBuilder.Entity<Staff>().Property(s => s.username).HasColumnType("varchar").HasMaxLength(50);
+            modelBuilder.Entity<Staff>().Property(s => s.password).HasColumnType("varchar").HasMaxLength(50);
+
+
             modelBuilder.Entity<Trainer>().ToTable("Trainer");
             modelBuilder.Entity<Trainer>().HasKey<int>(b => b.id);
             modelBuilder.Entity<Trainer>().Property(b => b.name).HasColumnType("varchar").HasMaxLength(50);
+            modelBuilder.Entity<Trainer>().Property(b => b.username).HasColumnType("varchar").HasMaxLength(50);
+            modelBuilder.Entity<Trainer>().Property(b => b.password).HasColumnType("varchar").HasMaxLength(50);
             modelBuilder.Entity<Trainer>().Property(b => b.email).HasColumnType("varchar").HasMaxLength(30);
+            modelBuilder.Entity<Trainer>().Property(b => b.type).HasColumnType("varchar").HasMaxLength(20);
             modelBuilder.Entity<Trainer>().Property(b => b.phonenumber).HasColumnType("varchar").HasMaxLength(12);
             modelBuilder.Entity<Trainer>().Property(b => b.workplace).HasColumnType("varchar").HasMaxLength(15);
 

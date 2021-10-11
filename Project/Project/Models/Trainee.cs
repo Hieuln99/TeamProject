@@ -28,6 +28,7 @@ namespace Project.Models
         public int age { get; set; }
         //--------------------------------------
         [DisplayName("Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Date of Birth can not be null!!")]
         public DateTime dob { get; set; }
         //--------------------------------------
@@ -72,6 +73,7 @@ namespace Project.Models
             return $"{this.id}{r}" +
                     $"{this.name}{r}" +
                     $"{this.username}{r}" +
+                    $"{this.password}{r}" +
                     $"{this.age}{r}" +
                     $"{this.dob}{r}" +
                     $"{this.edu}{r}" +
@@ -83,8 +85,8 @@ namespace Project.Models
         }
         public override string ToString()
         {
-            return string.Format("id:{0}; name:{1}; username:{2}; age:{3}; dateofbirth:{4}; education:{5}; language:{6}; toeic: {7}; experience:{8}; department:{9};location:{10}"
-                , this.id, this.name, this.username, this.age, this.dob, this.edu, this.language, this.toeic, this.exp, this.department, this.location);
+            return string.Format("id:{0}; name:{1}; username:{2}; password:{3}; age:{4}; dateofbirth:{5}; education:{6}; language:{7}; toeic: {8}; experience:{9}; department:{10}; location:{11}"
+                , this.id, this.name, this.username, this.password,this.age, this.dob, this.edu, this.language, this.toeic, this.exp, this.department, this.location);
         }
     }
 }

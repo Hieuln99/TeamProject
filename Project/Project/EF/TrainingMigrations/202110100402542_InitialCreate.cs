@@ -54,11 +54,11 @@
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
-                        name = c.String(nullable: false, maxLength: 50, unicode: false),
-                        type = c.Boolean(nullable: false),
-                        workplace = c.String(nullable: false, maxLength: 15, unicode: false),
-                        email = c.String(nullable: false, maxLength: 30, unicode: false),
-                        phonenumber = c.String(nullable: false, maxLength: 12, unicode: false),
+                        name = c.String( maxLength: 50, unicode: false),
+                        type = c.Boolean(),
+                        workplace = c.String(maxLength: 15, unicode: false),
+                        email = c.String( maxLength: 30, unicode: false),
+                        phonenumber = c.String( maxLength: 12, unicode: false),
                     })
                 .PrimaryKey(t => t.id);
             
