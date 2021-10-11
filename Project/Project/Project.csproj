@@ -142,6 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="EF\TrainingContext.cs" />
@@ -342,6 +343,7 @@
     <Content Include="Views\Shared\_message.cshtml" />
     <Content Include="Views\Trainer\_Form.cshtml" />
     <Content Include="Views\Trainee\_Form.cshtml" />
+    <Content Include="Views\Adm\AdminIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
