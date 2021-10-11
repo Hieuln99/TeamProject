@@ -10,6 +10,8 @@ namespace Project.Controllers
     public class TraineeController : Controller
     {
         // GET: Trainee
+
+
         public ActionResult TraineeIndex()
         {
             using (var TNCT = new EF.TrainingContext())
@@ -19,6 +21,7 @@ namespace Project.Controllers
             }
         }
 
+
         [HttpGet]
         public ActionResult TraineeAdd()
         {
@@ -27,13 +30,21 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TraineeAdd(Trainee t)
         {
-             using(var TNCT = new EF.TrainingContext())
+            validation(t);
+            if (!ModelState.IsValid)
             {
-                TNCT.trainees.Add(t);
-                TNCT.SaveChanges();
+                return View(t);
             }
-            TempData["message"] = $"Add Successfully a trainee with id: {t.id}";
-            return RedirectToAction("TraineeIndex");
+            else
+            {
+                using (var TNCT = new EF.TrainingContext())
+                {
+                    TNCT.trainees.Add(t);
+                    TNCT.SaveChanges();
+                }
+                TempData["message"] = $"Add Successfully a trainee with id: {t.id}";
+                return RedirectToAction("TraineeIndex");
+            }
         }
 
         [HttpGet]
@@ -55,14 +66,23 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TraineeEdit(int id, Trainee t)
         {
-            using (var TNCT = new EF.TrainingContext())
+            validation(t);
+            if (!ModelState.IsValid)
             {
-                TNCT.Entry<Trainee>(t).State = System.Data.Entity.EntityState.Modified;
-                TNCT.SaveChanges();
+                return View(t);
             }
-            TempData["message"] = $"Edit successfully a trainee with id: {t.id}";
-            return RedirectToAction("TraineeIndex");
+            else
+            {
+                using (var TNCT = new EF.TrainingContext())
+                {
+                    TNCT.Entry<Trainee>(t).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.SaveChanges();
+                }
+                TempData["message"] = $"Edit successfully a trainee with id: {t.id}";
+                return RedirectToAction("TraineeIndex");
+            }
         }
+
 
         public ActionResult TraineeDelete(int id)
         {
@@ -79,6 +99,39 @@ namespace Project.Controllers
                 TempData["message"] = $"Delete successfully a trainee with id: {t.id}";
             }
             return RedirectToAction("TraineeIndex");
+        }
+
+        private void validation(Trainee t)
+        {
+            DateTime t1 = t.dob;
+            DateTime t2 = new DateTime(2003, 01, 01);
+            string a = Convert.ToString(t.age);
+            string toe = Convert.ToString(t.toeic);
+
+            if (!string.IsNullOrEmpty(a) && t.age <= 17)
+            {
+                ModelState.AddModelError("Name", "Trainees's age must be more than 18");
+            }
+            else if(!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
+            {
+                ModelState.AddModelError("Name", "Trainees's name must be more than 6 characters");
+            }
+            else if(!string.IsNullOrEmpty(t.username) && t.username.Length < 7)
+            {
+                ModelState.AddModelError("Name", "User name must be more than 7");
+            }
+            else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
+            {
+                ModelState.AddModelError("Name", "Password must be more than 8");
+            }
+            else if (!string.IsNullOrEmpty(toe) && t.toeic % 5 == 1 || !string.IsNullOrEmpty(toe) && t.toeic > 990)
+            {
+                ModelState.AddModelError("Name", "TOEIC score must be divisible by 5 and less than 990");
+            }
+            else if (t1 > t2)
+            {
+                ModelState.AddModelError("Name", "Date of birth must be less than 01/01/2003");
+            }
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Project.Controllers
     public class TrainerController : Controller
     {
         // GET: Trainer
+
+
         public ActionResult TrainerIndex()
         {
             using(var TNCT = new EF.TrainingContext())
@@ -18,6 +20,8 @@ namespace Project.Controllers
                 return View(trainers);
             }
         }
+
+
 
         [HttpGet]
         public ActionResult TrainerAdd()
@@ -44,6 +48,8 @@ namespace Project.Controllers
             return RedirectToAction("TrainerIndex");
         }
 
+
+
         [HttpGet]
          public ActionResult TrainerEdit(int id)
         {
@@ -63,15 +69,24 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TrainerEdit(int id, Trainer t)
         {
-            using(var TNCT = new EF.TrainingContext())
+            validation(t);
+            if (!ModelState.IsValid)
             {
-                TNCT.Entry<Trainer>(t).State = System.Data.Entity.EntityState.Modified;
-                TNCT.SaveChanges();
+                return View(t);
             }
-            TempData["message"] = $"Edit successfully a trainer with id: {t.id}";
-            return RedirectToAction("TrainerIndex");
+            else
+            {
+                using (var TNCT = new EF.TrainingContext())
+                {
+                    TNCT.Entry<Trainer>(t).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.SaveChanges();
+                }
+                TempData["message"] = $"Edit successfully a trainer with id: {t.id}";
+                return RedirectToAction("TrainerIndex");
+            }
         }
         
+
         public ActionResult TrainerDelete(int id)
         {
             using(var TNCT = new EF.TrainingContext())
