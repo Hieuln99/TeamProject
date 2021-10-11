@@ -64,44 +64,58 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <table class="maxwith">
+                                <table class="maxwith">
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">Name</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="name" /></th>
-                                </tr>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Name</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="name" /></th>
+                                    </tr>
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">Type</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="type" /></th>
-                                </tr>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">User Name</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="username" /></th>
+                                    </tr>
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">Working Place</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="workplace" /></th>
-                                </tr>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Password</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="password" /></th>
+                                    </tr>
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">Phone Number</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="phonenumber" /></th>
-                                </tr>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Type</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="type" /></th>
+                                    </tr>
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">Email</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="email" /></th>
-                                </tr>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Working Place</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="workplace" /></th>
+                                    </tr>
 
-                            </table>
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Phone Number</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="phonenumber" /></th>
+                                    </tr>
+
+                                    <tr style="height: 40px">
+                                        <th scope="col" width="20%">Email</th>
+                                    </tr>
+                                    <tr>
+                                        <th><input type="text" class="form-control" id="email" /></th>
+                                    </tr>
+
+                                </table>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
@@ -128,12 +142,14 @@
                     console.log(d);
                     $('#id').attr('value', d[0]);
                     $('#name').attr('value', d[1]);
-                    $('#type').attr('value', d[2]);
-                    $('#workplace').attr('value', d[3]);
-                    $('#phonenumber').attr('value', d[4]);
-                    $('#email').attr('value', d[5]);
+                    $('#username').attr('value', d[2]);
+                    $('#password').attr('value', d[3]);
+                    $('#type').attr('value', d[4]);
+                    $('#workplace').attr('value', d[5]);
+                    $('#phonenumber').attr('value', d[6]);
+                    $('#email').attr('value', d[7]);
 
-                    $('#deleteForm').attr('action', d[6]);
+                    $('#deleteForm').attr('action', d[8]);
                 });
             });
         </script>

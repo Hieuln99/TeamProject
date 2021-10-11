@@ -157,6 +157,10 @@
     <Compile Include="EF\TrainingMigrations\202110101414307_InitialCreate2.designer.cs">
       <DependentUpon>202110101414307_InitialCreate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="EF\TrainingMigrations\202110110929496_InitialCreate3.cs" />
+    <Compile Include="EF\TrainingMigrations\202110110929496_InitialCreate3.designer.cs">
+      <DependentUpon>202110110929496_InitialCreate3.cs</DependentUpon>
+    </Compile>
     <Compile Include="EF\TrainingMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +193,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\imm.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -355,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EF\TrainingMigrations\202110101414307_InitialCreate2.resx">
       <DependentUpon>202110101414307_InitialCreate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\TrainingMigrations\202110110929496_InitialCreate3.resx">
+      <DependentUpon>202110110929496_InitialCreate3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

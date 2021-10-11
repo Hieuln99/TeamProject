@@ -24,6 +24,8 @@ namespace Project.EF
             modelBuilder.Entity<Trainer>().ToTable("Trainer");
             modelBuilder.Entity<Trainer>().HasKey<int>(b => b.id);
             modelBuilder.Entity<Trainer>().Property(b => b.name).HasColumnType("varchar").HasMaxLength(50);
+            modelBuilder.Entity<Trainer>().Property(s => s.username).HasColumnType("varchar").HasMaxLength(50);
+            modelBuilder.Entity<Trainer>().Property(s => s.password).HasColumnType("varchar").HasMaxLength(50);
             modelBuilder.Entity<Trainer>().Property(b => b.email).HasColumnType("varchar").HasMaxLength(30);
             modelBuilder.Entity<Trainer>().Property(b => b.type).HasColumnType("varchar").HasMaxLength(20);
             modelBuilder.Entity<Trainer>().Property(b => b.phonenumber).HasColumnType("varchar").HasMaxLength(12);
