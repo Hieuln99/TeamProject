@@ -1,7 +1,6 @@
 ﻿@model Project.Models.Trainer
-
 @{
-    ViewBag.Title = "TrainerEdit";
+    ViewBag.Title = "EditTrainerAcc";
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
@@ -15,7 +14,7 @@
 
     @using (Html.BeginForm(FormMethod.Post))
     {
-        @Html.Partial("_Form")
+        @Html.Partial("_Form1")
         <div align="center"><button type="submit" class="btn btn-dark">Submit</button></div>
     }
 

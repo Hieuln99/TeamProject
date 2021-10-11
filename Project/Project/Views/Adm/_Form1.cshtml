@@ -1,0 +1,46 @@
+﻿@model Project.Models.Trainer
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.name)</b></label>
+    @Html.EditorFor(m => m.name, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's name" } })
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.username)</b></label>
+    @Html.EditorFor(m => m.username, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's name" } })
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.password)</b></label>
+    @Html.EditorFor(m => m.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's name" } })
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.type)</b></label>
+    @Html.DropDownList("Type", new List<SelectListItem>
+    {
+    new SelectListItem{Text= "External"},
+    new SelectListItem{Text="Internal"}
+    },
+    new { @class="custom-select d-block w-100"})
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.workplace)</b></label>
+    @Html.EditorFor(m => m.workplace, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer workplace" } })
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.phonenumber)</b></label>
+    @Html.EditorFor(m => m.phonenumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's phone number" } })
+</div>
+
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.email)</b></label>
+    @Html.EditorFor(m=>m.email, new {htmlAttributes = new {@class= "form-control", placeholder = "Input email like Example@gmail.com" } })
+</div>
+
+@*<div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>*@

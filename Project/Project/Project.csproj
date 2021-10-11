@@ -162,6 +162,10 @@
     <Compile Include="EF\TrainingMigrations\202110110929496_InitialCreate3.designer.cs">
       <DependentUpon>202110110929496_InitialCreate3.cs</DependentUpon>
     </Compile>
+    <Compile Include="EF\TrainingMigrations\202110111132357_InitialCreate4.cs" />
+    <Compile Include="EF\TrainingMigrations\202110111132357_InitialCreate4.designer.cs">
+      <DependentUpon>202110111132357_InitialCreate4.cs</DependentUpon>
+    </Compile>
     <Compile Include="EF\TrainingMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -345,6 +349,14 @@
     <Content Include="Views\Trainee\_Form.cshtml" />
     <Content Include="Views\Adm\AdminIndex.cshtml" />
     <Content Include="Views\Adm\_Nav1.cshtml" />
+    <Content Include="Views\Adm\AddTrainerAcc.cshtml" />
+    <Content Include="Views\Adm\TrainerAcc.cshtml" />
+    <Content Include="Views\Adm\EditTrainerAcc.cshtml" />
+    <Content Include="Views\Adm\_Form1.cshtml" />
+    <Content Include="Views\Adm\StaffAcc.cshtml" />
+    <Content Include="Views\Adm\AddStaffAcc.cshtml" />
+    <Content Include="Views\Adm\EditStaffAcc.cshtml" />
+    <Content Include="Views\Adm\_Form2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -366,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EF\TrainingMigrations\202110110929496_InitialCreate3.resx">
       <DependentUpon>202110110929496_InitialCreate3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\TrainingMigrations\202110111132357_InitialCreate4.resx">
+      <DependentUpon>202110111132357_InitialCreate4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

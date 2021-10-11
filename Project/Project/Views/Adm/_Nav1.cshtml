@@ -11,13 +11,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("", "")">Staff</a>
+                    <a class="nav-link" href="@Url.Action("StaffAcc", "Adm")">Staff</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("TrainerIndex", "Trainer")">Trainer</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("TraineeIndex", "Trainee")">Trainee</a>
+                    <a class="nav-link" href="@Url.Action("TrainerAcc", "Adm")">Trainer</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -25,20 +22,16 @@
                         Create New
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="@Url.Action("", "")" ">Staff</a>
-                        <a class="dropdown-item" href="@Url.Action("TrainerAdd", "Trainer")">Trainer</a>
-                        <a class="dropdown-item" href="@Url.Action("TraineeAdd", "Trainee")">Trainee</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="@Url.Action("", "")">Course Category</a>
-                        <a class="dropdown-item" href="@Url.Action("", "")">Course</a>
+                        <a class="dropdown-item" href="@Url.Action("AddStaffAcc", "Adm")" ">Staff</a>
+                        <a class="dropdown-item" href="@Url.Action("AddTrainerAcc", "Adm")">Trainer</a>
                     </div>
                 </li>
 
             </ul>
-             <form class="d-flex">
+             @*<form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form>*@
         </div>
     </div>
 </nav>
