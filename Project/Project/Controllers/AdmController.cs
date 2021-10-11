@@ -103,7 +103,7 @@ namespace Project.Controllers
 
                 TempData["message"] = $"Delete successfully a trainer with id: {t.id}";
             }
-            return RedirectToAction("TrainerIndex");
+            return RedirectToAction("TrainerAcc");
         }
 
         private void validation(Trainer t)
@@ -113,6 +113,9 @@ namespace Project.Controllers
                 ModelState.AddModelError("Name", "Phone number must start with 0");
             }
         }
+
+
+
 
 
         //-----------------------------------
@@ -161,17 +164,46 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditStaffAcc(Staff s)
+        public ActionResult EditStaffAcc(int id, Staff s)
         {
-            return View();
+            validation1(s);
+            if (!ModelState.IsValid)
+            {
+                return View(s);
+            }
+            else
+            {
+                using (var TNCT = new EF.TrainingContext())
+                {
+                    TNCT.Entry<Staff>(s).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.SaveChanges();
+                }
+                TempData["message"] = $"Edit successfully a staff with id: {s.id}";
+                return RedirectToAction("StaffAcc");
+            }
         }
 
-        public ActionResult DeleteStaffAcc()
+        public ActionResult DeleteStaffAcc(int id)
         {
-            return View();
+            using (var TNCT = new EF.TrainingContext())
+            {
+                var staff = TNCT.staffs.FirstOrDefault(s => s.id == id);
+                if (staff == null)
+                {
+                    TempData["message"] = $"Delete failed";
+                }
+                TNCT.staffs.Remove(staff);
+                TNCT.SaveChanges();
+
+                TempData["message"] = $"Delete successfully a staff with id: {staff.id}";
+            }
+            return RedirectToAction("StaffAcc");
         }
 
-      
+        private void validation1(Staff s)
+        {
+
+        }
 
     }
 }
