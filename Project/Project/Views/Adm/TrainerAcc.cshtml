@@ -4,52 +4,57 @@
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
-<div class="container" style="margin-top:auto">
-    <h1 class="display-2" align="center">Trainer Manager</h1>
-</div>
-
-    <table class="style">
+<div class="content">
+    <div class="container">
+        <h1 class="py-3" align="center">Trainer Manager</h1>
 
         @if (TempData["message"] != null)
         {
             ViewBag.Message = TempData["message"];
         }
         @Html.Partial("_message")
+    <table class="table table-bordered table-dark">
+        <thead class="thead-dark">
 
-        <tr>
-            <td><b>#</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.type)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.workplace)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.phonenumber)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.email)</b></td>
-            <td class="td"></td>
-            <td class="td"></td>
-        </tr>
-
-        @foreach (var m in Model)
-        {
             <tr>
-                <td>@Html.DisplayFor(model => m.id)</td>
-                <td class="td">@Html.DisplayFor(model => m.name)</td>
-                <td class="td">@Html.DisplayFor(model => m.type)</td>
-                <td class="td">@Html.DisplayFor(model => m.workplace)</td>
-                <td class="td">@Html.DisplayFor(model => m.phonenumber)</td>
-                <td class="td">@Html.DisplayFor(model => m.email)</td>
-                <td class="td">
-                    <a type="button" class="btn btn-warning" href="@Url.Action("EditTrainerAcc","Adm",new { id = m.id})">
-                        Edit
-                    </a>
-                </td>
-                <td class="td">
-                    <a type="button" class="btn btn-danger" data-trainer="@String.Format("{0}|{1}",
-                                m. ToSeparatedString("|"),
-                                Url.Action("DeleteTrainerAcc", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
-                </td>
+                
+                <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.type)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.workplace)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.phonenumber)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.email)</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
             </tr>
-        }
-    </table>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(model => m.name)</th>
+                    <td>@Html.DisplayFor(model => m.type)</td>
+                    <td>@Html.DisplayFor(model => m.workplace)</td>
+                    <td>@Html.DisplayFor(model => m.phonenumber)</td>
+                    <td>@Html.DisplayFor(model => m.email)</td>
+                    <td>
+                        <a type="button" class="btn btn-success btn-sm"
+                           href="@Url.Action("EditTrainerAcc", new {id = m.id })">Edit</a>
+                    </td>
 
+
+                    <td>
+                        <a type="button" class="btn btn-danger btn-sm"
+                           data-trainer="@String.Format("{0}|{1}",
+                           m.ToSeparatedString("|"),
+                           Url.Action("DeleteTrainerAcc", new {id = m.id }))"
+                           data-toggle="modal" data-target="#delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</div>
     @section alertdialog
     {
         <div class="modal fade" tabindex="-1" id="delete" role="dialog">
@@ -64,58 +69,58 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                                <table class="maxwith">
+                            <table class="maxwith">
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Name</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="name" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Name</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="name" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">User Name</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="username" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">User Name</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="username" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Password</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="password" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Password</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="password" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Type</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="type" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Type</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="type" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Working Place</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="workplace" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Working Place</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="workplace" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Phone Number</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="phonenumber" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Phone Number</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="phonenumber" /></th>
+                                </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Email</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="email" /></th>
-                                    </tr>
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Email</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="email" /></th>
+                                </tr>
 
-                                </table>
+                            </table>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>

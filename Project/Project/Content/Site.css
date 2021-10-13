@@ -24,7 +24,7 @@ textarea {
 }*/
 
 
-body {
+/*body {
     padding-top: 3rem;
     padding-bottom: 3rem;
     background-image: url('../images/pattern.png');
@@ -91,8 +91,8 @@ body {
     height:auto;
     text-align:center;
     border:1px;
-}
-.td{
+}*/
+/*.td{
     width:20%;
     height: 40px;
 
@@ -100,8 +100,57 @@ body {
 .title{
     height: 100px;
     color: #9cad2d
-}
-.text{
+}*/
+/*.text{
     text-align:center;
     font-size: 50px;
+}
+.footer {
+    text-align: center;
+    padding: 20px 0;
+}*/
+
+
+     .container .navbar-brand {
+        color: azure;
+    }
+
+    .container .nav-link {
+        color: gray;
+    }
+
+h1 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.container #carouselExampleCaptions .carousel-inner .carousel-item img {
+    width: 1110px;
+    height: 555px;
+}
+
+.container img {
+    height: 200px;
+    width: 1110px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: gainsboro;
+}
+
+.checkbox {
+    padding: 50px 0;
+}
+
+.selectcourse {
+    padding: 20px 0;
 }

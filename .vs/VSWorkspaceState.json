@@ -3,11 +3,9 @@
     "",
     "\\Project",
     "\\Project\\Project",
-    "\\Project\\Project\\App_Start",
-    "\\Project\\Project\\Controllers",
-    "\\Project\\Project\\Models",
+    "\\Project\\Project\\EF\\TrainingMigrations",
     "\\Project\\Project\\Views"
   ],
-  "SelectedNode": "\\Project\\Project\\Controllers\\AdmController.cs",
+  "SelectedNode": "\\Project\\Project.sln",
   "PreviewInSolutionExplorer": false
 }

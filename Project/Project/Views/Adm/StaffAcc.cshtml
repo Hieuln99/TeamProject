@@ -4,48 +4,54 @@
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
-<div class="container" style="margin-top:auto">
-    <h1 class="display-2" align="center">Staff Manager Accounts</h1>
+<div class="content">
+    
+
+    <div class="container">
+        <h1 class="py-3" align="center">Staff Manager Accounts</h1>
+        @if (TempData["message"] != null)
+        {
+            ViewBag.Message = TempData["message"];
+        }
+        @Html.Partial("_message")
+        <table class="table table-bordered table-dark">
+            <thead class="thead-dark">
+                <tr>
+                    
+                    <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.username)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.password)</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <th scope="row">@Html.DisplayFor(model => m.name)</th>                        
+                        <td>@Html.DisplayFor(model => m.username)</td>
+                        <td>@Html.DisplayFor(model => m.password)</td>
+                        <td>
+                            <a type="button" class="btn btn-success btn-sm"
+                               href="@Url.Action("EditStaffAcc", new {id = m.id })">Edit</a>
+                        </td>
+
+
+                        <td>
+                                <a type="button" class="btn btn-danger btn-sm"
+                                   data-staff="@String.Format("{0}|{1}",
+                                   m.ToSeparatedString("|"),
+                                   Url.Action("DeleteStaffAcc", new {id = m.id }))"
+                                   data-toggle="modal" data-target="#delete">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            
+        </table>
+    </div>
 </div>
-
-<table class="style">
-
-    @if (TempData["message"] != null)
-    {
-        ViewBag.Message = TempData["message"];
-    }
-    @Html.Partial("_message")
-
-    <tr>
-        <td><b>#</b></td>
-        <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
-        <td class="td"><b>@Html.DisplayNameFor(model => model.username)</b></td>
-        <td class="td"><b>@Html.DisplayNameFor(model => model.password)</b></td>
-        <td class="td"></td>
-        <td class="td"></td>
-    </tr>
-
-    @foreach (var m in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(model => m.id)</td>
-            <td class="td">@Html.DisplayFor(model => m.name)</td>
-            <td class="td">@Html.DisplayFor(model => m.username)</td>
-            <td class="td">@Html.DisplayFor(model => m.password)</td>
-            <td class="td">
-                <a type="button" class="btn btn-warning" href="@Url.Action("EditStaffAcc",new { id = m.id})">
-                    Edit
-                </a>
-            </td>
-            <td class="td">
-                <a type="button" class="btn btn-danger" data-staff="@String.Format("{0}|{1}",
-                                m. ToSeparatedString("|"),
-                                Url.Action("DeleteStaffAcc", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
-
 @section alertdialog
     {
     <div class="modal fade" tabindex="-1" id="delete" role="dialog">
@@ -83,6 +89,8 @@
                                 <th><input type="text" class="form-control" id="password" /></th>
                             </tr>
 
+                            
+
                         </table>
 
                         <div class="modal-footer">
@@ -101,21 +109,23 @@
 
 }
 
+
 @section scripts
     {
     <script type="text/javascript">
-            $('document').ready(function () {
-                $('a[data-staff]').on('click', function (evt) {
-                    let d = $(this).attr('data-staff').split("|");
-                    console.log(d);
-                    $('#id').attr('value', d[0]);
-                    $('#name').attr('value', d[1]);
-                    $('#username').attr('value', d[2]);
-                    $('#password').attr('value', d[3]);
+        $('document').ready(function () {
+            $('a[data-staff]').on('click', function (evt) {
+                let d = $(this).attr('data-staff').split("|");
+                console.log(d);
+                $('#id').attr('value', d[0]);
+                $('#name').attr('value', d[1]);
+                $('#username').attr('value', d[2]);
+                $('#password').attr('value', d[3]);
+                
 
-                    $('#deleteForm').attr('action', d[4]);
-                });
+                $('#deleteForm').attr('action', d[4]);
             });
+        });
     </script>
 }
 
