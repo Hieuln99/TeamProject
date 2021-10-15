@@ -432,7 +432,6 @@ namespace Project.Controllers
             var userStore = new UserStore<CustomUser>(context);
             var userManager = new UserManager<CustomUser>(userStore);
 
-            var user = await userManager.FindByIdAsync(id);
 
            var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
             if (result.Succeeded)
