@@ -9,48 +9,48 @@
     {
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <b>@Html.LabelFor(m => m.UserName)</b>
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+            <b>@Html.LabelFor(m => m.Password)</b>
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+            <b>@Html.LabelFor(m => m.ConfirmPassword)</b>
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+            <b>@Html.LabelFor(m => m.Name)</b>
             @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.age)</b></label>
+            <b>@Html.LabelFor(m => m.age)</b>
             @Html.EditorFor(m => m.age, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's age" } })
             @Html.ValidationMessageFor(m => m.age, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.dob)</b></label>
+            <b>@Html.LabelFor(m => m.dob)</b>
             @Html.EditorFor(m => m.dob, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's date of birth" } })
             @Html.ValidationMessageFor(m => m.dob, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.edu)</b></label>
+            <b>@Html.LabelFor(m => m.edu)</b>
             @Html.EditorFor(m => m.edu, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's school name" } })
             @Html.ValidationMessageFor(m => m.edu, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.language)</b></label>
+            <b>@Html.LabelFor(m => m.language)</b>
             @Html.DropDownList("language", new List<SelectListItem>
             {
             new SelectListItem{Text= "C#"},
@@ -66,13 +66,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.toeic)</b></label>
+            <b>@Html.LabelFor(m => m.toeic)</b>
             @Html.EditorFor(m => m.toeic, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's score TOEIC" } })
             @Html.ValidationMessageFor(m => m.toeic, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.exp)</b></label>
+            <b>@Html.LabelFor(m => m.exp)</b>
             @Html.DropDownList("exp", new List<SelectListItem>
             {
             new SelectListItem{Text= "1 year"},
@@ -88,13 +88,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.department)</b></label>
+            <b>@Html.LabelFor(m => m.department)</b>
             @Html.EditorFor(m => m.department, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's department in center" } })
             @Html.ValidationMessageFor(m => m.department, "", new { @class = "text-danger" })
         </div>
 
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.location)</b></label>
+            <b>@Html.LabelFor(m => m.location)</b>
             @Html.EditorFor(m => m.location, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's hometown" } })
             @Html.ValidationMessageFor(m => m.location, "", new { @class = "text-danger" })
         </div>
