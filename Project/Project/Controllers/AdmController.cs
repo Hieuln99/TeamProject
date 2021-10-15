@@ -144,10 +144,18 @@ namespace Project.Controllers
         //-----------------------------------
         public ActionResult StaffAcc()
         {
-            using(var TNCT = new EF.CustomIdentityDbContext())
+            using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var staffs = TNCT.Users.OrderBy(s => s.Id).ToList();
-                return View(staffs);
+                var l = new List<CustomUser>();
+                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
+                foreach (var s in trainers)
+                {
+                    if (s.Role == "Staff")
+                    {
+                        l.Add(s);
+                    }
+                }
+                return View(l);
             }
         }
 

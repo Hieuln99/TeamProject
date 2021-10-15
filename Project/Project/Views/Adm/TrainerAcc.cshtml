@@ -17,7 +17,6 @@
         @Html.Partial("_message")
 
         <tr>
-            <td><b>#</b></td>
             <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
             <td class="td"><b>@Html.DisplayNameFor(model => model.type)</b></td>
             <td class="td"><b>@Html.DisplayNameFor(model => model.workplace)</b></td>
@@ -30,7 +29,6 @@
         @foreach (var m in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(model => m.Id)</td>
                 <td class="td">@Html.DisplayFor(model => m.name)</td>
                 <td class="td">@Html.DisplayFor(model => m.type)</td>
                 <td class="td">@Html.DisplayFor(model => m.workplace)</td>

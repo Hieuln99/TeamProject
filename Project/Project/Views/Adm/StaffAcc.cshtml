@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CustomLog.Models.CustomUser>
+﻿@model IEnumerable<Project.Models.CustomUser>
 @{
     ViewBag.Title = "StaffAcc";
     Layout = "~/Views/Shared/FormHome.cshtml";
@@ -17,10 +17,8 @@
     @Html.Partial("_message")
 
     <tr>
-        <td><b>#</b></td>
         <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
-        <td class="td"><b>@Html.DisplayNameFor(model => model.username)</b></td>
-        <td class="td"><b>@Html.DisplayNameFor(model => model.password)</b></td>
+        <td class="td"><b>@Html.DisplayNameFor(model => model.UserName)</b></td>
         <td class="td"></td>
         <td class="td"></td>
     </tr>
@@ -28,19 +26,17 @@
     @foreach (var m in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(model => m.id)</td>
             <td class="td">@Html.DisplayFor(model => m.name)</td>
-            <td class="td">@Html.DisplayFor(model => m.username)</td>
-            <td class="td">@Html.DisplayFor(model => m.password)</td>
+            <td class="td">@Html.DisplayFor(model => m.UserName)</td>
             <td class="td">
-                <a type="button" class="btn btn-warning" href="@Url.Action("EditStaffAcc",new { id = m.id})">
+                <a type="button" class="btn btn-warning" href="@Url.Action("EditStaffAcc",new { id = m.Id})">
                     Edit
                 </a>
             </td>
             <td class="td">
                 <a type="button" class="btn btn-danger" data-staff="@String.Format("{0}|{1}",
-                                m. ToSeparatedString("|"),
-                                Url.Action("DeleteStaffAcc", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                m. ToSeparateds("|"),
+                                Url.Action("DeleteStaffAcc", new { id = m. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
             </td>
         </tr>
     }
