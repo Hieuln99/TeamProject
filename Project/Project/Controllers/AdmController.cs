@@ -21,8 +21,16 @@ namespace Project.Controllers
         {
             using(var TNCT = new EF.CustomIdentityDbContext())
             {
+                var l = new List<CustomUser>();
                 var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
-                return View(trainers);
+                foreach(var s in trainers)
+                {
+                    if (s.Role == "Trainer")
+                    {
+                        l.Add(s);
+                    }
+                }
+                return View(l);
             }
         }
 

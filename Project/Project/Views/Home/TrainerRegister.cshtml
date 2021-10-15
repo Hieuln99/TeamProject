@@ -1,0 +1,53 @@
+﻿@model  Project.Models.TrainerRegisterForm
+@{
+    ViewBag.Title = "TrainerRegister";
+}
+
+<section class="for">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.type)</b></label>
+            @Html.DropDownList("type", new List<SelectListItem>
+            {
+            new SelectListItem{Text= "External"},
+            new SelectListItem{Text="Internal"}
+            },
+            new { @class = "custom-select d-block w-100" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.workplace, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.workplace, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.workplace, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.phoneNumber, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.phoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.phoneNumber, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+
+</section>

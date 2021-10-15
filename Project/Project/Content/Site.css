@@ -92,6 +92,11 @@ body {
     text-align:center;
     border:1px;
 }
+.for{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 4%;
+}
 .td{
     width:20%;
     height: 40px;

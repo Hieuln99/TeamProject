@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CustomLog.Models.CustomUser>
+﻿@model IEnumerable<Project.Models.CustomUser>
 @{
     ViewBag.Title = "TrainerAcc";
     Layout = "~/Views/Shared/FormHome.cshtml";
@@ -21,8 +21,8 @@
             <td class="td"><b>@Html.DisplayNameFor(model => model.name)</b></td>
             <td class="td"><b>@Html.DisplayNameFor(model => model.type)</b></td>
             <td class="td"><b>@Html.DisplayNameFor(model => model.workplace)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.phonenumber)</b></td>
-            <td class="td"><b>@Html.DisplayNameFor(model => model.email)</b></td>
+            <td class="td"><b>@Html.DisplayNameFor(model => model.PhoneNumber)</b></td>
+            <td class="td"><b>@Html.DisplayNameFor(model => model.Email)</b></td>
             <td class="td"></td>
             <td class="td"></td>
         </tr>
@@ -30,21 +30,21 @@
         @foreach (var m in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(model => m.id)</td>
+                <td>@Html.DisplayFor(model => m.Id)</td>
                 <td class="td">@Html.DisplayFor(model => m.name)</td>
                 <td class="td">@Html.DisplayFor(model => m.type)</td>
                 <td class="td">@Html.DisplayFor(model => m.workplace)</td>
-                <td class="td">@Html.DisplayFor(model => m.phonenumber)</td>
-                <td class="td">@Html.DisplayFor(model => m.email)</td>
+                <td class="td">@Html.DisplayFor(model => m.PhoneNumber)</td>
+                <td class="td">@Html.DisplayFor(model => m.Email)</td>
                 <td class="td">
-                    <a type="button" class="btn btn-warning" href="@Url.Action("EditTrainerAcc","Adm",new { id = m.id})">
+                    <a type="button" class="btn btn-warning" href="@Url.Action("EditTrainerAcc","Adm",new { id = m.Id})">
                         Edit
                     </a>
                 </td>
                 <td class="td">
                     <a type="button" class="btn btn-danger" data-trainer="@String.Format("{0}|{1}",
-                                m. ToSeparatedString("|"),
-                                Url.Action("DeleteTrainerAcc", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                m. ToSeparatedt("|"),
+                                Url.Action("DeleteTrainerAcc", new { id = m. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
                 </td>
             </tr>
         }

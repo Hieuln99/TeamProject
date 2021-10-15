@@ -266,6 +266,40 @@ namespace Project.Controllers
 
 
         [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginForm form)
+        {
+            var context = new CustomIdentityDbContext();
+            var store = new UserStore<CustomUser>(context);
+            var manager = new UserManager<CustomUser>(store);
+
+            var signInManager = new SignInManager<CustomUser, string>(manager, HttpContext.GetOwinContext().Authentication);
+
+            var user = await manager.FindByEmailAsync(form.UserName);
+            var result = await signInManager.PasswordSignInAsync(
+              userName: form.UserName,
+              password: form.Password,
+              isPersistent: false,
+              shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("AdminIndex", "Adm");
+                default:
+                    ModelState.AddModelError("", "Your account is not correct try again!");
+                    return View(form);
+            }
+
+        }
+
+
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
@@ -357,39 +391,192 @@ namespace Project.Controllers
             return View(form);
         }
 
-    
 
-[HttpGet]
-        public ActionResult Login()
+
+        public ActionResult TrainerRegister()
         {
             return View();
         }
-
         [HttpPost]
-        public async Task<ActionResult> Login(LoginForm form)
+        public async Task<ActionResult> TrainerRegister(TrainerRegisterForm form)
         {
             var context = new CustomIdentityDbContext();
-            var store = new UserStore<CustomUser>(context);
-            var manager = new UserManager<CustomUser>(store);
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            var signInManager = new SignInManager<CustomUser, string>(manager, HttpContext.GetOwinContext().Authentication);
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
 
-            var user = await manager.FindByEmailAsync(form.UserName);
-            var result = await signInManager.PasswordSignInAsync(
-              userName: form.UserName,
-              password: form.Password,
-              isPersistent: false,
-              shouldLockout: false);
-
-            switch (result)
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainer))
             {
-                case SignInStatus.Success:
-                    return RedirectToAction("AdminIndex", "Adm");
-                default:
-                    ModelState.AddModelError("", "Your account is not correct try again!");
-                    return View(form);
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
             }
-            
+
+            var email = form.UserName;
+
+            var phone = form.phoneNumber;
+            var name = form.Name;
+            var age = 0;
+            var dob = DateTime.Now;
+            var edu = "0";
+            var language = "0";
+            var toeic = 0;
+            var exp = "0";
+            var department = "0";
+            var location = "0";
+            var type = form.type;
+            var workplace = form.workplace;
+
+            var u = await userManager.FindByEmailAsync(email);
+
+            if (ModelState.IsValid)
+            {
+                if (u == null)
+                {
+                    var result = await userManager.CreateAsync(
+                        new CustomUser
+                        {
+                            UserName = email,
+                            Email = email,
+                            PhoneNumber = phone,
+                            name = name,
+                            age = age,
+                            dob = dob,
+                            edu = edu,
+                            Role = "Trainer",
+                            language = language,
+                            toeic = toeic,
+                            exp = exp,
+                            department = department,
+                            location = location,
+                            type = type,
+                            workplace = workplace,
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = true,
+                            LockoutEndDateUtc = dob,
+                            LockoutEnabled = false,
+                            AccessFailedCount = 0
+                        },
+                       form.Password
+                        );
+                    if (result.Succeeded)
+                    {
+                        return Content("Success");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "failure!");
+                        return View(form);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "username is exist!");
+                    return View(form);
+                }
+                var User = await userManager.FindByEmailAsync(form.UserName);
+
+                if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
+                {
+                    userManager.AddToRole(User.Id, SecurityRole.Trainer);
+                }
+            }
+            //passs must be include capital-letter and number
+            return View(form);
+        }
+
+
+
+        public ActionResult TraineeRegister()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> TraineeRegister(TraineeRegisterForm form)
+        {
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainee))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainee });
+            }
+
+            var email = form.UserName;
+
+            var phone = "0";
+            var name = form.Name;
+            var age = form.age;
+            var dob = form.dob;
+            var edu = form.edu;
+            var language = form.language;
+            var toeic = form.toeic;
+            var exp = form.exp;
+            var department = form.department;
+            var location = form.location;
+            var type ="0";
+            var workplace ="0";
+
+            var u = await userManager.FindByEmailAsync(email);
+
+            if (ModelState.IsValid)
+            {
+                if (u == null)
+                {
+                    var result = await userManager.CreateAsync(
+                        new CustomUser
+                        {
+                            UserName = email,
+                            Email = email,
+                            PhoneNumber = phone,
+                            name = name,
+                            age = age,
+                            dob = dob,
+                            edu = edu,
+                            Role = "Trainee",
+                            language = language,
+                            toeic = toeic,
+                            exp = exp,
+                            department = department,
+                            location = location,
+                            type = type,
+                            workplace = workplace,
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = true,
+                            LockoutEndDateUtc = dob,
+                            LockoutEnabled = false,
+                            AccessFailedCount = 0
+                        },
+                       form.Password
+                        );
+                    if (result.Succeeded)
+                    {
+                        return Content("Success");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "failure!");
+                        return View(form);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Email is exist!");
+                    return View(form);
+                }
+                var User = await userManager.FindByEmailAsync(form.UserName);
+
+                if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
+                {
+                    userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                }
+            }
+            //passs must be include capital-letter and number
+            return View(form);
         }
 
 

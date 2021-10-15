@@ -375,6 +375,8 @@
     <Content Include="Views\Trainee\TraineeIndex.cshtml" />
     <Content Include="Views\Trainee\_Form.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\TrainerRegister.cshtml" />
+    <Content Include="Views\Home\TraineeRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
