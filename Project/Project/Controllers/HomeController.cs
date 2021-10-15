@@ -280,22 +280,24 @@ namespace Project.Controllers
 
             var signInManager = new SignInManager<CustomUser, string>(manager, HttpContext.GetOwinContext().Authentication);
 
-            var user = await manager.FindByEmailAsync(form.UserName);
-            var result = await signInManager.PasswordSignInAsync(
-              userName: form.UserName,
-              password: form.Password,
-              isPersistent: false,
-              shouldLockout: false);
-
-            switch (result)
+            if (form.UserName != null && form.Password != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToAction("AdminIndex", "Adm");
-                default:
-                    ModelState.AddModelError("", "Your account is not correct try again!");
-                    return View(form);
-            }
+                var result = await signInManager.PasswordSignInAsync(
+                  userName: form.UserName,
+                  password: form.Password,
+                  isPersistent: false,
+                  shouldLockout: false);
 
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToAction("AdminIndex", "Adm");
+                    default:
+                        ModelState.AddModelError("", "Your account is not correct try again!");
+                        return View(form);
+                }
+            }
+            return View(form);
         }
 
 
@@ -318,73 +320,74 @@ namespace Project.Controllers
             {
                 await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Staff });
             }
-
-            var email =form.UserName;
-
-            var phone = "0909191919";
-            var age = 0;
-            var dob = DateTime.Now;
-            var edu = "0";
-            var language = "0";
-            var toeic = 0;
-            var exp = "0";
-            var department = "0";
-            var location = "0";
-            var type = "0";
-            var workplace = "0";
-
-            var stff = await userManager.FindByEmailAsync(email);
-
-            if (ModelState.IsValid)
+            if (form.UserName != null && form.Password != null)
             {
-                if (stff == null)
+                var email = form.UserName;
+
+                var phone = "0909191919";
+                var age = 0;
+                var dob = DateTime.Now;
+                var edu = "0";
+                var language = "0";
+                var toeic = 0;
+                var exp = "0";
+                var department = "0";
+                var location = "0";
+                var type = "0";
+                var workplace = "0";
+
+                var stff = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
                 {
-                    var result = await userManager.CreateAsync(
-                        new CustomUser
-                        {
-                            UserName = email,
-                            Email = email,
-                            PhoneNumber = phone,
-                            name = email.Split('@')[0],
-                            age = age,
-                            dob = dob,
-                            edu = edu,
-                            Role = "Staff",
-                            language = language,
-                            toeic = toeic,
-                            exp = exp,
-                            department = department,
-                            location = location,
-                            type = type,
-                            workplace = workplace,
-                            PhoneNumberConfirmed = true,
-                            TwoFactorEnabled = true,
-                            LockoutEndDateUtc = dob,
-                            LockoutEnabled = false,
-                            AccessFailedCount = 0
-                        },
-                       form.Password
-                        );
-                    if (result.Succeeded)
+                    if (stff == null)
                     {
-                        return Content("Success");
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = email.Split('@')[0],
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                Role = "Staff",
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                           form.Password
+                            );
+                        if (result.Succeeded)
+                        {
+                            return Content("Success");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "failure!");
+                            return View(form);
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "failure!");
+                        ModelState.AddModelError("", "username is exist!");
                         return View(form);
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "username is exist!");
-                    return View(form);
-                }
-                var User = await userManager.FindByEmailAsync(form.UserName);
+                    var User = await userManager.FindByEmailAsync(form.UserName);
 
-                if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Staff))
-                {
-                    userManager.AddToRole(User.Id, SecurityRole.Staff);
+                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Staff))
+                    {
+                        userManager.AddToRole(User.Id, SecurityRole.Staff);
+                    }
                 }
             }
             //passs must be include capital-letter and number
@@ -427,58 +430,60 @@ namespace Project.Controllers
             var type = form.type;
             var workplace = form.workplace;
 
-            var u = await userManager.FindByEmailAsync(email);
-
-            if (ModelState.IsValid)
+            if (form.UserName != null && form.Password != null)
             {
-                if (u == null)
+                var u = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
                 {
-                    var result = await userManager.CreateAsync(
-                        new CustomUser
-                        {
-                            UserName = email,
-                            Email = email,
-                            PhoneNumber = phone,
-                            name = name,
-                            age = age,
-                            dob = dob,
-                            edu = edu,
-                            Role = "Trainer",
-                            language = language,
-                            toeic = toeic,
-                            exp = exp,
-                            department = department,
-                            location = location,
-                            type = type,
-                            workplace = workplace,
-                            PhoneNumberConfirmed = true,
-                            TwoFactorEnabled = true,
-                            LockoutEndDateUtc = dob,
-                            LockoutEnabled = false,
-                            AccessFailedCount = 0
-                        },
-                       form.Password
-                        );
-                    if (result.Succeeded)
+                    if (u == null)
                     {
-                        return Content("Success");
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = name,
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                Role = "Trainer",
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                           form.Password
+                            );
+                        if (result.Succeeded)
+                        {
+                            return Content("Success");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "failure!");
+                            return View(form);
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "failure!");
+                        ModelState.AddModelError("", "username is exist!");
                         return View(form);
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "username is exist!");
-                    return View(form);
-                }
-                var User = await userManager.FindByEmailAsync(form.UserName);
+                    var User = await userManager.FindByEmailAsync(form.UserName);
 
-                if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
-                {
-                    userManager.AddToRole(User.Id, SecurityRole.Trainer);
+                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
+                    {
+                        userManager.AddToRole(User.Id, SecurityRole.Trainer);
+                    }
                 }
             }
             //passs must be include capital-letter and number
@@ -521,58 +526,60 @@ namespace Project.Controllers
             var type ="0";
             var workplace ="0";
 
-            var u = await userManager.FindByEmailAsync(email);
-
-            if (ModelState.IsValid)
+            if (form.UserName != null && form.Password != null)
             {
-                if (u == null)
+                var u = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
                 {
-                    var result = await userManager.CreateAsync(
-                        new CustomUser
-                        {
-                            UserName = email,
-                            Email = email,
-                            PhoneNumber = phone,
-                            name = name,
-                            age = age,
-                            dob = dob,
-                            edu = edu,
-                            Role = "Trainee",
-                            language = language,
-                            toeic = toeic,
-                            exp = exp,
-                            department = department,
-                            location = location,
-                            type = type,
-                            workplace = workplace,
-                            PhoneNumberConfirmed = true,
-                            TwoFactorEnabled = true,
-                            LockoutEndDateUtc = dob,
-                            LockoutEnabled = false,
-                            AccessFailedCount = 0
-                        },
-                       form.Password
-                        );
-                    if (result.Succeeded)
+                    if (u == null)
                     {
-                        return Content("Success");
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = name,
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                Role = "Trainee",
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                           form.Password
+                            );
+                        if (result.Succeeded)
+                        {
+                            return Content("Success");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "failure!");
+                            return View(form);
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "failure!");
+                        ModelState.AddModelError("", "Email is exist!");
                         return View(form);
                     }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Email is exist!");
-                    return View(form);
-                }
-                var User = await userManager.FindByEmailAsync(form.UserName);
+                    var User = await userManager.FindByEmailAsync(form.UserName);
 
-                if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
-                {
-                    userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
+                    {
+                        userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                    }
                 }
             }
             //passs must be include capital-letter and number
