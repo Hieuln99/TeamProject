@@ -29,7 +29,7 @@
             <td class="td">@Html.DisplayFor(model => m.name)</td>
             <td class="td">@Html.DisplayFor(model => m.UserName)</td>
             <td class="td">
-                <a type="button" class="btn btn-warning" href="@Url.Action("EditStaffAcc",new { id = m.Id})">
+                <a type="button" class="btn btn-warning" href="@Url.Action("ChangePass","Home",new { id = m.Id})">
                     Edit
                 </a>
             </td>

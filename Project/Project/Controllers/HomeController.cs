@@ -7,6 +7,8 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
+using Microsoft.Owin.Security;
 
 namespace Project.Controllers
 {
@@ -301,6 +303,26 @@ namespace Project.Controllers
         }
 
 
+
+        [Authorize]
+        public ActionResult Route()
+        {
+            if (User.IsInRole(SecurityRole.Admin))
+            {
+                return RedirectToAction("AdminIndex", "Adm");
+            }
+            if (User.IsInRole(SecurityRole.Staff))
+            {
+                return RedirectToAction("StaffIndex", "Staff");
+            }
+            if (User.IsInRole(SecurityRole.Trainee))
+            {
+                return RedirectToAction("TraineeIndex", "Trainee");
+            }
+            return RedirectToAction("Login");
+        }
+
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -394,6 +416,34 @@ namespace Project.Controllers
             return View(form);
         }
 
+
+        [HttpGet]
+        public ActionResult ChangePass()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> ChangePass(ChangePass form, string id)
+        {
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            var user = await userManager.FindByIdAsync(id);
+
+           var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
+            if (result.Succeeded)
+            {
+                return Content("success");
+            }
+            //passs must be include capital-letter and number
+            return View(form);
+        }
+
+        // public virtual Task<IdentityResult> ChangePasswordAsync(TKey userId, string currentPassword, string newPassword);
 
 
         public ActionResult TrainerRegister()
@@ -587,9 +637,18 @@ namespace Project.Controllers
         }
 
 
-        public ActionResult home()
+        [HttpPost]
+        public ActionResult Logout()
         {
-            return View();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login","Home");
+        }
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
     }
 }

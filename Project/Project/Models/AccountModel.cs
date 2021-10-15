@@ -125,4 +125,22 @@ namespace Project.Models
         //--------------------------------------
     }
 
+    public class ChangePass
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name ="Current password")]
+        public string currentpass { get; set; }
+        
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name ="New PassWord")]
+        public string newpass { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name ="Confirm password")]
+        [Compare("newpass",ErrorMessage ="Confirm password does not match.")]
+        public string confirmpass { get; set; }
+    }
+
 }

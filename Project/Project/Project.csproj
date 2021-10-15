@@ -377,6 +377,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\TrainerRegister.cshtml" />
     <Content Include="Views\Home\TraineeRegister.cshtml" />
+    <Content Include="Views\Home\ChangePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

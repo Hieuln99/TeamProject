@@ -3,8 +3,8 @@
     "",
     "\\Project",
     "\\Project\\Project",
-    "\\Project\\Project\\Models"
+    "\\Project\\Project\\Controllers"
   ],
-  "SelectedNode": "\\Project\\Project\\obj",
+  "SelectedNode": "\\Project\\Project\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

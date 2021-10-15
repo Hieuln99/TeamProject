@@ -159,30 +159,31 @@ namespace Project.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult AddStaffAcc()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AddStaffAcc(CustomUser s)
-        {
-            validation1(s);
-            if (!ModelState.IsValid)
-            {
-                return View(s);
-            }
-            else
-            {
-                using (var TNCT = new EF.CustomIdentityDbContext())
-                {
-                    TNCT.Users.Add(s);
-                    TNCT.SaveChanges();
-                }
-                TempData["message"] = $"Add Successfully a staff with id: {s.Id}";
-                return RedirectToAction("TrainerAcc");
-            }
-        }
+        //[HttpGet]
+        //public ActionResult AddStaffAcc()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult AddStaffAcc(CustomUser s)
+        //{
+        //    validation1(s);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(s);
+        //    }
+        //    else
+        //    {
+        //        using (var TNCT = new EF.CustomIdentityDbContext())
+        //        {
+        //            TNCT.Users.Add(s);
+        //            TNCT.SaveChanges();
+        //        }
+        //        TempData["message"] = $"Add Successfully a staff with id: {s.Id}";
+        //        return RedirectToAction("TrainerAcc");
+        //    }
+        //}
+
 
         [HttpGet]
         public ActionResult EditStaffAcc(string id)
@@ -192,7 +193,7 @@ namespace Project.Controllers
                 var staffs = TNCT.Users.FirstOrDefault(s => s.Id == id);
                 if (staffs == null)
                 {
-                    return RedirectToAction("StaffAcc");
+                    return Content("failue");
                 }
                 else
                 {
@@ -201,7 +202,7 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditStaffAcc(int id,CustomUser s)
+        public ActionResult EditStaffAcc(string id,CustomUser s)
         {
             validation1(s);
             if (!ModelState.IsValid)
