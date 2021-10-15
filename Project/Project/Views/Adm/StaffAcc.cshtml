@@ -72,13 +72,6 @@
                                 <th><input type="text" class="form-control" id="username" /></th>
                             </tr>
 
-                            <tr style="height: 40px">
-                                <th scope="col" width="20%">Password</th>
-                            </tr>
-                            <tr>
-                                <th><input type="text" class="form-control" id="password" /></th>
-                            </tr>
-
                         </table>
 
                         <div class="modal-footer">
@@ -107,9 +100,8 @@
                     $('#id').attr('value', d[0]);
                     $('#name').attr('value', d[1]);
                     $('#username').attr('value', d[2]);
-                    $('#password').attr('value', d[3]);
 
-                    $('#deleteForm').attr('action', d[4]);
+                    $('#deleteForm').attr('action', d[3]);
                 });
             });
     </script>

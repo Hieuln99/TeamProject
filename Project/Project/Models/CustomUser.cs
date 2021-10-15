@@ -74,7 +74,7 @@ namespace Project.Models
 
         public string ToSeparated(string r)
         {
-            return
+            return $"{this.Id}{r}" +
                     $"{this.name}{r}" +
                     $"{this.language}{r}" +
                     $"{this.exp}{r}" +
@@ -84,7 +84,7 @@ namespace Project.Models
 
         public string ToSeparatedt(string r)
         {
-            return
+            return $"{this.Id}{r}" +
                     $"{this.name}{r}" +
                     $"{this.type}{r}" +
                     $"{this.PhoneNumber}{r}" +
@@ -93,9 +93,8 @@ namespace Project.Models
 
         public string ToSeparateds(string r)
         {
-            return
+            return $"{this.Id}{r}" +
                     $"{this.name}{r}" +
-                    $"{this.PhoneNumber}{r}" +
                     $"{this.Email}";
         }
 
@@ -103,8 +102,8 @@ namespace Project.Models
 
         public override string ToString()
         {
-            return string.Format(" name:{0}; username:{1}; password:{2}; type:{3}; workplace: {4}; phonenumber: {5}; email: {6}; age:{7}; dateofbirth:{8}; education:{9}; language:{10}; toeic: {11}; experience:{12}; department:{13}; location:{14}; Role:{15}",
-             this.name, this.UserName, this.PasswordHash, this.type, this.workplace, this.PhoneNumber, this.Email, this.dob, this.edu, this.language, this.toeic, this.exp, this.department, this.location,this.Role);
+            return string.Format(" name:{0}; username:{1}; password:{2}; type:{3}; workplace: {4}; phonenumber: {5}; email: {6}; age:{7}; dateofbirth:{8}; education:{9}; language:{10}; toeic: {11}; experience:{12}; department:{13}; location:{14}; Role:{15}; Id:{15}",
+             this.name, this.UserName, this.PasswordHash, this.type, this.workplace, this.PhoneNumber, this.Email, this.dob, this.edu, this.language, this.toeic, this.exp, this.department, this.location,this.Role, this.Id);
         }
     }
 }
