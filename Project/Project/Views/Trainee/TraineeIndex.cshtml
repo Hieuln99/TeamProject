@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Project.Models.Trainee>
+﻿@model IEnumerable<WebApplication2.Models.Person>
 @{
     ViewBag.Title = "TraineeIndex";
     Layout = "~/Views/Shared/FormHome.cshtml";
@@ -27,19 +27,19 @@
     @foreach (var m in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(model => m.id)</td>
+            <td>@Html.DisplayFor(model => m.Id)</td>
             <td class="td">@Html.DisplayFor(model => m.name)</td>
             <td class="td">@Html.DisplayFor(model => m.dob)</td>
             <td class="td">@Html.DisplayFor(model => m.edu)</td>
             <td class="td">
-                <a type="button" class="btn btn-warning" href="@Url.Action("TraineeEdit",new { id = m.id})">
+                <a type="button" class="btn btn-warning" href="@Url.Action("TraineeEdit",new { id = m.Id})">
                     Edit
                 </a>
             </td>
             <td class="td">
                 <a type="button" class="btn btn-danger" data-trainee="@String.Format("{0}|{1}",
-                                m. ToSeparatedString("|"),
-                                Url.Action("TraineeDelete", new { id = m. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                m. ToSeparated("|"),
+                                Url.Action("TraineeDelete", new { id = m. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
             </td>
         </tr>
     }

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
+    [Authorize(Roles = SecurityRole.Admin)]
     public class AdmController : Controller
     {
         // GET: Adm
@@ -18,9 +19,9 @@ namespace Project.Controllers
 
         public ActionResult TrainerAcc()
         {
-            using(var TNCT = new EF.TrainingContext())
+            using(var TNCT = new EF.CustomIdentityDbContext())
             {
-                var trainers = TNCT.trainers.OrderBy(t => t.id).ToList();
+                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
                 return View(trainers);
             }
         }
@@ -32,7 +33,7 @@ namespace Project.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddTrainerAcc(Trainer t)
+        public ActionResult AddTrainerAcc(CustomUser t)
         {
             validation(t);
             if (!ModelState.IsValid)
@@ -41,23 +42,23 @@ namespace Project.Controllers
             }
             else
             {
-                using (var TNCT = new EF.TrainingContext())
+                using (var TNCT = new EF.CustomIdentityDbContext())
                 {
-                    TNCT.trainers.Add(t);
+                    TNCT.Users.Add(t);
                     TNCT.SaveChanges();
                 }
             }
-            TempData["message"] = $"Add Successfully a trainer with id: {t.id}";
+            TempData["message"] = $"Add Successfully a trainer with id: {t.Id}";
             return RedirectToAction("TrainerAcc");
         }
 
 
         [HttpGet]
-        public ActionResult EditTrainerAcc(int id)
+        public ActionResult EditTrainerAcc(string id)
         {
-            using (var TNCT = new EF.TrainingContext())
+            using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var trainers = TNCT.trainers.FirstOrDefault(t => t.id == id);
+                var trainers = TNCT.Users.FirstOrDefault(t => t.Id == id);
                 if (trainers == null)
                 {
                     return RedirectToAction("TrainerAcc");
@@ -69,7 +70,7 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditTrainerAcc(int id, Trainer t)
+        public ActionResult EditTrainerAcc(string id, CustomUser t)
         {
             validation(t);
             if (!ModelState.IsValid)
@@ -78,51 +79,51 @@ namespace Project.Controllers
             }
             else
             {
-                using (var TNCT = new EF.TrainingContext())
+                using (var TNCT = new EF.CustomIdentityDbContext())
                 {
-                    TNCT.Entry<Trainer>(t).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.Entry<CustomUser>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainer with id: {t.id}";
+                TempData["message"] = $"Edit successfully a trainer with id: {t.Id}";
                 return RedirectToAction("TrainerAcc");
             }
         }
 
 
-        public ActionResult DeleteTrainerAcc(int id)
+        public ActionResult DeleteTrainerAcc(string id)
         {
-            using (var TNCT = new EF.TrainingContext())
+            using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var t = TNCT.trainers.FirstOrDefault(u => u.id == id);
+                var t = TNCT.Users.FirstOrDefault(u => u.Id == id);
                 if (t == null)
                 {
                     TempData["message"] = $"Delete failed";
                 }
-                TNCT.trainers.Remove(t);
+                TNCT.Users.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainer with id: {t.id}";
+                TempData["message"] = $"Delete successfully a trainer with id: {t.Id}";
             }
             return RedirectToAction("TrainerAcc");
         }
 
-        private void validation(Trainer t)
+        private void validation(CustomUser t)
         {
             
             if(!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
             {
                 ModelState.AddModelError("Name", "Trainers's name must be more than 5 characters");
             }
-            else if(!string.IsNullOrEmpty(t.username) && t.username.Length < 7)
+            else if(!string.IsNullOrEmpty(t.UserName) && t.UserName.Length < 7)
             {
                 ModelState.AddModelError("Name", "User name must be more than 6");
             }
-            else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
-            {
-                ModelState.AddModelError("Name", "Password must be more than 7");
-            }
+            //else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
+            //{
+            //    ModelState.AddModelError("Name", "Password must be more than 7");
+            //}
 
-            else if (!string.IsNullOrEmpty(t.phonenumber) && t.phonenumber[0] != '0' && t.phonenumber.Length <10)
+            else if (!string.IsNullOrEmpty(t.PhoneNumber) && t.PhoneNumber[0] != '0' && t.PhoneNumber.Length <10)
             {
                 ModelState.AddModelError("Name", "Phone number must start with 0 and include 10 numbers");
             }
@@ -135,9 +136,9 @@ namespace Project.Controllers
         //-----------------------------------
         public ActionResult StaffAcc()
         {
-            using(var TNCT = new EF.TrainingContext())
+            using(var TNCT = new EF.CustomIdentityDbContext())
             {
-                var staffs = TNCT.staffs.OrderBy(s => s.id).ToList();
+                var staffs = TNCT.Users.OrderBy(s => s.Id).ToList();
                 return View(staffs);
             }
         }
@@ -148,7 +149,7 @@ namespace Project.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult AddStaffAcc(Staff s)
+        public ActionResult AddStaffAcc(CustomUser s)
         {
             validation1(s);
             if (!ModelState.IsValid)
@@ -157,22 +158,22 @@ namespace Project.Controllers
             }
             else
             {
-                using (var TNCT = new EF.TrainingContext())
+                using (var TNCT = new EF.CustomIdentityDbContext())
                 {
-                    TNCT.staffs.Add(s);
+                    TNCT.Users.Add(s);
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Add Successfully a staff with id: {s.id}";
+                TempData["message"] = $"Add Successfully a staff with id: {s.Id}";
                 return RedirectToAction("TrainerAcc");
             }
         }
 
         [HttpGet]
-        public ActionResult EditStaffAcc(int id)
+        public ActionResult EditStaffAcc(string id)
         {
-            using (var TNCT = new EF.TrainingContext())
+            using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var staffs = TNCT.staffs.FirstOrDefault(s => s.id == id);
+                var staffs = TNCT.Users.FirstOrDefault(s => s.Id == id);
                 if (staffs == null)
                 {
                     return RedirectToAction("StaffAcc");
@@ -184,7 +185,7 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditStaffAcc(int id, Staff s)
+        public ActionResult EditStaffAcc(int id,CustomUser s)
         {
             validation1(s);
             if (!ModelState.IsValid)
@@ -193,47 +194,47 @@ namespace Project.Controllers
             }
             else
             {
-                using (var TNCT = new EF.TrainingContext())
+                using (var TNCT = new EF.CustomIdentityDbContext())
                 {
-                    TNCT.Entry<Staff>(s).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.Entry<CustomUser>(s).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a staff with id: {s.id}";
+                TempData["message"] = $"Edit successfully a staff with id: {s.Id}";
                 return RedirectToAction("StaffAcc");
             }
         }
 
-        public ActionResult DeleteStaffAcc(int id)
+        public ActionResult DeleteStaffAcc(string id)
         {
-            using (var TNCT = new EF.TrainingContext())
+            using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var staff = TNCT.staffs.FirstOrDefault(s => s.id == id);
+                var staff = TNCT.Users.FirstOrDefault(s => s.Id == id);
                 if (staff == null)
                 {
                     TempData["message"] = $"Delete failed";
                 }
-                TNCT.staffs.Remove(staff);
+                TNCT.Users.Remove(staff);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a staff with id: {staff.id}";
+                TempData["message"] = $"Delete successfully a staff with id: {staff.Id}";
             }
             return RedirectToAction("StaffAcc");
         }
 
-        private void validation1(Staff s)
+        private void validation1(CustomUser s)
         {
             if (!string.IsNullOrEmpty(s.name) && s.name.Length < 6)
             {
                 ModelState.AddModelError("Name", "Staff's name must be more than 5 characters");
             }
-            else if (!string.IsNullOrEmpty(s.username) && s.username.Length < 7)
+            else if (!string.IsNullOrEmpty(s.UserName) && s.UserName.Length < 7)
             {
                 ModelState.AddModelError("Name", "User name must be more than 6");
             }
-            else if (!string.IsNullOrEmpty(s.password) && s.password.Length <= 7)
-            {
-                ModelState.AddModelError("Name", "Password must be more than 7");
-            }
+            //else if (!string.IsNullOrEmpty(s.password) && s.password.Length <= 7)
+            //{
+            //    ModelState.AddModelError("Name", "Password must be more than 7");
+            //}
         }
 
     }

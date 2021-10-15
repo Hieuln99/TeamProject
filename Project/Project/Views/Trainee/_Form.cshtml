@@ -1,4 +1,4 @@
-﻿@model Project.Models.Trainee
+﻿@model WebApplication2.Models.Person
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.name)</b></label>
@@ -6,8 +6,8 @@
 </div>
 
 <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.username)</b></label>
-    @Html.EditorFor(m => m.username, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's username" } })
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.UserName)</b></label>
+    @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's username" } })
 </div>
 
 <div class="mb-3">
