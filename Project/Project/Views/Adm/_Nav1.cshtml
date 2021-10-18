@@ -6,7 +6,7 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            javascript:document.getElementById('logoutForm').submit()         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -16,28 +16,41 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="@Url.Action("TrainerAcc", "Adm")">Trainer</a>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
                         Create New
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="@Url.Action("Register", "Home")" ">Staff</a>
-                        <a class="dropdown-item" href="@Url.Action("TrainerRegister", "Home")">Trainer</a>
+                        <a class="dropdown-item" href="@Url.Action("Register", "Home")">Staff</a>
+                        <a class="dropdown-item" href="@Url.Action("RegisterTrainer", "Home")">Trainer</a>
                     </div>
                 </li>
-
             </ul>
-                
-                <div class="d-flex" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-light my-2 my-sm-0">Logout</a>
-                    }
-                </div>
+
+
+            <table style="float : right">
+                t<td>
+                    <div style="float:right ; color: white">
+                     @ViewBag.Name
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                    <div style="float:right" id="navbarSupportedContent">
+
+                        @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                        }
+                    </div>
+                </td>
+            </table>
+
+
         </div>
     </div>
 </nav>

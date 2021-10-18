@@ -6,18 +6,18 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <b>@Html.LabelFor(m => m.currentpass)</b>
-            @Html.TextBoxFor(m => m.currentpass, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.currentpass, "", new { @class = "text-danger" })
+            <b>@Html.LabelFor(m => m.username)</b>
+            @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <b>@Html.LabelFor(m => m.newpass)</b>
-            @Html.PasswordFor(m => m.newpass, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.newpass, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.newpass, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <b>@Html.LabelFor(m => m.confirmpass)</b>
-            @Html.PasswordFor(m => m.confirmpass, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.confirmpass, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.confirmpass, "", new { @class = "text-danger" })
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

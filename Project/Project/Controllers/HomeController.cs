@@ -239,7 +239,6 @@ namespace Project.Controllers
 
 
             await Prepare();
-
             var aUser = await userManager.FindByEmailAsync("adm@bar.com");
             var sUser = await userManager.FindByEmailAsync("stff@bar.com");
             var tUser = await userManager.FindByEmailAsync("tr@bar.com");
@@ -293,7 +292,7 @@ namespace Project.Controllers
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        return RedirectToAction("AdminIndex", "Adm");
+                        return RedirectToAction("Route", "Home");
                     default:
                         ModelState.AddModelError("", "Your account is not correct try again!");
                         return View(form);
@@ -313,11 +312,15 @@ namespace Project.Controllers
             }
             if (User.IsInRole(SecurityRole.Staff))
             {
-                return RedirectToAction("StaffIndex", "Staff");
+                return RedirectToAction("Index", "Staff");
             }
             if (User.IsInRole(SecurityRole.Trainee))
             {
-                return RedirectToAction("TraineeIndex", "Trainee");
+                return RedirectToAction("Index", "Trainee");
+            }
+            if (User.IsInRole(SecurityRole.Trainer))
+            {
+                return RedirectToAction("Index", "Trainer");
             }
             return RedirectToAction("Login");
         }
@@ -342,6 +345,7 @@ namespace Project.Controllers
             {
                 await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Staff });
             }
+
             if (form.UserName != null && form.Password != null)
             {
                 var email = form.UserName;
@@ -391,24 +395,25 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+
+                            var u = await userManager.FindByEmailAsync(form.UserName);
+                            if (!await userManager.IsInRoleAsync(u.Id, SecurityRole.Staff))
+                            {
+                                userManager.AddToRole(u.Id, SecurityRole.Staff);
+                            }
+                            return RedirectToAction("Login");
                         }
                         else
                         {
                             ModelState.AddModelError("", "failure!");
                             return View(form);
                         }
+
                     }
                     else
                     {
                         ModelState.AddModelError("", "username is exist!");
                         return View(form);
-                    }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
-
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Staff))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Staff);
                     }
                 }
             }
@@ -418,12 +423,12 @@ namespace Project.Controllers
 
 
         [HttpGet]
-        public ActionResult ChangePass()
+        public ActionResult RegisterTrainer()
         {
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> ChangePass(ChangePass form, string id)
+        public async Task<ActionResult> RegisterTrainer(TrainerForm form)
         {
             var context = new CustomIdentityDbContext();
             var roleStore = new RoleStore<IdentityRole>(context);
@@ -432,34 +437,7 @@ namespace Project.Controllers
             var userStore = new UserStore<CustomUser>(context);
             var userManager = new UserManager<CustomUser>(userStore);
 
-
-           var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
-            if (result.Succeeded)
-            {
-                return Content("success");
-            }
-            //passs must be include capital-letter and number
-            return View(form);
-        }
-
-        // public virtual Task<IdentityResult> ChangePasswordAsync(TKey userId, string currentPassword, string newPassword);
-
-
-        public ActionResult TrainerRegister()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<ActionResult> TrainerRegister(TrainerRegisterForm form)
-        {
-            var context = new CustomIdentityDbContext();
-            var roleStore = new RoleStore<IdentityRole>(context);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-            var userStore = new UserStore<CustomUser>(context);
-            var userManager = new UserManager<CustomUser>(userStore);
-
-            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainer))
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainee))
             {
                 await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
             }
@@ -467,7 +445,6 @@ namespace Project.Controllers
             var email = form.UserName;
 
             var phone = form.phoneNumber;
-            var name = form.Name;
             var age = 0;
             var dob = DateTime.Now;
             var edu = "0";
@@ -492,7 +469,7 @@ namespace Project.Controllers
                                 UserName = email,
                                 Email = email,
                                 PhoneNumber = phone,
-                                name = name,
+                                name = form.Name,
                                 age = age,
                                 dob = dob,
                                 edu = edu,
@@ -514,7 +491,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+                            var User = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
+                            {
+                                userManager.AddToRole(User.Id, SecurityRole.Trainer);
+                            }
+                            return RedirectToAction("Login");
                         }
                         else
                         {
@@ -524,15 +507,10 @@ namespace Project.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "username is exist!");
+                        ModelState.AddModelError("", "Email is exist!");
                         return View(form);
                     }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
 
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Trainer);
-                    }
                 }
             }
             //passs must be include capital-letter and number
@@ -541,6 +519,7 @@ namespace Project.Controllers
 
 
 
+        [HttpGet]
         public ActionResult TraineeRegister()
         {
             return View();
@@ -610,7 +589,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+                            var User = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
+                            {
+                                userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                            }
+                            return RedirectToAction("Login");
                         }
                         else
                         {
@@ -623,12 +608,7 @@ namespace Project.Controllers
                         ModelState.AddModelError("", "Email is exist!");
                         return View(form);
                     }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
-
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Trainee);
-                    }
+                   
                 }
             }
             //passs must be include capital-letter and number
@@ -649,5 +629,8 @@ namespace Project.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+
+        
     }
 }

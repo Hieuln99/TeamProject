@@ -1,4 +1,4 @@
-﻿@model Project.Models.Trainer
+﻿@model Project.Models.CustomUser
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.name)</b></label>
@@ -6,14 +6,11 @@
 </div>
 
 <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.username)</b></label>
-    @Html.EditorFor(m => m.username, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's username" } })
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.UserName)</b></label>
+    @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's username" } })
 </div>
 
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.password)</b></label>
-    @Html.EditorFor(m => m.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's password" } })
-</div>
+
 
 <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.type)</b></label>
@@ -22,7 +19,7 @@
     new SelectListItem{Text= "External"},
     new SelectListItem{Text="Internal"}
     },
-    new { @class="custom-select d-block w-100"})
+    new { @class = "custom-select d-block w-100" })
 </div>
 
 <div class="mb-3">
@@ -31,16 +28,27 @@
 </div>
 
 <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.phonenumber)</b></label>
-    @Html.EditorFor(m => m.phonenumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's phone number" } })
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.PhoneNumber)</b></label>
+    @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainer's phone number" } })
 </div>
 
 <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.email)</b></label>
-    @Html.EditorFor(m=>m.email, new {htmlAttributes = new {@class= "form-control", placeholder = "Input email like Example@gmail.com" } })
+    <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.Email)</b></label>
+    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Input email like Example@gmail.com" } })
 </div>
 
+@Html.EditorFor(m => m.PasswordHash, new { htmlAttributes = new { @class = "form-control",Type = "hidden" } })
+@Html.EditorFor(m => m.SecurityStamp, new { htmlAttributes = new { @class = "form-control", Type = "hidden" } })
+@Html.EditorFor(m => m.Role, new { htmlAttributes = new { @class = "form-control", Value = "Trainer", Type = "hidden" } })
+@Html.EditorFor(m => m.age, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.toeic, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.dob, new { htmlAttributes = new { @class = "form-control", Value = "1991-01-17", Type = "hidden" } })
+@Html.EditorFor(m => m.edu, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.language, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.exp, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.department, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+@Html.EditorFor(m => m.location, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
 @*<div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>*@
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>*@

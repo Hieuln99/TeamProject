@@ -1,7 +1,11 @@
-﻿using Project.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Project.EF;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,8 +15,16 @@ namespace Project.Controllers
     public class AdmController : Controller
     {
         // GET: Adm
+        public void Get()
+        {
+            var user = User.Identity;
+            ViewBag.Name = user.Name;
+        }
+
+
         public ActionResult AdminIndex()
         {
+            Get();
             return View();
         }
 
@@ -64,7 +76,7 @@ namespace Project.Controllers
         [HttpGet]
         public ActionResult EditTrainerAcc(string id)
         {
-            using (var TNCT = new EF.CustomIdentityDbContext())
+            using (var TNCT = new CustomIdentityDbContext())
             {
                 var trainers = TNCT.Users.FirstOrDefault(t => t.Id == id);
                 if (trainers == null)
@@ -78,7 +90,7 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditTrainerAcc(string id, CustomUser t)
+        public ActionResult EditTrainerAcc(string id, CustomUser t, FormCollection f)
         {
             validation(t);
             if (!ModelState.IsValid)
@@ -87,12 +99,12 @@ namespace Project.Controllers
             }
             else
             {
-                using (var TNCT = new EF.CustomIdentityDbContext())
+                using (var TNCT = new CustomIdentityDbContext())
                 {
                     TNCT.Entry<CustomUser>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainer with id: {t.Id}";
+                TempData["message"] = $"Edit successfully a trainer with id: {t.name}";
                 return RedirectToAction("TrainerAcc");
             }
         }
@@ -110,7 +122,7 @@ namespace Project.Controllers
                 TNCT.Users.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainer with id: {t.Id}";
+                TempData["message"] = $"Delete successfully a trainer with id: {t.name}";
             }
             return RedirectToAction("TrainerAcc");
         }
@@ -159,30 +171,6 @@ namespace Project.Controllers
             }
         }
 
-        //[HttpGet]
-        //public ActionResult AddStaffAcc()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult AddStaffAcc(CustomUser s)
-        //{
-        //    validation1(s);
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(s);
-        //    }
-        //    else
-        //    {
-        //        using (var TNCT = new EF.CustomIdentityDbContext())
-        //        {
-        //            TNCT.Users.Add(s);
-        //            TNCT.SaveChanges();
-        //        }
-        //        TempData["message"] = $"Add Successfully a staff with id: {s.Id}";
-        //        return RedirectToAction("TrainerAcc");
-        //    }
-        //}
 
 
         [HttpGet]
@@ -204,6 +192,7 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult EditStaffAcc(string id,CustomUser s)
         {
+
             validation1(s);
             if (!ModelState.IsValid)
             {
@@ -216,7 +205,7 @@ namespace Project.Controllers
                     TNCT.Entry<CustomUser>(s).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a staff with id: {s.Id}";
+                TempData["message"] = $"Edit successfully a trainer with id: {s.name}";
                 return RedirectToAction("StaffAcc");
             }
         }

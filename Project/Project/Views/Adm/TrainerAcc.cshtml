@@ -42,7 +42,7 @@
                 <td class="td">
                     <a type="button" class="btn btn-danger" data-trainer="@String.Format("{0}|{1}",
                                 m. ToSeparatedt("|"),
-                                Url.Action("DeleteTrainerAcc", new { id = m. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                Url.Action("DeleteTrainerAcc","Adm", new { id = m. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
                 </td>
             </tr>
         }
@@ -71,32 +71,12 @@
                                         <th><input type="text" class="form-control" id="name" /></th>
                                     </tr>
 
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">User Name</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="username" /></th>
-                                    </tr>
-
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Password</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="password" /></th>
-                                    </tr>
 
                                     <tr style="height: 40px">
                                         <th scope="col" width="20%">Type</th>
                                     </tr>
                                     <tr>
                                         <th><input type="text" class="form-control" id="type" /></th>
-                                    </tr>
-
-                                    <tr style="height: 40px">
-                                        <th scope="col" width="20%">Working Place</th>
-                                    </tr>
-                                    <tr>
-                                        <th><input type="text" class="form-control" id="workplace" /></th>
                                     </tr>
 
                                     <tr style="height: 40px">
@@ -140,14 +120,11 @@
                     console.log(d);
                     $('#id').attr('value', d[0]);
                     $('#name').attr('value', d[1]);
-                    $('#username').attr('value', d[2]);
-                    $('#password').attr('value', d[3]);
-                    $('#type').attr('value', d[4]);
-                    $('#workplace').attr('value', d[5]);
-                    $('#phonenumber').attr('value', d[6]);
-                    $('#email').attr('value', d[7]);
+                    $('#type').attr('value', d[2]);
+                    $('#phonenumber').attr('value', d[3]);
+                    $('#email').attr('value', d[4]);
 
-                    $('#deleteForm').attr('action', d[8]);
+                    $('#deleteForm').attr('action', d[5]);
                 });
             });
         </script>

@@ -37,7 +37,7 @@ namespace Project.Models
 
     }
 
-    public class TrainerRegisterForm
+    public class TrainerForm
     {
         [Required(ErrorMessage = "Username can not be null!!")]
         [Display(Name = "Email")]
@@ -129,9 +129,9 @@ namespace Project.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name ="Current password")]
+        [Display(Name = "Current Password")]
         public string currentpass { get; set; }
-        
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name ="New PassWord")]
@@ -141,6 +141,7 @@ namespace Project.Models
         [Display(Name ="Confirm password")]
         [Compare("newpass",ErrorMessage ="Confirm password does not match.")]
         public string confirmpass { get; set; }
+
     }
 
 }

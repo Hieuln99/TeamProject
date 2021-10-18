@@ -3,8 +3,13 @@
     "",
     "\\Project",
     "\\Project\\Project",
-    "\\Project\\Project\\Controllers"
+    "\\Project\\Project\\Controllers",
+    "\\Project\\Project\\Models",
+    "\\Project\\Project\\Views",
+    "\\Project\\Project\\Views\\Adm",
+    "\\Project\\Project\\Views\\Home",
+    "\\Project\\Project\\Views\\Trainer"
   ],
-  "SelectedNode": "\\Project\\Project\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\Project\\Project\\Views\\Trainer\\UpdatePass.cshtml",
   "PreviewInSolutionExplorer": false
 }

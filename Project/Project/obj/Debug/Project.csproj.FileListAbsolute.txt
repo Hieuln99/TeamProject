@@ -200,3 +200,15 @@ C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.O
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Owin.Security.Cookies.xml
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Cosmos.CRTCompat.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Azure.DocumentDB.Core.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Collections.Immutable.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.ValueTuple.dll
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\Microsoft.Azure.DocumentDB.Core.xml
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Collections.Immutable.xml
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\hieut\Source\Repos\Hieuln99\TeamProject\Project\Project\bin\System.ValueTuple.xml
