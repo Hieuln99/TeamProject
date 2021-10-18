@@ -176,14 +176,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="EF\CustomIdentityDbContext.cs" />
-    <Compile Include="EF\CustomMigrations\202110140954306_InitialCreate.cs" />
-    <Compile Include="EF\CustomMigrations\202110140954306_InitialCreate.Designer.cs">
-      <DependentUpon>202110140954306_InitialCreate.cs</DependentUpon>
+    <Compile Include="EF\CustomMigrations\202110151113399_InitialCreate.cs" />
+    <Compile Include="EF\CustomMigrations\202110151113399_InitialCreate.designer.cs">
+      <DependentUpon>202110151113399_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="EF\CustomMigrations\202110141558219_InitialCreate1.cs" />
-    <Compile Include="EF\CustomMigrations\202110141558219_InitialCreate1.Designer.cs">
-      <DependentUpon>202110141558219_InitialCreate1.cs</DependentUpon>
+    <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.cs" />
+    <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.designer.cs">
+      <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
     </Compile>
     <Compile Include="EF\CustomMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
@@ -200,57 +202,33 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-grid.rtl.css" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
-    <Content Include="Content\bootstrap-utilities.css" />
-    <Content Include="Content\bootstrap-utilities.min.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.rtl.css" />
-    <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\imm.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.esm.js" />
-    <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -337,6 +315,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -361,23 +340,27 @@
     <Content Include="Views\Adm\EditTrainerAcc.cshtml" />
     <Content Include="Views\Adm\StaffAcc.cshtml" />
     <Content Include="Views\Adm\TrainerAcc.cshtml" />
-    <Content Include="Views\Adm\_Form1.cshtml" />
-    <Content Include="Views\Adm\_Form2.cshtml" />
-    <Content Include="Views\Adm\_Nav1.cshtml" />
     <Content Include="Views\Home\home.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\FormHome.cshtml" />
     <Content Include="Views\Shared\_message.cshtml" />
     <Content Include="Views\Shared\_Nav1.cshtml" />
-    <Content Include="Views\Trainee\TraineeAdd.cshtml" />
-    <Content Include="Views\Trainee\TraineeEdit.cshtml" />
-    <Content Include="Views\Trainee\TraineeIndex.cshtml" />
-    <Content Include="Views\Trainee\_Form.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\TrainerRegister.cshtml" />
     <Content Include="Views\Home\TraineeRegister.cshtml" />
     <Content Include="Views\Home\ChangePass.cshtml" />
+    <Content Include="Views\Home\_PartialLogin.cshtml" />
+    <Content Include="Views\Home\_LayoutLogin.cshtml" />
+    <Content Include="Views\Adm\_Nav1.cshtml" />
+    <Content Include="Views\Staff\_Nav1.cshtml" />
+    <Content Include="Views\Staff\StaffIndex.cshtml" />
+    <Content Include="Views\Staff\TrainerAcc.cshtml" />
+    <Content Include="Views\Staff\TraineeAcc.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\Staff\CourseIndex.cshtml" />
+    <Content Include="Views\Staff\CreateCourse.cshtml" />
+    <Content Include="Views\Staff\CreateCat.cshtml" />
+    <Content Include="Views\Staff\CategoryIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -394,11 +377,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EF\CustomMigrations\202110140954306_InitialCreate.resx">
-      <DependentUpon>202110140954306_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="EF\CustomMigrations\202110151113399_InitialCreate.resx">
+      <DependentUpon>202110151113399_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EF\CustomMigrations\202110141558219_InitialCreate1.resx">
-      <DependentUpon>202110141558219_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="EF\CustomMigrations\202110171705264_InitialCreate1.resx">
+      <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

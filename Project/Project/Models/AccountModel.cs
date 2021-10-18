@@ -70,6 +70,8 @@ namespace Project.Models
         public string phoneNumber { get; set; }
     }
 
+
+
     public class TraineeRegisterForm
     {
         [Required(ErrorMessage = "Username can not be null!!")]

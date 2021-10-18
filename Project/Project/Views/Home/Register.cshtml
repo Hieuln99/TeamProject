@@ -1,26 +1,34 @@
 ﻿@model  Project.Models.RegisterForm
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Home/_LayoutLogin.cshtml";
+}
 
 <section>
-    @using (Html.BeginForm(FormMethod.Post))
-    {
+    
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <b>@Html.LabelFor(m => m.UserName)</b>
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <b>@Html.LabelFor(m => m.Password)</b>
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <b>@Html.LabelFor(m => m.ConfirmPassword)</b>
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    }
+ 
+    <div class="container">
+        @using (Html.BeginForm(FormMethod.Post))
+        {
 
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.UserName)</b>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.Password)</b>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.ConfirmPassword)</b>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        }
+    </div>
 </section>

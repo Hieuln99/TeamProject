@@ -129,6 +129,7 @@ namespace Project.Controllers
                         Email = aemail,
                         PhoneNumber = phone,
                         name = aemail.Split('@')[0],
+                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -157,6 +158,7 @@ namespace Project.Controllers
                         Email = semail,
                         PhoneNumber = phone,
                         name = semail.Split('@')[0],
+                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -185,6 +187,7 @@ namespace Project.Controllers
                         Email = temail,
                         PhoneNumber = phone,
                         name = temail.Split('@')[0],
+                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -201,7 +204,7 @@ namespace Project.Controllers
                         LockoutEnabled = false,
                         AccessFailedCount = 0
                     },
-                    "pA1411"
+                    "pA@1411"
                     );
             }
 
@@ -293,7 +296,8 @@ namespace Project.Controllers
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        return RedirectToAction("AdminIndex", "Adm");
+                        return RedirectToAction("Route");
+                        /*return RedirectToAction("AdminIndex", "Adm");*/
                     default:
                         ModelState.AddModelError("", "Your account is not correct try again!");
                         return View(form);
@@ -318,6 +322,10 @@ namespace Project.Controllers
             if (User.IsInRole(SecurityRole.Trainee))
             {
                 return RedirectToAction("TraineeIndex", "Trainee");
+            }
+            if (User.IsInRole(SecurityRole.Trainer))
+            {
+                return RedirectToAction("Index", "Trainer");
             }
             return RedirectToAction("Login");
         }
@@ -391,7 +399,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+                            var Us = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(Us.Id, SecurityRole.Staff))
+                            {
+                                userManager.AddToRole(Us.Id, SecurityRole.Staff);
+                            }
+                            return RedirectToAction("Login");
                         }
                         else
                         {
@@ -404,12 +418,7 @@ namespace Project.Controllers
                         ModelState.AddModelError("", "username is exist!");
                         return View(form);
                     }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
-
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Staff))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Staff);
-                    }
+                    
                 }
             }
             //passs must be include capital-letter and number
@@ -445,6 +454,7 @@ namespace Project.Controllers
         // public virtual Task<IdentityResult> ChangePasswordAsync(TKey userId, string currentPassword, string newPassword);
 
 
+        [HttpGet]
         public ActionResult TrainerRegister()
         {
             return View();
@@ -463,7 +473,7 @@ namespace Project.Controllers
             {
                 await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
             }
-
+            
             var email = form.UserName;
 
             var phone = form.phoneNumber;
@@ -504,6 +514,7 @@ namespace Project.Controllers
                                 location = location,
                                 type = type,
                                 workplace = workplace,
+                                EmailConfirmed= true,
                                 PhoneNumberConfirmed = true,
                                 TwoFactorEnabled = true,
                                 LockoutEndDateUtc = dob,
@@ -514,7 +525,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+                            var U = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(U.Id, SecurityRole.Trainer))
+                            {
+                                userManager.AddToRole(U.Id, SecurityRole.Trainer);
+                            }
+                            return RedirectToAction("TrainerAcc","Adm");
                         }
                         else
                         {
@@ -527,17 +544,13 @@ namespace Project.Controllers
                         ModelState.AddModelError("", "username is exist!");
                         return View(form);
                     }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
-
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainer))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Trainer);
-                    }
+                    
                 }
             }
             //passs must be include capital-letter and number
-            return View(form);
+            return Content("failure");
         }
+
 
 
 
@@ -610,7 +623,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            return Content("Success");
+                            var User = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
+                            {
+                                userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                            }
+                            return RedirectToAction("TraineeAcc","Staff");
                         }
                         else
                         {
@@ -623,12 +642,7 @@ namespace Project.Controllers
                         ModelState.AddModelError("", "Email is exist!");
                         return View(form);
                     }
-                    var User = await userManager.FindByEmailAsync(form.UserName);
-
-                    if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
-                    {
-                        userManager.AddToRole(User.Id, SecurityRole.Trainee);
-                    }
+                    
                 }
             }
             //passs must be include capital-letter and number

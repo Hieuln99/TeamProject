@@ -76,16 +76,32 @@ namespace Project.Models
         {
             return $"{this.Id}{r}" +
                     $"{this.name}{r}" +
-                    $"{this.language}{r}" +
-                    $"{this.exp}{r}" +
+                    $"{this.age}{r}" +
                     $"{this.dob}{r}" +
+                    $"{this.edu}{r}" +
+                    $"{this.language}{r}" +
+                    $"{this.toeic}{r}" +
+                    $"{this.exp}{r}" +
+                    $"{this.department}{r}" +
                     $"{this.location}";
         }
+
+        /*public string ToSeparatedt(string r)
+        {
+            return $"{this.Id}{r}" +
+                    $"{this.name}{r}" +
+                    $"{this.UserName}{r}" +
+                    $"{this.type}{r}" +
+                    $"{this.workplace}{r}" +
+                    $"{this.PhoneNumber}{r}";
+                    
+        }*/
 
         public string ToSeparatedt(string r)
         {
             return $"{this.Id}{r}" +
                     $"{this.name}{r}" +
+                    $"{this.workplace}{r}" +
                     $"{this.type}{r}" +
                     $"{this.PhoneNumber}{r}" +
                     $"{this.Email}";

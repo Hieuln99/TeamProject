@@ -15,5 +15,6 @@ namespace Project.EF
 
         }
         public DbSet<CourseCategory> categories { get; set; }
+        public DbSet<Course> courses { get; set; }
     }
 }

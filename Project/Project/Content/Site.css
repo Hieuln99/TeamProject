@@ -24,14 +24,27 @@ textarea {
 }*/
 
 
-body {
+/*body {
     padding-top: 3rem;
     padding-bottom: 3rem;
     background-image: url('../images/pattern.png');
     background-repeat: repeat;
+}*/
+
+.hello {
+    text-align: center;
+    padding: 20px 0;
+    color: rgba(35, 57, 87, 0.849);
 }
 
-.jumbotron-detail-apple-pie {
+body {
+    background-color: beige;
+    background-image: url(https://ap.greenwich.edu.vn/images/bg.jpg)
+}
+
+
+
+/*.jumbotron-detail-apple-pie {
     background: url('../images/products/applepie.jpg') no-repeat fixed;
 }
 
@@ -109,4 +122,47 @@ body {
 .text{
     text-align:center;
     font-size: 50px;
+}*/
+.nav {
+    background-color: black;
+}
+
+    .nav .container .navbar-brand {
+        color: azure;
+    }
+
+    .nav .container .nav-link {
+        color: gray;
+    }
+
+.content h1 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.content .container #carouselExampleCaptions .carousel-item img {
+    width: 1110px;
+    height: 555px;
+}
+
+.content .container img {
+    height: 200px;
+    width: 1110px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.checkbox {
+    padding: 50px 0;
+}
+
+.selectcourse {
+    padding: 20px 0;
 }

@@ -35,7 +35,7 @@ namespace Project.Controllers
         }
 
 
-        [HttpGet]
+       /* [HttpGet]
         public ActionResult AddTrainerAcc()
         {
             return View();
@@ -58,7 +58,7 @@ namespace Project.Controllers
             }
             TempData["message"] = $"Add Successfully a trainer with id: {t.Id}";
             return RedirectToAction("TrainerAcc");
-        }
+        }*/
 
 
         [HttpGet]
@@ -97,7 +97,6 @@ namespace Project.Controllers
             }
         }
 
-
         public ActionResult DeleteTrainerAcc(string id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
@@ -110,7 +109,7 @@ namespace Project.Controllers
                 TNCT.Users.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainer with id: {t.Id}";
+                TempData["message"] = $"Delete successfully a trainer with id: {t.name}";
             }
             return RedirectToAction("TrainerAcc");
         }
@@ -147,8 +146,8 @@ namespace Project.Controllers
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 var l = new List<CustomUser>();
-                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
-                foreach (var s in trainers)
+                var staffs = TNCT.Users.OrderBy(t => t.Id).ToList();
+                foreach (var s in staffs)
                 {
                     if (s.Role == "Staff")
                     {
@@ -254,5 +253,6 @@ namespace Project.Controllers
             //}
         }
 
+        
     }
 }
