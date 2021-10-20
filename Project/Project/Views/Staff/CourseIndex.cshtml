@@ -20,7 +20,7 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.description)</th>                
                 <th scope="col">@Html.DisplayNameFor(model => model.CatId)</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
@@ -32,7 +32,7 @@
             {
             <tr>
                 <td>@Html.DisplayFor(model => b.name)</td>
-                <td>@Html.DisplayFor(model => b.description)</td>
+                <td>@Html.DisplayFor(model => b.description)</td>                
                 <td>@Html.DisplayFor(model => b.CatId)</td>
                 <td>
                     <a type="button" class="btn btn-success btn-sm" href="@Url.Action("EditCourse",new { id = b.id})">
@@ -114,7 +114,9 @@
                     $('#id').attr('value', d[0]);
                     $('#name').attr('value', d[1]);
                     $('#description').attr('value', d[2]);
+                    
                     $('#catid').attr('value', d[3]);
+                    
                     
                     $('#deleteForm').attr('action', d[4]);
                 });

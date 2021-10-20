@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
 {
@@ -62,25 +64,25 @@ namespace Project.Controllers
 */
 
         [HttpGet]
-        public ActionResult EditTrainerAcc(string id)
+        public ActionResult TrainerEdit(string id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var trainers = TNCT.Users.FirstOrDefault(t => t.Id == id);
-                if (trainers == null)
+                var trainer = TNCT.Users.FirstOrDefault(t => t.Id == id);
+                if (trainer == null)
                 {
                     return RedirectToAction("TrainerAcc");
                 }
                 else
                 {
-                    return View(trainers);
+                    return View(trainer);
                 }
             }
         }
         [HttpPost]
-        public ActionResult EditTrainerAcc(string id, CustomUser t)
+        public ActionResult TrainerEdit(string id, CustomUser t)
         {
-            validation2(t);
+            validation(t);
             if (!ModelState.IsValid)
             {
                 return View(t);
@@ -96,7 +98,6 @@ namespace Project.Controllers
                 return RedirectToAction("TrainerAcc");
             }
         }
-
 
         public ActionResult DeleteTrainerAcc(string id)
         {
@@ -185,23 +186,23 @@ namespace Project.Controllers
 */
 
         [HttpGet]
-        public ActionResult EditTraineeAcc(string id)
+        public ActionResult TraineeEdit(string id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
-                var trainees = TNCT.Users.FirstOrDefault(t => t.Id == id);
-                if (trainees == null)
+                var trainee = TNCT.Users.FirstOrDefault(t => t.Id == id);
+                if (trainee == null)
                 {
                     return RedirectToAction("TraineeAcc");
                 }
                 else
                 {
-                    return View(trainees);
+                    return View(trainee);
                 }
             }
         }
         [HttpPost]
-        public ActionResult EditTraineeAcc(string id, CustomUser t)
+        public ActionResult TraineeEdit(string id, CustomUser t)
         {
             validation2(t);
             if (!ModelState.IsValid)
@@ -216,7 +217,7 @@ namespace Project.Controllers
                     TNCT.SaveChanges();
                 }
                 TempData["message"] = $"Edit successfully a trainee with id: {t.Id}";
-                return RedirectToAction("TraineeAcc");
+                return RedirectToAction("TraineeAcc", "Staff");
             }
         }
 
@@ -244,19 +245,7 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("Name", "Trainees's name must be more than 5 characters");
             }
-            else if (!string.IsNullOrEmpty(t.UserName) && t.UserName.Length < 7)
-            {
-                ModelState.AddModelError("Name", "User name must be more than 6");
-            }
-            //else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
-            //{
-            //    ModelState.AddModelError("Name", "Password must be more than 7");
-            //}
-
-            else if (!string.IsNullOrEmpty(t.PhoneNumber) && t.PhoneNumber[0] != '0' && t.PhoneNumber.Length < 10)
-            {
-                ModelState.AddModelError("PhoneNumber", "Phone number must start with 0 and include 10 numbers");
-            }
+            
         }
 
         
@@ -310,6 +299,43 @@ namespace Project.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EditCourse(int id)
+        {
+            using (var TNCT = new EF.CustomIdentityDbContext())
+            {
+                ViewBag.categories = GetCategoryDropDown();
+                var course = TNCT.courses.FirstOrDefault(t => t.id == id);
+                if (course == null)
+                {
+                    return RedirectToAction("CourseIndex");
+                }
+                else
+                {
+                    return View(course);
+                }
+            }
+        }
+        [HttpPost]
+        public ActionResult EditCourse(int id, Course t)
+        {
+            ViewBag.categories = GetCategoryDropDown();
+            if (!ModelState.IsValid)
+            {
+                return View(t);
+            }
+            else
+            {
+                using (var TNCT = new EF.CustomIdentityDbContext())
+                {
+                    TNCT.Entry<Course>(t).State = System.Data.Entity.EntityState.Modified;
+                    TNCT.SaveChanges();
+                }
+                TempData["message"] = $"Edit successfully a trainee with id: {t.id}";
+                return RedirectToAction("CourseIndex");
+            }
+        }
+
         public ActionResult DeleteCourse(int Id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
@@ -322,7 +348,7 @@ namespace Project.Controllers
                 TNCT.courses.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a course with id: {t.id}";
+                TempData["message"] = $"Delete successfully a course with id: {t.name}";
             }
             return RedirectToAction("CourseIndex");
         }
@@ -380,6 +406,50 @@ namespace Project.Controllers
                 return RedirectToAction("CategoryIndex");
             }
         }
+
+        public ActionResult EditCat(int id)
+        {
+            using (var bwCtx = new EF.CustomIdentityDbContext())
+            {
+                var category = bwCtx.categories.FirstOrDefault(b => b.id == id);
+                //ef method to select only one or null if not found
+
+                if (category != null) // if a book is found, show edit view
+                {
+                    return View(category);
+                }
+                else // if no book is found, back to index
+                {
+                    return RedirectToAction("CategoryIndex"); //redirect to action in the same controller
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditCat(int id, CourseCategory category)
+        {
+
+            
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            else
+            {
+
+                using (var bwCtx = new EF.CustomIdentityDbContext())
+                {
+                    bwCtx.Entry<CourseCategory>(category).State
+                        = System.Data.Entity.EntityState.Modified;
+                    //add book to context and mark it as modified to do update, not insert
+
+                    bwCtx.SaveChanges();
+                }
+                TempData["message"] = $"Successfully update book with Id: {category.id}";
+                return RedirectToAction("CategoryIndex");
+            }
+        }
         public ActionResult DeleteCat(int Id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
@@ -395,6 +465,90 @@ namespace Project.Controllers
                 TempData["message"] = $"Delete successfully a trainee with id: {t.id}";
             }
             return RedirectToAction("CourseIndex");
+        }
+        
+        //----------------------
+
+        [HttpGet]
+        public ActionResult AssignCourse(string id)
+        {
+
+            using (var bwCtx = new CustomIdentityDbContext())
+            {
+
+
+
+                var Person = bwCtx.Users
+                    .Include(b => b.courses)
+                    .FirstOrDefault(b => b.Id == id);
+
+                if (Person != null) // if a book is found, show edit view
+                {
+
+                    PrepareViewBag();
+                    return View(Person);
+                }
+                else // if no book is found, back to index
+                {
+                    return RedirectToAction("TraineeAcc"); //redirect to action in the same controller
+                }
+            }
+        }
+
+        private void PrepareViewBag()
+        {
+            using (var bwCtx = new CustomIdentityDbContext())
+            {
+
+                ViewBag.Person = bwCtx.courses.ToList();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AssignCourse(string id, CustomUser newUser, FormCollection fc)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+
+                TempData["traineeIds"] = fc["traineeIds[]"];
+                PrepareViewBag();
+
+                return View(newUser);
+            }
+            else
+            {
+
+                using (var bwCtx = new CustomIdentityDbContext())
+                {
+
+                    if (fc["traineeIds[]"] != null)
+                    {
+                        bwCtx.Entry<CustomUser>(newUser).State
+                           = System.Data.Entity.EntityState.Modified;
+
+                        bwCtx.Entry<CustomUser>(newUser).Collection(b => b.courses).Load();
+                        newUser.courses = LoadFormats(bwCtx, fc["traineeIds[]"]);
+
+                        bwCtx.SaveChanges();
+                    }
+                    //add book to context and mark it as modified to do update, not insert
+
+
+                }
+                TempData["message"] = $"Successfully update book with Id: {newUser.Id}";
+
+                return RedirectToAction("TraineeAcc");
+            }
+        }
+
+        private List<Course> LoadFormats(CustomIdentityDbContext bwCtx, string v)
+        {
+            var selectedSIds = v.Split(',')
+                                        .Select(id => Int32.Parse(id))
+                                        .ToArray();
+            return bwCtx.courses.Where(f => selectedSIds.Contains(f.id)).ToList();
         }
     }
 }

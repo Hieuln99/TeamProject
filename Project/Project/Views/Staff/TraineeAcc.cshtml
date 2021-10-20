@@ -33,28 +33,33 @@
         <tbody id="myTable">
             @foreach (var b in Model)
             {
-                <tr>
+            <tr>
 
-                    <td>@Html.DisplayFor(model => b.name)</td>
-                    <td>@Html.DisplayFor(model => b.age)</td>
-                    <td>@Html.DisplayFor(model => b.dob)</td>
-                    <td>@Html.DisplayFor(model => b.edu)</td>
-                    <td>@Html.DisplayFor(model => b.language)</td>
-                    <td>@Html.DisplayFor(model => b.toeic)</td>
-                    <td>@Html.DisplayFor(model => b.exp)</td>
-                    <td>@Html.DisplayFor(model => b.department)</td>
-                    <td>@Html.DisplayFor(model => b.location)</td>
-                    <td>
-                        <a type="button" class="btn btn-success btn-sm" href="@Url.Action("ChangePass","Home",new { id = b.Id})">
-                            Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a type="button" class="btn btn-danger btn-sm" data-trainee="@String.Format("{0}|{1}",
+                <td>@Html.DisplayFor(model => b.name)</td>
+                <td>@Html.DisplayFor(model => b.age)</td>
+                <td>@Html.DisplayFor(model => b.dob)</td>
+                <td>@Html.DisplayFor(model => b.edu)</td>
+                <td>@Html.DisplayFor(model => b.language)</td>
+                <td>@Html.DisplayFor(model => b.toeic)</td>
+                <td>@Html.DisplayFor(model => b.exp)</td>
+                <td>@Html.DisplayFor(model => b.department)</td>
+                <td>@Html.DisplayFor(model => b.location)</td>
+                <td>
+                    <a type="button" class="btn btn-success btn-sm" href="@Url.Action("AssignCourse","Staff",new { id = b.Id})">
+                        Assign
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-success btn-sm" href="@Url.Action("TraineeEdit","Staff",new { id = b.Id})">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-danger btn-sm" data-trainee="@String.Format("{0}|{1}",
                                     b. ToSeparated("|"),
-                                    Url.Action("DeleteTraineeAcc", new { id = b. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
-                    </td>
-                </tr>
+                                    Url.Action("DeleteTraineeAcc", new { id = b.Id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
 

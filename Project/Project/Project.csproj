@@ -177,6 +177,7 @@
     <Compile Include="Controllers\AdmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="EF\CustomIdentityDbContext.cs" />
     <Compile Include="EF\CustomMigrations\202110151113399_InitialCreate.cs" />
@@ -186,6 +187,10 @@
     <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.cs" />
     <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.designer.cs">
       <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CustomMigrations\202110191650226_InitialCreate2.cs" />
+    <Compile Include="EF\CustomMigrations\202110191650226_InitialCreate2.designer.cs">
+      <DependentUpon>202110191650226_InitialCreate2.cs</DependentUpon>
     </Compile>
     <Compile Include="EF\CustomMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
@@ -361,6 +366,15 @@
     <Content Include="Views\Staff\CreateCourse.cshtml" />
     <Content Include="Views\Staff\CreateCat.cshtml" />
     <Content Include="Views\Staff\CategoryIndex.cshtml" />
+    <Content Include="Views\Staff\EditCourse.cshtml" />
+    <Content Include="Views\Staff\EditCat.cshtml" />
+    <Content Include="Views\Staff\TrainerEdit.cshtml" />
+    <Content Include="Views\Staff\TraineeEdit.cshtml" />
+    <Content Include="Views\Trainer\_Nav1.cshtml" />
+    <Content Include="Views\Trainee\Index.cshtml" />
+    <Content Include="Views\Trainee\_Nav1.cshtml" />
+    <Content Include="Views\Staff\AssignCourse.cshtml" />
+    <Content Include="Views\Trainee\TraineeCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -382,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EF\CustomMigrations\202110171705264_InitialCreate1.resx">
       <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\CustomMigrations\202110191650226_InitialCreate2.resx">
+      <DependentUpon>202110191650226_InitialCreate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

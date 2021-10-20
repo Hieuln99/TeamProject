@@ -35,12 +35,15 @@ namespace Project.Models
         {
             return $"{this.id}{r}" +
                     $"{this.name}{r}" +
-                    $"{this.description}";
+                    $"{this.description}{r}"+
+            $"{this.CatId}";
+
+
         }
 
         public override string ToString()
         {
-            return string.Format("id:{0}; Name: {1}; Description:{2}", this.id, this.name, this.description);
+            return string.Format("id:{0}; Name: {1}; Description:{2}; Category:{3}", this.id, this.name, this.description,this.CatId);
         }
 
     }

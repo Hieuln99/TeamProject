@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "TraineeCourse";
+    Layout = "~/Views/Shared/FormHome.cshtml";
+}
+
+<h2>TraineeCourse</h2>
+
+@foreach (var c in ViewBag.a)
+{
+    <table class="table table-hover">
+
+        <thead class="thead-dark">
+            <tr>
+
+                <th scope="col">@c.name</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+
+
+            
+
+        </tbody>
+
+    </table>
+}
+

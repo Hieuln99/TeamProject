@@ -65,11 +65,11 @@ namespace Project.Models
         //---------------------
 
         //---------------------------------------many -> many relationship---------------------------------
-        //public Person()
-        //{
-        //    courses = new List<Course>();
-        //}
-        //public List<Course> courses { get; set; }
+        public CustomUser()
+        {
+            courses = new List<Course>();
+        }
+        public List<Course> courses { get; set; }
 
 
         public string ToSeparated(string r)

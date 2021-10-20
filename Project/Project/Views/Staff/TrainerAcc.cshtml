@@ -35,14 +35,14 @@
                     <td>@Html.DisplayFor(model => b.workplace)</td>
                     <td>@Html.DisplayFor(model => b.PhoneNumber)</td>
                     <td>
-                        <a type="button" class="btn btn-success btn-sm" href="@Url.Action("ChangePass","Home",new { id = b.Id})">
+                        <a type="button" class="btn btn-success btn-sm" href="@Url.Action("TrainerEdit",new { id = b.Id})">
                             Edit
                         </a>
                     </td>
                     <td>
                         <a type="button" class="btn btn-danger btn-sm" data-trainer="@String.Format("{0}|{1}",
                                     b. ToSeparatedt("|"),
-                                    Url.Action("DeleteTrainerAcc","Adm", new { id = b. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                                    Url.Action("DeleteTrainerAcc", new { id = b. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
                     </td>
                 </tr>
             }

@@ -311,3 +311,4 @@ C:\Users\Admin\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Proje
 C:\Users\Admin\source\repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.CustomMigrations.InitialCreate.resources
 C:\Users\Admin\source\repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.csproj.GenerateResource.cache
 C:\Users\Admin\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.CustomMigrations.InitialCreate1.resources
+C:\Users\Admin\Source\Repos\Hieuln99\TeamProject\Project\Project\obj\Debug\Project.EF.CustomMigrations.InitialCreate2.resources

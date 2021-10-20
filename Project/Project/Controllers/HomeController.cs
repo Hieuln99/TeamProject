@@ -321,7 +321,7 @@ namespace Project.Controllers
             }
             if (User.IsInRole(SecurityRole.Trainee))
             {
-                return RedirectToAction("TraineeIndex", "Trainee");
+                return RedirectToAction("Index", "Trainee");
             }
             if (User.IsInRole(SecurityRole.Trainer))
             {
@@ -445,7 +445,7 @@ namespace Project.Controllers
            var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
             if (result.Succeeded)
             {
-                return Content("success");
+                return RedirectToAction("Index","Trainer");
             }
             //passs must be include capital-letter and number
             return View(form);
@@ -554,6 +554,7 @@ namespace Project.Controllers
 
 
 
+        [HttpGet]
         public ActionResult TraineeRegister()
         {
             return View();
