@@ -24,8 +24,8 @@ namespace Project.Models
         public string description { get; set; }
 
         [DisplayName("Category")]
-        public int CatId { get; set; }
-        public CourseCategory categories { get; set; }
+        public int CourseCategoryID { get; set; }
+        public CourseCategory CourseCategory { get; set; }
 
         //-----------------------------
         public List<CustomUser> people { get; set; }
@@ -35,15 +35,16 @@ namespace Project.Models
         {
             return $"{this.id}{r}" +
                     $"{this.name}{r}" +
-                    $"{this.description}{r}"+
-            $"{this.CatId}";
+                    $"{this.description}{r}" +
+                    $"{this.CourseCategory.name}";
+            
 
 
         }
 
         public override string ToString()
         {
-            return string.Format("id:{0}; Name: {1}; Description:{2}; Category:{3}", this.id, this.name, this.description,this.CatId);
+            return string.Format("id:{0}; Name: {1}; Description:{2}; Category:{3}", this.id, this.name, this.description,this.CourseCategory);
         }
 
     }

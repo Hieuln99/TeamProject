@@ -12,60 +12,304 @@ using Microsoft.AspNet.Identity;
 
 namespace Project.Controllers
 {
+    [HandleError]
     [Authorize(Roles = SecurityRole.Staff)]
     public class StaffController : Controller
     {
         // GET: Staff
+
+        public void Get()
+        {
+            var user = User.Identity;
+            ViewBag.Name = user.Name;
+        }
+
+        [HttpGet]
+        public ActionResult TrainerRegister()
+        {
+            Get();
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> TrainerRegister(TrainerRegisterForm form)
+        {
+            Get();
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainer))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
+            }
+
+
+            if (form.UserName != null && form.Password != null)
+            {
+
+                var email = form.UserName;
+                var phone = form.PhoneNumber;
+                var age = 0;
+                var dob = DateTime.Now;
+                var edu = "0";
+                var language = "0";
+                var toeic = 0;
+                var exp = "0";
+                var department = "0";
+                var location = "0";
+                var type = form.type;
+                var workplace = form.workplace;
+
+                validation3(phone);
+
+                var stff = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
+                {
+                    if (stff == null)
+                    {
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = email.Split('@')[0],
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                           form.Password
+                            );
+                        if (result.Succeeded)
+                        {
+                            var Us = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(Us.Id, SecurityRole.Trainer))
+                            {
+                                userManager.AddToRole(Us.Id, SecurityRole.Trainer);
+                            }
+                            return RedirectToAction("TrainerAcc");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "failure!");
+                            return View(form);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "username is exist!");
+                        return View(form);
+                    }
+
+                }
+                return View(form);
+            }
+            //passs must be include capital-letter and number
+            return View(form);
+        }
+
+
+        private void validation3(string t)
+        {
+            if (string.IsNullOrEmpty(t))
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number can not be null");
+            }
+            else if (!string.IsNullOrEmpty(t) && t.Length < 10)
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number must start with 0 and include 10 numbers");
+            }
+            else if (!string.IsNullOrEmpty(t) && t.Length > 10)
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number must start with 0 and include 10 numbers");
+            }
+            else if (!IsNumber(t))
+            {
+                ModelState.AddModelError("PhoneNumber", "Phone number must be numbers");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult TraineeRegister()
+        {
+            Get();
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> TraineeRegister(TraineeRegisterForm form)
+        {
+            Get();
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainee))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainee });
+            }
+
+
+            var email = form.UserName;
+
+            var phone = "0";
+            var name = form.Name;
+            var age = form.age;
+            var dob = form.dob;
+            var edu = form.edu;
+            var language = form.language;
+            var toeic = form.toeic;
+            var exp = form.exp;
+            var department = form.department;
+            var location = form.location;
+            var type = "0";
+            var workplace = "0";
+            
+            validation2(toeic);
+            if (form.UserName != null && form.Password != null)
+            {
+                var u = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
+                {
+                    if (u == null)
+                    {
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = name,
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                           form.Password
+                            );
+                        if (result.Succeeded)
+                        {
+                            var User = await userManager.FindByEmailAsync(form.UserName);
+
+                            if (!await userManager.IsInRoleAsync(User.Id, SecurityRole.Trainee))
+                            {
+                                userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                            }
+                            return RedirectToAction("TraineeAcc");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "failure!");
+                            return View(form);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Email is exist!");
+                        return View(form);
+                    }
+
+                }
+                return View(form);
+            }
+            //passs must be include capital-letter and number
+            return View(form);
+        }
+        private void validation2(int t)
+        {
+            if (t > 950)
+            {
+                ModelState.AddModelError("Toeic", "TOEIC must be less than 950!");
+            }
+            else if (t % 5 != 0)
+            {
+                ModelState.AddModelError("Toeic", "TOEIC Score is invalid!");
+            }
+        }
+
+
         public ActionResult StaffIndex()
         {
+            Get();
             return View();
         }
 
         public ActionResult TrainerAcc()
         {
-            using (var TNCT = new EF.CustomIdentityDbContext())
+            Get();
+            using (CustomIdentityDbContext context = new CustomIdentityDbContext())
             {
-                var l = new List<CustomUser>();
-                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
-                foreach (var s in trainers)
-                {
-                    if (s.Role == "Trainer")
-                    {
-                        l.Add(s);
-                    }
-                }
-                return View(l);
+                var usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          Name = user.name,
+                                          Type = user.type,
+                                          Workplace = user.workplace,
+                                          Phone = user.PhoneNumber,
+                                          Toeic = user.toeic,
+                                          Education = user.edu,
+                                          Language = user.language,
+                                          //More Propety
+
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Where(p => string.Join(",", p.RoleNames) == "trainer").Select(p => new CustomUser()
+
+                                      {
+                                          Id = p.UserId,
+                                          name = p.Name,
+                                          UserName = p.Username,
+                                          toeic = p.Toeic,
+                                          edu = p.Education,
+                                          language = p.Language,
+                                          type = p.Type,
+                                          workplace = p.Workplace,
+                                          PhoneNumber = p.Phone,
+                                          Email = p.Email
+                                      });
+                return View(usersWithRoles);
             }
         }
-        /*[HttpGet]
-        public ActionResult AddTrainerAcc()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AddTrainerAcc(CustomUser t)
-        {
-            validation(t);
-            if (!ModelState.IsValid)
-            {
-                return View(t);
-            }
-            else
-            {
-                using (var TNCT = new EF.CustomIdentityDbContext())
-                {
-                    TNCT.Users.Add(t);
-                    TNCT.SaveChanges();
-                }
-            }
-            TempData["message"] = $"Add Successfully a trainer with id: {t.Id}";
-            return RedirectToAction("TrainerAcc");
-        }
-*/
+       
 
         [HttpGet]
         public ActionResult TrainerEdit(string id)
         {
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 var trainer = TNCT.Users.FirstOrDefault(t => t.Id == id);
@@ -82,7 +326,8 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TrainerEdit(string id, CustomUser t)
         {
-            validation(t);
+            Get();
+            validation3(t.PhoneNumber);
             if (!ModelState.IsValid)
             {
                 return View(t);
@@ -94,7 +339,7 @@ namespace Project.Controllers
                     TNCT.Entry<CustomUser>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainer with id: {t.Id}";
+                TempData["message"] = $"Edit successfully a trainer with name: {t.name}";
                 return RedirectToAction("TrainerAcc");
             }
         }
@@ -111,83 +356,97 @@ namespace Project.Controllers
                 TNCT.Users.Remove(trainer);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a staff with id: {trainer.name}";
+                TempData["message"] = $"Delete successfully a trainer: {trainer.name}";
             }
             return RedirectToAction("TrainerAcc");
         }
-        private void validation(CustomUser t)
+
+
+        public bool IsNumber(string pValue)
         {
-
-            if (!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
+            foreach (Char c in pValue)
             {
-                ModelState.AddModelError("Name", "Trainers's name must be more than 5 characters");
+                if (!Char.IsDigit(c))
+                    return false;
             }
-            else if (!string.IsNullOrEmpty(t.UserName) && t.UserName.Length < 7)
-            {
-                ModelState.AddModelError("Name", "User name must be more than 6");
-            }
-            //else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
-            //{
-            //    ModelState.AddModelError("Name", "Password must be more than 7");
-            //}
-
-            else if (!string.IsNullOrEmpty(t.PhoneNumber) && t.PhoneNumber[0] != '0' && t.PhoneNumber.Length < 10)
-            {
-                ModelState.AddModelError("Name", "Phone number must start with 0 and include 10 numbers");
-            }
+            return true;
         }
+
+        //private void validation(CustomUser t)
+        //{
+        //    string phone = t.PhoneNumber;
+
+        //    if (phone.Length < 10)
+        //    {
+        //        ModelState.AddModelError("PhoneNumber", "Phone number must start with 0 and include 10 numbers");
+        //    }
+        //    if (phone.Length > 10)
+        //    {
+        //        ModelState.AddModelError("PhoneNumber", "Phone number must start with 0 and include 10 numbers");
+        //    }
+        //    else if (!IsNumber(phone))
+        //    {
+        //        ModelState.AddModelError("PhoneNumber", "Phone number must be numbers");
+        //    }
+        //}
 
 
 
 
 
         //----------------------
-        
+
         public ActionResult TraineeAcc()
         {
-            using (var TNCT = new EF.CustomIdentityDbContext())
+            Get();
+            using (CustomIdentityDbContext context = new CustomIdentityDbContext())
             {
-                var l = new List<CustomUser>();
-                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
-                foreach (var s in trainers)
-                {
-                    if (s.Role == "Trainee")
-                    {
-                        l.Add(s);
-                    }
-                }
-                return View(l);
+                var usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          Name = user.name,
+                                          Age = user.age,
+                                          Dob = user.dob,
+                                          Toeic = user.toeic,
+                                          Education = user.edu,
+                                          Language = user.language,
+                                          Exp = user.exp,
+                                          Location = user.location,
+                                          Department= user.department,
+                                          //More Propety
+
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Where(p => string.Join(",", p.RoleNames) == "trainee").Select(p => new CustomUser()
+
+                                      {
+                                          Id = p.UserId,
+                                          name = p.Name,
+                                          UserName = p.Username,
+                                          toeic = p.Toeic,
+                                          age = p.Age,
+                                          dob = p.Dob,
+                                          exp = p.Exp,
+                                          location = p.Location,
+                                          department = p.Department,
+                                          edu = p.Education,
+                                          language = p.Language,
+                                          Email = p.Email
+                                      });
+                return View(usersWithRoles);
             }
         }
-        /*[HttpGet]
-        public ActionResult AddTrainerAcc()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AddTrainerAcc(CustomUser t)
-        {
-            validation(t);
-            if (!ModelState.IsValid)
-            {
-                return View(t);
-            }
-            else
-            {
-                using (var TNCT = new EF.CustomIdentityDbContext())
-                {
-                    TNCT.Users.Add(t);
-                    TNCT.SaveChanges();
-                }
-            }
-            TempData["message"] = $"Add Successfully a trainer with id: {t.Id}";
-            return RedirectToAction("TrainerAcc");
-        }
-*/
+     
 
         [HttpGet]
         public ActionResult TraineeEdit(string id)
         {
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 var trainee = TNCT.Users.FirstOrDefault(t => t.Id == id);
@@ -204,7 +463,8 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult TraineeEdit(string id, CustomUser t)
         {
-            validation2(t);
+            
+            validation1(t);
             if (!ModelState.IsValid)
             {
                 return View(t);
@@ -216,7 +476,7 @@ namespace Project.Controllers
                     TNCT.Entry<CustomUser>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainee with id: {t.Id}";
+                TempData["message"] = $"Edit successfully a trainee with name: {t.name}";
                 return RedirectToAction("TraineeAcc", "Staff");
             }
         }
@@ -234,29 +494,31 @@ namespace Project.Controllers
                 TNCT.Users.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainee with id: {t.Id}";
+                TempData["message"] = $"Delete successfully a trainee with name: {t.name}";
             }
             return RedirectToAction("TraineeAcc");
         }
-        private void validation2(CustomUser t)
+        private void validation1(CustomUser t)
         {
-
-            if (!string.IsNullOrEmpty(t.name) && t.name.Length < 6)
+            if (t.toeic > 950)
             {
-                ModelState.AddModelError("Name", "Trainees's name must be more than 5 characters");
+                ModelState.AddModelError("Toeic", "TOEIC must be less than 950!");
             }
-            
+            else if (t.toeic % 5 != 0)
+            {
+                ModelState.AddModelError("Toeic", "TOEIC Score is invalid!");
+            }
         }
 
-        
+
         public ActionResult CourseIndex()
         {
-
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
 
                 var course = TNCT.courses
-                    .Include(c => c.categories)
+                    .Include(c => c.CourseCategory)
                                  .OrderBy(b => b.id)
                                  .ToList();
 
@@ -271,6 +533,7 @@ namespace Project.Controllers
         [HttpGet]
         public ActionResult CreateCourse()
         {
+            Get();
             ViewBag.categories = GetCategoryDropDown();
             return View(); //show blank form
             // ko co data
@@ -279,6 +542,7 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult CreateCourse(Course newCourse, FormCollection fs)
         {
+            Get();
             ViewBag.categories = GetCategoryDropDown();
             if (!ModelState.IsValid)
             {
@@ -294,7 +558,7 @@ namespace Project.Controllers
                     bwCtx.SaveChanges();
                 }
 
-                TempData["message"] = $"Successfully insert a new book with Id: {newCourse.id}";
+                TempData["message"] = $"Successfully insert a course: {newCourse.name}";
                 return RedirectToAction("CourseIndex");
             }
         }
@@ -302,6 +566,7 @@ namespace Project.Controllers
         [HttpGet]
         public ActionResult EditCourse(int id)
         {
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 ViewBag.categories = GetCategoryDropDown();
@@ -319,6 +584,7 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult EditCourse(int id, Course t)
         {
+            Get();
             ViewBag.categories = GetCategoryDropDown();
             if (!ModelState.IsValid)
             {
@@ -331,7 +597,7 @@ namespace Project.Controllers
                     TNCT.Entry<Course>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainee with id: {t.id}";
+                TempData["message"] = $"Edit successfully a course: {t.name}";
                 return RedirectToAction("CourseIndex");
             }
         }
@@ -348,7 +614,7 @@ namespace Project.Controllers
                 TNCT.courses.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a course with id: {t.name}";
+                TempData["message"] = $"Delete successfully a course with name: {t.name}";
             }
             return RedirectToAction("CourseIndex");
         }
@@ -370,6 +636,7 @@ namespace Project.Controllers
 
         public ActionResult CategoryIndex()
         {
+            Get();
             using (var bwCtx = new EF.CustomIdentityDbContext())
             {
                 var cats = bwCtx.categories
@@ -382,14 +649,13 @@ namespace Project.Controllers
         [HttpGet]
         public ActionResult CreateCat()
         {
+            Get();
             return View();
         }
         [HttpPost]
         public ActionResult CreateCat(CourseCategory newCategories)
         {
-            CustomIdentityDbContext context = new CustomIdentityDbContext();
-            var roleManager = new Microsoft.AspNet.Identity.RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new Microsoft.AspNet.Identity.UserManager<CustomUser>(new UserStore<CustomUser>(context));
+            Get();
             if (!ModelState.IsValid)
             {
                 return View(newCategories);
@@ -402,13 +668,15 @@ namespace Project.Controllers
                     bwCtx.SaveChanges();
                 }
 
-                TempData["message"] = $"Successfully insert a new book with Id: {newCategories.id}";
+                TempData["message"] = $"Successfully insert a category: {newCategories.name}";
                 return RedirectToAction("CategoryIndex");
             }
         }
 
+        [HttpGet]
         public ActionResult EditCat(int id)
         {
+            Get();
             using (var bwCtx = new EF.CustomIdentityDbContext())
             {
                 var category = bwCtx.categories.FirstOrDefault(b => b.id == id);
@@ -428,9 +696,7 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult EditCat(int id, CourseCategory category)
         {
-
-            
-
+            Get();
             if (!ModelState.IsValid)
             {
                 return View(category);
@@ -446,7 +712,7 @@ namespace Project.Controllers
 
                     bwCtx.SaveChanges();
                 }
-                TempData["message"] = $"Successfully update book with Id: {category.id}";
+                TempData["message"] = $"Successfully update category with name: {category.name}";
                 return RedirectToAction("CategoryIndex");
             }
         }
@@ -462,22 +728,22 @@ namespace Project.Controllers
                 TNCT.categories.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainee with id: {t.id}";
+                TempData["message"] = $"Delete successfully a category: {t.name}";
             }
-            return RedirectToAction("CourseIndex");
+            return RedirectToAction("CategoryIndex");
         }
-        
-        //----------------------
+
+
+
+        //--------------------------------------------------------
+
 
         [HttpGet]
         public ActionResult AssignCourse(string id)
         {
-
+            Get();
             using (var bwCtx = new CustomIdentityDbContext())
             {
-
-
-
                 var Person = bwCtx.Users
                     .Include(b => b.courses)
                     .FirstOrDefault(b => b.Id == id);
@@ -495,14 +761,6 @@ namespace Project.Controllers
             }
         }
 
-        private void PrepareViewBag()
-        {
-            using (var bwCtx = new CustomIdentityDbContext())
-            {
-
-                ViewBag.Person = bwCtx.courses.ToList();
-            }
-        }
 
         [HttpPost]
         public ActionResult AssignCourse(string id, CustomUser newUser, FormCollection fc)
@@ -537,11 +795,88 @@ namespace Project.Controllers
 
 
                 }
-                TempData["message"] = $"Successfully update book with Id: {newUser.Id}";
+                TempData["message"] = $"Successfully assign course with trainee name: {newUser.name}";
 
                 return RedirectToAction("TraineeAcc");
             }
         }
+
+      
+
+        //----------------------------------------------------
+        [HttpGet]
+        public ActionResult AssignCourseT(string id)
+        {
+            Get();
+            using (var bwCtx = new CustomIdentityDbContext())
+            {
+                var Person = bwCtx.Users
+                    .Include(b => b.courses)
+                    .FirstOrDefault(b => b.Id == id);
+
+                if (Person != null) // if a book is found, show edit view
+                {
+
+                    PrepareViewBag();
+                    return View(Person);
+                }
+                else // if no book is found, back to index
+                {
+                    return RedirectToAction("TrainerAcc"); //redirect to action in the same controller
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AssignCourseT(string id, CustomUser newUser, FormCollection fc)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+
+                TempData["trainerIds"] = fc["trainerIds[]"];
+                PrepareViewBag();
+
+                return View(newUser);
+            }
+            else
+            {
+
+                using (var bwCtx = new CustomIdentityDbContext())
+                {
+
+                    if (fc["trainerIds[]"] != null)
+                    {
+                        bwCtx.Entry<CustomUser>(newUser).State
+                           = System.Data.Entity.EntityState.Modified;
+
+                        bwCtx.Entry<CustomUser>(newUser).Collection(b => b.courses).Load();
+                        newUser.courses = LoadFormats(bwCtx, fc["trainerIds[]"]);
+
+                        bwCtx.SaveChanges();
+                    }
+                    //add book to context and mark it as modified to do update, not insert
+
+
+                }
+                TempData["message"] = $"Successfully assign course with trainer name: {newUser.name}";
+
+                return RedirectToAction("TrainerAcc");
+            }
+        }
+
+
+
+        private void PrepareViewBag()
+        {
+            using (var bwCtx = new CustomIdentityDbContext())
+            {
+
+                ViewBag.Person = bwCtx.courses.ToList();
+            }
+        }
+
 
         private List<Course> LoadFormats(CustomIdentityDbContext bwCtx, string v)
         {
@@ -550,5 +885,7 @@ namespace Project.Controllers
                                         .ToArray();
             return bwCtx.courses.Where(f => selectedSIds.Contains(f.id)).ToList();
         }
+      
+
     }
 }

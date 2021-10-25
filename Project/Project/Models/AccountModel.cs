@@ -34,12 +34,11 @@ namespace Project.Models
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Confirm password is not match !!!")]
         public string ConfirmPassword { get; set; }
-
     }
 
     public class TrainerRegisterForm
     {
-        [Required(ErrorMessage = "Username can not be null!!")]
+        [Required]
         [Display(Name = "Email")]
         public string UserName { get; set; }
 
@@ -52,25 +51,19 @@ namespace Project.Models
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Confirm password is not match !!!")]
         public string ConfirmPassword { get; set; }
-        //----------------------------------
+
         [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-        //----------------------------
         [Display(Name = "Type")]
-        [Required(ErrorMessage = "Type can not be null!!")]
         public string type { get; set; }
-        //---------------------
+
+        [Required]
         [Display(Name = "Work Place")]
-        [Required(ErrorMessage = "Work place can not be null!!")]
         public string workplace { get; set; }
-        //---------------------
+
+        [Required(ErrorMessage = "Phone number can not be null!!")]
         [Display(Name = "Phone Number")]
-        [Required(ErrorMessage = "Phone Number can not be null!!")]
-        public string phoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
     }
-
-
 
     public class TraineeRegisterForm
     {
@@ -78,7 +71,7 @@ namespace Project.Models
         [Display(Name = "Email")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Password can not be null and more than 5 characters!")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -129,12 +122,12 @@ namespace Project.Models
 
     public class ChangePass
     {
-        [Required]
-        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Current password can not be null!")]
         [Display(Name ="Current password")]
+        [DataType(DataType.Password)]
         public string currentpass { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Password can not be null and more than 5 characters!")]
         [DataType(DataType.Password)]
         [Display(Name ="New PassWord")]
         public string newpass { get; set; }

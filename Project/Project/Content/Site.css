@@ -166,3 +166,12 @@ a {
 .selectcourse {
     padding: 20px 0;
 }
+.style{
+    width:40%;
+    margin:auto;
+}
+.img{
+    height: 5%;
+    width:30%;
+    margin-left:40%;
+}

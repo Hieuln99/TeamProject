@@ -1,4 +1,4 @@
-﻿namespace Project.EF.CustomMigrations
+﻿namespace Project.EF.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -10,7 +10,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            MigrationsDirectory = @"EF\CustomMigrations";
+            MigrationsDirectory = @"EF\Migrations";
         }
 
         protected override void Seed(Project.EF.CustomIdentityDbContext context)

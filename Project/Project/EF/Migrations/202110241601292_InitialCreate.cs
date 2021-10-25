@@ -1,4 +1,4 @@
-﻿namespace Project.EF.CustomMigrations
+﻿namespace Project.EF.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -24,11 +24,11 @@
                         id = c.Int(nullable: false, identity: true),
                         name = c.String(nullable: false),
                         description = c.String(nullable: false),
-                        CourseCategory_id = c.Int(),
+                        CourseCategoryID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.CourseCategories", t => t.CourseCategory_id)
-                .Index(t => t.CourseCategory_id);
+                .ForeignKey("dbo.CourseCategories", t => t.CourseCategoryID, cascadeDelete: true)
+                .Index(t => t.CourseCategoryID);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -58,12 +58,9 @@
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        Course_id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Courses", t => t.Course_id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
-                .Index(t => t.Course_id);
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -113,24 +110,40 @@
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.CustomUserCourses",
+                c => new
+                    {
+                        CustomUser_Id = c.String(nullable: false, maxLength: 128),
+                        Course_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.CustomUser_Id, t.Course_id })
+                .ForeignKey("dbo.AspNetUsers", t => t.CustomUser_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Courses", t => t.Course_id, cascadeDelete: true)
+                .Index(t => t.CustomUser_Id)
+                .Index(t => t.Course_id);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Courses", "CourseCategory_id", "dbo.CourseCategories");
-            DropForeignKey("dbo.AspNetUsers", "Course_id", "dbo.Courses");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CustomUserCourses", "Course_id", "dbo.Courses");
+            DropForeignKey("dbo.CustomUserCourses", "CustomUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Courses", "CourseCategoryID", "dbo.CourseCategories");
+            DropIndex("dbo.CustomUserCourses", new[] { "Course_id" });
+            DropIndex("dbo.CustomUserCourses", new[] { "CustomUser_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", new[] { "Course_id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Courses", new[] { "CourseCategory_id" });
+            DropIndex("dbo.Courses", new[] { "CourseCategoryID" });
+            DropTable("dbo.CustomUserCourses");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

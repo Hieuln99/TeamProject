@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 
 namespace Project.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         // GET: Home
@@ -129,7 +130,6 @@ namespace Project.Controllers
                         Email = aemail,
                         PhoneNumber = phone,
                         name = aemail.Split('@')[0],
-                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -158,7 +158,6 @@ namespace Project.Controllers
                         Email = semail,
                         PhoneNumber = phone,
                         name = semail.Split('@')[0],
-                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -187,7 +186,6 @@ namespace Project.Controllers
                         Email = temail,
                         PhoneNumber = phone,
                         name = temail.Split('@')[0],
-                        Role = "Admin",
                         age = age,
                         dob = dob,
                         edu = edu,
@@ -270,6 +268,87 @@ namespace Project.Controllers
         }
 
 
+        public async Task<ActionResult> init1()
+        {
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainee))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainee });
+            }
+
+
+
+            for (int i = 0; i <= 100; i++)
+            {
+                string Num, Num1;
+                Random rd = new Random();
+                Num = rd.Next(200, 300).ToString();
+                Num1 = rd.Next(100, 500).ToString();
+
+                var email = $"abcde{i}@mail.com";
+                var phone = $"09{Num1}91{Num}";
+                var age = 20;
+                var dob = DateTime.Now;
+                var edu = "FPT";
+                var language = "C#";
+                var toeic = 500;
+                var exp = "1 year";
+                var department = "IT";
+                var location = "Ha Noi";
+                var type = "0";
+                var workplace = "0";
+                var u = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
+                {
+                    if (u == null)
+                    {
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = email.Split('@')[0],
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                            "Pass123"
+                            );
+                        if (result.Succeeded)
+                        {
+                            var User = await userManager.FindByEmailAsync(email);
+                            userManager.AddToRole(User.Id, SecurityRole.Trainee);
+                        }
+                    }
+                    else
+                    {
+                        return Content("failure");
+                    }
+
+                }
+            }
+            return Content("Finished");
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -330,10 +409,20 @@ namespace Project.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize(Roles = SecurityRole.Admin)]
+
+        //---------------------------------
+
+        public void Get()
+        {
+            var user = User.Identity;
+            ViewBag.Name = user.Name;
+        }
 
         [HttpGet]
         public ActionResult Register()
         {
+            Get();
             return View();
         }
         [HttpPost]
@@ -381,7 +470,6 @@ namespace Project.Controllers
                                 age = age,
                                 dob = dob,
                                 edu = edu,
-                                Role = "Staff",
                                 language = language,
                                 toeic = toeic,
                                 exp = exp,
@@ -405,7 +493,7 @@ namespace Project.Controllers
                             {
                                 userManager.AddToRole(Us.Id, SecurityRole.Staff);
                             }
-                            return RedirectToAction("Login");
+                            return RedirectToAction("AdminIndex","Adm");
                         }
                         else
                         {
@@ -425,10 +513,11 @@ namespace Project.Controllers
             return View(form);
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult ChangePass()
         {
+            Get();
             return View();
         }
         [HttpPost]
@@ -441,26 +530,34 @@ namespace Project.Controllers
             var userStore = new UserStore<CustomUser>(context);
             var userManager = new UserManager<CustomUser>(userStore);
 
-
-           var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
-            if (result.Succeeded)
+            if (User.Identity.GetUserId() == null)
             {
-                return RedirectToAction("Index","Trainer");
+                return RedirectToAction("Login");
             }
-            //passs must be include capital-letter and number
-            return View(form);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Trainer");
+                    }
+                }
+                return View(form);
+            }
         }
 
-        // public virtual Task<IdentityResult> ChangePasswordAsync(TKey userId, string currentPassword, string newPassword);
 
-
+        [Authorize(Roles = SecurityRole.Admin)]
         [HttpGet]
         public ActionResult TrainerRegister()
         {
+            Get();
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> TrainerRegister(TrainerRegisterForm form)
+        public async Task<ActionResult> TrainerRegister(RegisterForm form)
         {
             var context = new CustomIdentityDbContext();
             var roleStore = new RoleStore<IdentityRole>(context);
@@ -473,28 +570,26 @@ namespace Project.Controllers
             {
                 await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
             }
-            
-            var email = form.UserName;
-
-            var phone = form.phoneNumber;
-            var name = form.Name;
-            var age = 0;
-            var dob = DateTime.Now;
-            var edu = "0";
-            var language = "0";
-            var toeic = 0;
-            var exp = "0";
-            var department = "0";
-            var location = "0";
-            var type = form.type;
-            var workplace = form.workplace;
-
             if (form.UserName != null && form.Password != null)
             {
-                var u = await userManager.FindByEmailAsync(email);
+                var email = form.UserName;
+
+                var phone = "0";
+                var age = 0;
+                var dob = DateTime.Now;
+                var edu = "0";
+                var language = "0";
+                var toeic = 0;
+                var exp = "0";
+                var department = "0";
+                var location = "0";
+                var type = "0";
+                var workplace = "0";
+
+                var stff = await userManager.FindByEmailAsync(email);
                 if (ModelState.IsValid)
                 {
-                    if (u == null)
+                    if (stff == null)
                     {
                         var result = await userManager.CreateAsync(
                             new CustomUser
@@ -502,11 +597,10 @@ namespace Project.Controllers
                                 UserName = email,
                                 Email = email,
                                 PhoneNumber = phone,
-                                name = name,
+                                name = email.Split('@')[0],
                                 age = age,
                                 dob = dob,
                                 edu = edu,
-                                Role = "Trainer",
                                 language = language,
                                 toeic = toeic,
                                 exp = exp,
@@ -514,7 +608,6 @@ namespace Project.Controllers
                                 location = location,
                                 type = type,
                                 workplace = workplace,
-                                EmailConfirmed= true,
                                 PhoneNumberConfirmed = true,
                                 TwoFactorEnabled = true,
                                 LockoutEndDateUtc = dob,
@@ -525,13 +618,13 @@ namespace Project.Controllers
                             );
                         if (result.Succeeded)
                         {
-                            var U = await userManager.FindByEmailAsync(form.UserName);
+                            var Us = await userManager.FindByEmailAsync(form.UserName);
 
-                            if (!await userManager.IsInRoleAsync(U.Id, SecurityRole.Trainer))
+                            if (!await userManager.IsInRoleAsync(Us.Id, SecurityRole.Trainer))
                             {
-                                userManager.AddToRole(U.Id, SecurityRole.Trainer);
+                                userManager.AddToRole(Us.Id, SecurityRole.Trainer);
                             }
-                            return RedirectToAction("TrainerAcc","Adm");
+                            return RedirectToAction("AdminIndex","Adm");
                         }
                         else
                         {
@@ -544,19 +637,20 @@ namespace Project.Controllers
                         ModelState.AddModelError("", "username is exist!");
                         return View(form);
                     }
-                    
+
                 }
             }
             //passs must be include capital-letter and number
-            return Content("failure");
+            return View(form);
         }
 
 
 
-
+        [Authorize(Roles = SecurityRole.Staff)]
         [HttpGet]
         public ActionResult TraineeRegister()
         {
+            Get();
             return View();
         }
         [HttpPost]
@@ -606,7 +700,6 @@ namespace Project.Controllers
                                 age = age,
                                 dob = dob,
                                 edu = edu,
-                                Role = "Trainee",
                                 language = language,
                                 toeic = toeic,
                                 exp = exp,

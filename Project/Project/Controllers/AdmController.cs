@@ -1,4 +1,5 @@
-﻿using Project.Models;
+﻿using Project.EF;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,63 +8,74 @@ using System.Web.Mvc;
 
 namespace Project.Controllers
 {
+    [HandleError]
     [Authorize(Roles = SecurityRole.Admin)]
     public class AdmController : Controller
     {
         // GET: Adm
+
+        public void Get()
+        {
+            var user = User.Identity;
+            ViewBag.Name = user.Name;
+        }
+
         public ActionResult AdminIndex()
         {
+            Get();
             return View();
         }
 
 
         public ActionResult TrainerAcc()
         {
-            using(var TNCT = new EF.CustomIdentityDbContext())
+            Get();
+            using (CustomIdentityDbContext context = new CustomIdentityDbContext())
             {
-                var l = new List<CustomUser>();
-                var trainers = TNCT.Users.OrderBy(t => t.Id).ToList();
-                foreach(var s in trainers)
-                {
-                    if (s.Role == "Trainer")
-                    {
-                        l.Add(s);
-                    }
-                }
-                return View(l);
+                var usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          Name = user.name,
+                                          Type = user.type,
+                                          Workplace = user.workplace,
+                                          Phone = user.PhoneNumber,
+                                          Toeic = user.toeic,
+                                          Education = user.edu,
+                                          Language = user.language,
+                                          //More Propety
+
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Where(p => string.Join(",", p.RoleNames) == "trainer").Select(p => new CustomUser()
+
+                                      {
+                                          Id = p.UserId,
+                                          name = p.Name, 
+                                          UserName = p.Username,
+                                          toeic = p.Toeic,
+                                          edu = p.Education,
+                                          language = p.Language,
+                                          type = p.Type,
+                                          workplace = p.Workplace,
+                                          PhoneNumber = p.Phone,
+                                          Email = p.Email
+                                      });
+                return View(usersWithRoles);
             }
         }
 
 
-       /* [HttpGet]
-        public ActionResult AddTrainerAcc()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AddTrainerAcc(CustomUser t)
-        {
-            validation(t);
-            if (!ModelState.IsValid)
-            {
-                return View(t);
-            }
-            else
-            {
-                using (var TNCT = new EF.CustomIdentityDbContext())
-                {
-                    TNCT.Users.Add(t);
-                    TNCT.SaveChanges();
-                }
-            }
-            TempData["message"] = $"Add Successfully a trainer with id: {t.Id}";
-            return RedirectToAction("TrainerAcc");
-        }*/
 
 
         [HttpGet]
         public ActionResult EditTrainerAcc(string id)
         {
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 var trainers = TNCT.Users.FirstOrDefault(t => t.Id == id);
@@ -92,7 +104,7 @@ namespace Project.Controllers
                     TNCT.Entry<CustomUser>(t).State = System.Data.Entity.EntityState.Modified;
                     TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a trainer with id: {t.Id}";
+                TempData["message"] = $"Edit successfully a trainer with name: {t.name}";
                 return RedirectToAction("TrainerAcc");
             }
         }
@@ -109,7 +121,7 @@ namespace Project.Controllers
                 TNCT.Users.Remove(t);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a trainer with id: {t.name}";
+                TempData["message"] = $"Delete successfully a trainer with name: {t.name}";
             }
             return RedirectToAction("TrainerAcc");
         }
@@ -125,10 +137,6 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("Name", "User name must be more than 6");
             }
-            //else if (!string.IsNullOrEmpty(t.password) && t.password.Length <= 7)
-            //{
-            //    ModelState.AddModelError("Name", "Password must be more than 7");
-            //}
 
             else if (!string.IsNullOrEmpty(t.PhoneNumber) && t.PhoneNumber[0] != '0' && t.PhoneNumber.Length <10)
             {
@@ -143,50 +151,41 @@ namespace Project.Controllers
         //-----------------------------------
         public ActionResult StaffAcc()
         {
-            using (var TNCT = new EF.CustomIdentityDbContext())
+            Get();
+            using (CustomIdentityDbContext context = new CustomIdentityDbContext())
             {
-                var l = new List<CustomUser>();
-                var staffs = TNCT.Users.OrderBy(t => t.Id).ToList();
-                foreach (var s in staffs)
-                {
-                    if (s.Role == "Staff")
-                    {
-                        l.Add(s);
-                    }
-                }
-                return View(l);
+                var usersWithRoles = (from user in context.Users
+                                      select new
+                                      {
+                                          UserId = user.Id,
+                                          Username = user.UserName,
+                                          Email = user.Email,
+                                          Name = user.name,
+                                         
+                                          //More Propety
+
+                                          RoleNames = (from userRole in user.Roles
+                                                       join role in context.Roles on userRole.RoleId
+                                                       equals role.Id
+                                                       select role.Name).ToList()
+                                      }).ToList().Where(p => string.Join(",", p.RoleNames) == "staff").Select(p => new CustomUser()
+
+                                      {
+                                          Id = p.UserId,
+                                          name = p.Name,
+                                          UserName = p.Username,
+                                          Email = p.Email
+                                      });
+                return View(usersWithRoles);
             }
         }
 
-        //[HttpGet]
-        //public ActionResult AddStaffAcc()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult AddStaffAcc(CustomUser s)
-        //{
-        //    validation1(s);
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(s);
-        //    }
-        //    else
-        //    {
-        //        using (var TNCT = new EF.CustomIdentityDbContext())
-        //        {
-        //            TNCT.Users.Add(s);
-        //            TNCT.SaveChanges();
-        //        }
-        //        TempData["message"] = $"Add Successfully a staff with id: {s.Id}";
-        //        return RedirectToAction("TrainerAcc");
-        //    }
-        //}
 
 
         [HttpGet]
         public ActionResult EditStaffAcc(string id)
         {
+            Get();
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
                 var staffs = TNCT.Users.FirstOrDefault(s => s.Id == id);
@@ -201,7 +200,7 @@ namespace Project.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditStaffAcc(string id,CustomUser s)
+        public ActionResult EditStaffAcc(CustomUser s)
         {
             validation1(s);
             if (!ModelState.IsValid)
@@ -212,10 +211,10 @@ namespace Project.Controllers
             {
                 using (var TNCT = new EF.CustomIdentityDbContext())
                 {
-                    TNCT.Entry<CustomUser>(s).State = System.Data.Entity.EntityState.Modified;
-                    TNCT.SaveChanges();
+                        TNCT.Entry<CustomUser>(s).State = System.Data.Entity.EntityState.Modified;
+                        TNCT.SaveChanges();
                 }
-                TempData["message"] = $"Edit successfully a staff with id: {s.Id}";
+                TempData["message"] = $"Edit successfully a staff with name: {s.name}";
                 return RedirectToAction("StaffAcc");
             }
         }
@@ -232,7 +231,7 @@ namespace Project.Controllers
                 TNCT.Users.Remove(staff);
                 TNCT.SaveChanges();
 
-                TempData["message"] = $"Delete successfully a staff with id: {staff.Id}";
+                TempData["message"] = $"Delete successfully a staff with name: {staff.name}";
             }
             return RedirectToAction("StaffAcc");
         }
@@ -247,10 +246,6 @@ namespace Project.Controllers
             {
                 ModelState.AddModelError("Name", "User name must be more than 6");
             }
-            //else if (!string.IsNullOrEmpty(s.password) && s.password.Length <= 7)
-            //{
-            //    ModelState.AddModelError("Name", "Password must be more than 7");
-            //}
         }
 
         
