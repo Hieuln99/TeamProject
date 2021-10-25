@@ -327,6 +327,7 @@ namespace Project.Controllers
         public ActionResult TrainerEdit(string id, CustomUser t)
         {
             Get();
+            validation1(t.name);
             validation3(t.PhoneNumber);
             if (!ModelState.IsValid)
             {
@@ -343,8 +344,15 @@ namespace Project.Controllers
                 return RedirectToAction("TrainerAcc");
             }
         }
+        private void validation1(string t)
+        {
+            if (!string.IsNullOrEmpty(t) && t.Length < 6)
+            {
+                ModelState.AddModelError("Name", "Trainers's name must be more than 5 characters");
+            }
+        }
 
-        public ActionResult DeleteTrainerAcc(string id)
+    public ActionResult DeleteTrainerAcc(string id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())
             {
