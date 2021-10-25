@@ -1,57 +1,32 @@
 ﻿@model Project.Models.CustomUser
 @{
-    ViewBag.Title = "TraineeIndex";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
 
-<div class="container">
-    <h1 class="display-4 text-center">Trainee Manager Accounts</h1>
+<div class="style">
+    <h1 class="display-4 text-center">Trainee Profile</h1>
     @if (TempData["message"] != null)
     {
         ViewBag.Message = TempData["message"];
     }
     @Html.Partial("_message")
-    <input type="text" id="myInputT" placeholder="Search by names.." class="form-control mb-3">
-    <table class="table table-hover">
 
-        <thead class="thead-dark">
-            <tr>
-
-                <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.age)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.dob)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.edu)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.language)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.toeic)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.exp)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.department)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.location)</th>
-                <th scope="col">&nbsp;</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            
-            
-                <tr>
-
-                    <td>@Html.DisplayFor(b => b.name)</td>
-                    <td>@Html.DisplayFor(b => b.age)</td>
-                    <td>@Html.DisplayFor(b => b.dob)</td>
-                    <td>@Html.DisplayFor(b => b.edu)</td>
-                    <td>@Html.DisplayFor(b => b.language)</td>
-                    <td>@Html.DisplayFor(b => b.toeic)</td>
-                    <td>@Html.DisplayFor(b => b.exp)</td>
-                    <td>@Html.DisplayFor(b => b.department)</td>
-                    <td>@Html.DisplayFor(b => b.location)</td>
-                   
-                </tr>
-            
-        </tbody>
-
-    </table>
-
-
-
+    <div class="card">
+        <img src="https://ap.greenwich.edu.vn/FGW_logo_d.jpg" class="card-img-top h-50" alt="...">
+        <div class="card-body bg-info ">
+            <h5 class="card-title">@Html.DisplayNameFor(model => model.name) : @Html.DisplayFor(model => model.name)</h5>
+            <p class="card-text">@Html.DisplayNameFor(model => model.age) : @Html.DisplayFor(model => model.age)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.dob) : @Html.DisplayFor(model => model.dob)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.edu) : @Html.DisplayFor(model => model.edu)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.language) : @Html.DisplayFor(model => model.language)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.toeic) : @Html.DisplayFor(model => model.toeic)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.exp) : @Html.DisplayFor(model => model.exp)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.department) : @Html.DisplayFor(model => model.department)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.location) : @Html.DisplayFor(model => model.location)</p>
+        </div>
     </div>
+
+
+</div>
 

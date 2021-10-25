@@ -14,7 +14,7 @@ namespace CustomLog
             var authOptions = new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                ExpireTimeSpan = TimeSpan.FromMinutes(7),
+                ExpireTimeSpan = TimeSpan.FromMinutes(20),
             };
             app.UseCookieAuthentication(authOptions);
         }

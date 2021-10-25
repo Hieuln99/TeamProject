@@ -180,19 +180,15 @@
     <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="EF\CustomIdentityDbContext.cs" />
-    <Compile Include="EF\CustomMigrations\202110151113399_InitialCreate.cs" />
-    <Compile Include="EF\CustomMigrations\202110151113399_InitialCreate.designer.cs">
-      <DependentUpon>202110151113399_InitialCreate.cs</DependentUpon>
+    <Compile Include="EF\Migrations\202110241601292_InitialCreate.cs" />
+    <Compile Include="EF\Migrations\202110241601292_InitialCreate.designer.cs">
+      <DependentUpon>202110241601292_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.cs" />
-    <Compile Include="EF\CustomMigrations\202110171705264_InitialCreate1.designer.cs">
-      <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
+    <Compile Include="EF\Migrations\202110250949242_InitialCreate1.cs" />
+    <Compile Include="EF\Migrations\202110250949242_InitialCreate1.designer.cs">
+      <DependentUpon>202110250949242_InitialCreate1.cs</DependentUpon>
     </Compile>
-    <Compile Include="EF\CustomMigrations\202110191650226_InitialCreate2.cs" />
-    <Compile Include="EF\CustomMigrations\202110191650226_InitialCreate2.designer.cs">
-      <DependentUpon>202110191650226_InitialCreate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EF\CustomMigrations\Configuration.cs" />
+    <Compile Include="EF\Migrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,6 +211,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\imm.jpg" />
+    <Content Include="img\R.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -338,23 +335,18 @@
     <Content Include="Scripts\umd\popper.js.flow" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Views\Adm\AddStaffAcc.cshtml" />
-    <Content Include="Views\Adm\AddTrainerAcc.cshtml" />
     <Content Include="Views\Adm\AdminIndex.cshtml" />
     <Content Include="Views\Adm\EditStaffAcc.cshtml" />
     <Content Include="Views\Adm\EditTrainerAcc.cshtml" />
     <Content Include="Views\Adm\StaffAcc.cshtml" />
     <Content Include="Views\Adm\TrainerAcc.cshtml" />
-    <Content Include="Views\Home\home.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\FormHome.cshtml" />
     <Content Include="Views\Shared\_message.cshtml" />
-    <Content Include="Views\Shared\_Nav1.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\TrainerRegister.cshtml" />
     <Content Include="Views\Home\TraineeRegister.cshtml" />
     <Content Include="Views\Home\ChangePass.cshtml" />
-    <Content Include="Views\Home\_PartialLogin.cshtml" />
     <Content Include="Views\Home\_LayoutLogin.cshtml" />
     <Content Include="Views\Adm\_Nav1.cshtml" />
     <Content Include="Views\Staff\_Nav1.cshtml" />
@@ -373,8 +365,18 @@
     <Content Include="Views\Trainer\_Nav1.cshtml" />
     <Content Include="Views\Trainee\Index.cshtml" />
     <Content Include="Views\Trainee\_Nav1.cshtml" />
+    <Content Include="Views\Trainer\UpdateTrainerAcc.cshtml" />
+    <Content Include="Views\Trainee\UpdateTraineeAcc.cshtml" />
     <Content Include="Views\Staff\AssignCourse.cshtml" />
+    <Content Include="Views\Staff\AssignCourseT.cshtml" />
     <Content Include="Views\Trainee\TraineeCourse.cshtml" />
+    <Content Include="Views\Trainer\TrainerCourse.cshtml" />
+    <Content Include="Views\Staff\TraineeRegister.cshtml" />
+    <Content Include="Views\Staff\_PartialLogin.cshtml" />
+    <Content Include="Views\Trainee\ChangePassS.cshtml" />
+    <Content Include="Views\Trainer\ChangePassT.cshtml" />
+    <Content Include="Views\Staff\TrainerRegister.cshtml" />
+    <Content Include="Views\Home\_PartialLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -391,14 +393,11 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EF\CustomMigrations\202110151113399_InitialCreate.resx">
-      <DependentUpon>202110151113399_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="EF\Migrations\202110241601292_InitialCreate.resx">
+      <DependentUpon>202110241601292_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EF\CustomMigrations\202110171705264_InitialCreate1.resx">
-      <DependentUpon>202110171705264_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EF\CustomMigrations\202110191650226_InitialCreate2.resx">
-      <DependentUpon>202110191650226_InitialCreate2.cs</DependentUpon>
+    <EmbeddedResource Include="EF\Migrations\202110250949242_InitialCreate1.resx">
+      <DependentUpon>202110250949242_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

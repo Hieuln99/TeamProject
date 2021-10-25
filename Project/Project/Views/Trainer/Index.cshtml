@@ -1,8 +1,27 @@
-﻿
+﻿@model Project.Models.CustomUser
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/FormHome.cshtml";
 }
+<div class="container">
+    <h1 class="display-4 text-center">Trainer Profile</h1>
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    @Html.Partial("_message")
 
-<h2>Index</h2>
+    <div class="card">
+        <img src="https://ap.greenwich.edu.vn/FGW_logo_d.jpg" class="card-img-top h-50" alt="..." >
+        <div class="card-body bg-info ">
+            <h5 class="card-title">@Html.DisplayNameFor(model => model.name) : @Html.DisplayFor(model => model.name)</h5>
+            <p class="card-text">@Html.DisplayNameFor(model => model.UserName) : @Html.DisplayFor(model => model.UserName)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.type) : @Html.DisplayFor(model => model.type)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.workplace) : @Html.DisplayFor(model => model.workplace)</p>
+            <p class="card-text">@Html.DisplayNameFor(model => model.PhoneNumber) : @Html.DisplayFor(model => model.PhoneNumber)</p>
+        </div>
+    </div>
+</div>
+
+
 
