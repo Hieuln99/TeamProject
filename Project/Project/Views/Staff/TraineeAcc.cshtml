@@ -19,13 +19,12 @@
 
                 <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.age)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.dob)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.edu)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.language)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.toeic)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.exp)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.department)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.location)</th>
+                <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
             </tr>
@@ -37,13 +36,11 @@
 
                 <td>@Html.DisplayFor(model => b.name)</td>
                 <td>@Html.DisplayFor(model => b.age)</td>
-                <td>@Html.DisplayFor(model => b.dob)</td>
                 <td>@Html.DisplayFor(model => b.edu)</td>
                 <td>@Html.DisplayFor(model => b.language)</td>
                 <td>@Html.DisplayFor(model => b.toeic)</td>
                 <td>@Html.DisplayFor(model => b.exp)</td>
                 <td>@Html.DisplayFor(model => b.department)</td>
-                <td>@Html.DisplayFor(model => b.location)</td>
                 <td>
                     <a type="button" class="btn btn-success btn-sm" href="@Url.Action("AssignCourse","Staff",new { id = b.Id})">
                         Assign
@@ -170,18 +167,17 @@
                 $('a[data-trainee]').on('click', function (evt) {
                     let d = $(this).attr('data-trainee').split("|");
                     console.log(d);
-                    $('#id').attr('value', d[0]);
-                    $('#name').attr('value', d[1]);
-                    $('#age').attr('value', d[2]);
-                    $('#dob').attr('value', d[3]);
-                    $('#edu').attr('value', d[4]);
-                    $('#language').attr('value', d[5]);
-                    $('#toeic').attr('value', d[6]);
-                    $('#exp').attr('value', d[7]);
-                    $('#department').attr('value', d[8]);
-                    $('#location').attr('value', d[9]);
+                    $('#name').attr('value', d[0]);
+                    $('#age').attr('value', d[1]);
+                    $('#dob').attr('value', d[2]);
+                    $('#edu').attr('value', d[3]);
+                    $('#language').attr('value', d[4]);
+                    $('#toeic').attr('value', d[5]);
+                    $('#exp').attr('value', d[6]);
+                    $('#department').attr('value', d[7]);
+                    $('#location').attr('value', d[8]);
 
-                    $('#deleteForm').attr('action', d[10]);
+                    $('#deleteForm').attr('action', d[9]);
                 });
             });
             $('#myInputT').on('keyup', function (event) {

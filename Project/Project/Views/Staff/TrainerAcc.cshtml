@@ -17,10 +17,10 @@
         <thead class="thead-dark">
             <tr>
                 <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
-                <th scope="col">@Html.DisplayNameFor(model => model.UserName)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.type)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.workplace)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
             </tr>
@@ -28,23 +28,28 @@
         <tbody id="myTable">
             @foreach (var b in Model)
             {
-                <tr>
-                    <td>@Html.DisplayFor(model => b.name)</td>
-                    <td>@Html.DisplayFor(model => b.UserName)</td>
-                    <td>@Html.DisplayFor(model => b.type)</td>
-                    <td>@Html.DisplayFor(model => b.workplace)</td>
-                    <td>@Html.DisplayFor(model => b.PhoneNumber)</td>
-                    <td>
-                        <a type="button" class="btn btn-success btn-sm" href="@Url.Action("TrainerEdit",new { id = b.Id})">
-                            Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a type="button" class="btn btn-danger btn-sm" data-trainer="@String.Format("{0}|{1}",
+            <tr>
+                <td>@Html.DisplayFor(model => b.name)</td>
+                <td>@Html.DisplayFor(model => b.type)</td>
+                <td>@Html.DisplayFor(model => b.workplace)</td>
+                <td>@Html.DisplayFor(model => b.PhoneNumber)</td>
+
+                <td>
+                    <a type="button" class="btn btn-success btn-sm" href="@Url.Action("AssignCourseT","Staff",new { id = b.Id})">
+                        Assign
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-success btn-sm" href="@Url.Action("TrainerEdit",new { id = b.Id})">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-danger btn-sm" data-trainer="@String.Format("{0}|{1}",
                                     b. ToSeparatedt("|"),
                                     Url.Action("DeleteTrainerAcc", new { id = b. Id}))" data-target="#delete" data-toggle="modal">Delete</a>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             }
         </tbody>
 
@@ -76,12 +81,6 @@
                                     <th><input type="text" class="form-control" id="name" /></th>
                                 </tr>
 
-                                <tr style="height: 40px">
-                                    <th scope="col" width="20%">User Name</th>
-                                </tr>
-                                <tr>
-                                    <th><input type="text" class="form-control" id="username" /></th>
-                                </tr>
                                 <tr style="height: 40px">
                                     <th scope="col" width="20%">Type</th>
                                 </tr>
@@ -128,14 +127,11 @@
                 $('a[data-trainer]').on('click', function (evt) {
                     let d = $(this).attr('data-trainer').split("|");
                     console.log(d);
-                    $('#id').attr('value', d[0]);
-                    $('#name').attr('value', d[1]);
-                    $('#username').attr('value', d[2]);
-                    $('#type').attr('value', d[3]);
-                    $('#workplace').attr('value', d[4]);
-                    $('#PhoneNumber').attr('value', d[5]);
-
-                    $('#deleteForm').attr('action', d[6]);
+                    $('#name').attr('value', d[0]);
+                    $('#type').attr('value', d[1]);
+                    $('#workplace').attr('value', d[2]);
+                    $('#PhoneNumber').attr('value', d[3]);
+                    $('#deleteForm').attr('action', d[4]);
                 });
             });
             $('#myInputT').on('keyup', function (event) {

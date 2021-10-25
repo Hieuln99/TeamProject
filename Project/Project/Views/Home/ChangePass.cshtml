@@ -5,14 +5,14 @@
 }
 
 <section>
-    <div class="container">
+    <div class="style">
         @using (Html.BeginForm(FormMethod.Post))
         {
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 <b>@Html.LabelFor(m => m.currentpass)</b>
-                @Html.TextBoxFor(m => m.currentpass, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.currentpass, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.currentpass, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">

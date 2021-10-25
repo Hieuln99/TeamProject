@@ -1,14 +1,66 @@
-﻿@model  Project.Models.TrainerRegisterForm
+﻿@model  Project.Models.RegisterForm
 
 @{
     ViewBag.Title = "TrainerRegister";
     Layout = "~/Views/Home/_LayoutLogin.cshtml";
 }
 
+<div class="nav">
 
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="@Url.Action("", "")">Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("StaffAcc", "Adm")">Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("TrainerAcc", "Adm")">Trainer</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Create New
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Register", "Home")">Staff</a>
+                            <a class="dropdown-item" href="@Url.Action("TrainerRegister", "Home")">Trainer</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="float:right" id="navbarSupportedContent">
+                <ul style="list-style-type: none; overflow: hidden; margin: 0; padding: 0;">
+                    <li style="float: left">
+                        <div style="color:white; padding:10px">
+                            @ViewBag.Name
+                        </div>
+                    </li>
+
+                    <li style="float: right">
+                        <div style=" padding:10px">
+                            @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <section>
-    <div class="container">
+    <div class="style">
         <h1 class="text-center">New Trainer</h1>
 
         @using (Html.BeginForm(FormMethod.Post))
@@ -33,37 +85,7 @@
                 @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
 
-            <div class="form-group">
-                <b>@Html.LabelFor(m => m.Name)</b>
-                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-            </div>
-
-
-            <div class="form-group">
-                <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.type)</b></label>
-                @Html.DropDownList("type", new List<SelectListItem>
-                {
-                new SelectListItem{Text= "External"},
-                new SelectListItem{Text="Internal"}
-                },
-                new { @class = "custom-select d-block w-100" })
-            </div>
-            <div class="form-group">
-                <b>@Html.LabelFor(m => m.workplace)</b>
-                @Html.TextBoxFor(m => m.workplace, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.workplace, "", new { @class = "text-danger" })
-            </div>
-
-
-            <div class="form-group">
-                <b>@Html.LabelFor(m => m.phoneNumber)</b>
-                @Html.TextBoxFor(m => m.phoneNumber, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.phoneNumber, "", new { @class = "text-danger" })
-            </div>
-
-
-            <button type="submit" class="btn btn-dark" data-toggle="button" aria-pressed="false" autocomplete="off">Submit</button>
+            <button type="submit" class="btn btn-dark"style="margin:auto" data-toggle="button" aria-pressed="false" autocomplete="off">Submit</button>
 
         }
     </div>

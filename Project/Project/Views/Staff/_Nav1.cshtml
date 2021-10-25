@@ -32,7 +32,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="@Url.Action("TrainerAcc", "Staff")">View All</a>
-                            <a class="dropdown-item" href="@Url.Action("TrainerRegister", "Home")">Create a new Trainer</a>
+                            <a class="dropdown-item" href="@Url.Action("TrainerRegister","Staff")">Create a new Trainer</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -41,24 +41,30 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="@Url.Action("TraineeAcc", "Staff")">View All</a>
-                            <a class="dropdown-item" href="@Url.Action("TraineeRegister","Home")">Create a new Trainee</a>
+                            <a class="dropdown-item" href="@Url.Action("TraineeRegister","Staff")">Create a new Trainee</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Assign Courses
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="@Url.Action("TraineeAcc", "Staff")">Assign Trainer</a>
-                            <a class="dropdown-item" href="@Url.Action("AssignCourse", "Staff")">Assign Trainee</a>
-
-                        </div>
-                    </li>
+                    
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <div style="float:right" id="navbarSupportedContent">
+                    <ul style="list-style-type: none; overflow: hidden; margin: 0; padding: 0;">
+                        <li style="float: left">
+                            <div style=" color:white; padding:10px">
+                                @ViewBag.Name
+                            </div>
+                        </li>
+
+                        <li style="float: right">
+                            <div style=" padding:10px">
+                                @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </div>

@@ -14,13 +14,7 @@
 
     @using (Html.BeginForm(FormMethod.Post))
     {
-        @*@Html.HiddenFor(m => m.Id)
-            <div class="form-group">
-                @Html.LabelFor(m => m.ClassId, htmlAttributes: new { @class = "font-weight-bold" })
-                @Html.DropDownListFor(m => m.ClassId,
-                                      (IEnumerable<SelectListItem>)ViewBag.Students,
-                                      htmlAttributes: new { @class = "form-control" })
-            </div>*@
+       
 
         <div class="form-group">
             @Html.LabelFor(m => m.name, htmlAttributes: new { @class = "font-weight-bold" })
@@ -40,8 +34,8 @@
             })
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.CatId, htmlAttributes: new { @class = "font-weight-bold" })
-            @Html.DropDownListFor(m => m.CatId,
+            @Html.LabelFor(m => m.CourseCategoryID, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.DropDownListFor(m => m.CourseCategoryID,
                                   (IEnumerable<SelectListItem>)ViewBag.categories,
                                   htmlAttributes: new { @class = "form-control" })
         </div>

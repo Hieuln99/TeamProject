@@ -112,13 +112,12 @@
             @Html.ValidationMessageFor(m => m.location, "", new { @class = "text-danger" })
         </div>
 
-        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", Type = "hidden" } })
-        @Html.EditorFor(m => m.PasswordHash, new { htmlAttributes = new { @class = "form-control", Type = "hidden" } })
-        @Html.EditorFor(m => m.SecurityStamp, new { htmlAttributes = new { @class = "form-control", Type = "hidden" } })
-        @Html.EditorFor(m => m.Role, new { htmlAttributes = new { @class = "form-control", Value = "Trainee", Type = "hidden" } })
-        @Html.EditorFor(m => m.workplace, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
-        @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
-        @Html.EditorFor(m => m.type, new { htmlAttributes = new { @class = "form-control", Value = "0", Type = "hidden" } })
+        @Html.HiddenFor(m => m.Email, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.HiddenFor(m => m.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(m => m.SecurityStamp, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.HiddenFor(m => m.workplace, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
+        @Html.HiddenFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
+        @Html.HiddenFor(m => m.type, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
 
 
         <button type="submit" class="btn btn-dark">Submit</button>
