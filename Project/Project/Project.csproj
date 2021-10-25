@@ -377,6 +377,7 @@
     <Content Include="Views\Trainer\ChangePassT.cshtml" />
     <Content Include="Views\Staff\TrainerRegister.cshtml" />
     <Content Include="Views\Home\_PartialLogin.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

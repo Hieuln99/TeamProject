@@ -13,6 +13,7 @@ using System.Web.Mvc;
 namespace Project.Controllers
 {
     [HandleError]
+    [Authorize(Roles = SecurityRole.Trainee)]
     public class TraineeController : Controller
     {
         // GET: Trainee

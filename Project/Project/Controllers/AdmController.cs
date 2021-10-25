@@ -71,7 +71,7 @@ namespace Project.Controllers
 
 
 
-
+        [Authorize(Roles = SecurityRole.Admin)]
         [HttpGet]
         public ActionResult EditTrainerAcc(string id)
         {
@@ -149,6 +149,7 @@ namespace Project.Controllers
 
 
         //-----------------------------------
+        [Authorize(Roles = SecurityRole.Admin)]
         public ActionResult StaffAcc()
         {
             Get();
@@ -181,7 +182,7 @@ namespace Project.Controllers
         }
 
 
-
+        [Authorize(Roles = SecurityRole.Admin)]
         [HttpGet]
         public ActionResult EditStaffAcc(string id)
         {
@@ -218,7 +219,7 @@ namespace Project.Controllers
                 return RedirectToAction("StaffAcc");
             }
         }
-
+        [Authorize(Roles = SecurityRole.Admin)]
         public ActionResult DeleteStaffAcc(string id)
         {
             using (var TNCT = new EF.CustomIdentityDbContext())

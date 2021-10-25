@@ -256,7 +256,7 @@ namespace Project.Controllers
             }
         }
 
-
+        [Authorize(Roles = SecurityRole.Staff)]
         public ActionResult StaffIndex()
         {
             Get();
