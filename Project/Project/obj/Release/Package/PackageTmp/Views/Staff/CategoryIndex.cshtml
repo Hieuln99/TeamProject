@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Project.Models.CourseCategory>
+@{
+    ViewBag.Title = "CategoryIndex";
+    Layout = "~/Views/Shared/FormHome.cshtml";
+}
+
+<div class="container">
+    <h1 class="display-4 text-center">Course Category Manager</h1>
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+    }
+    @Html.Partial("_message")
+    <input type="text" id="myInputT" placeholder="Search by names.." class="form-control mb-3">
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.description)</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => b.name)</td>
+                    <td>@Html.DisplayFor(model => b.description)</td>
+                    <td>
+                        <a type="button" class="btn btn-success btn-sm" href="@Url.Action("EditCat",new { id = b.id})">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <a type="button" class="btn btn-danger btn-sm" data-course="@String.Format("{0}|{1}",
+                                    b. ToSeparatedString("|"),
+                                    Url.Action("DeleteCat", new { id = b. id}))" data-target="#delete" data-toggle="modal">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    @section alertdialog
+    {
+        <div class="modal fade" tabindex="-1" id="delete" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <form id="deleteForm" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete a Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="maxwith">
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Name</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="name" /></th>
+                                </tr>
+
+                                <tr style="height: 40px">
+                                    <th scope="col" width="20%">Description</th>
+                                </tr>
+                                <tr>
+                                    <th><input type="text" class="form-control" id="description" /></th>
+                                </tr>
+
+
+                            </table>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-danger" value="Delete" />
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    }
+
+    @section scripts
+    {
+        <script type="text/javascript">
+            $('document').ready(function () {
+                $('a[data-course]').on('click', function (evt) {
+                    let d = $(this).attr('data-course').split("|");
+                    console.log(d);
+                    $('#id').attr('value', d[0]);
+                    $('#name').attr('value', d[1]);
+                    $('#description').attr('value', d[2]);
+
+                    $('#deleteForm').attr('action', d[3]);
+                });
+            });
+            $('#myInputT').on('keyup', function (event) {
+                event.preventDefault();
+                /* Act on the event */
+                console.log(1);
+                var input = $(this).val().toLowerCase();
+                $('#myTable tr').filter(function () {
+
+                    $(this).toggle($(this).text().toLowerCase().indexOf(input) > -1);
+
+                });
+            });
+        </script>
+    }
+
+
+
+    <div class="footer">
+
+        <h6>Copyright © Your Website 2020</h6>
+    </div>
+

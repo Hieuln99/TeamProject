@@ -529,15 +529,9 @@ namespace Project.Controllers
                     .Include(c => c.CourseCategory)
                                  .OrderBy(b => b.id)
                                  .ToList();
-
-
-                return View(course);
-
-                
+                return View(course);                
             }
-
         }
-
         [HttpGet]
         public ActionResult CreateCourse()
         {
@@ -548,7 +542,7 @@ namespace Project.Controllers
             // thu thap data cua BookEntity
         }
         [HttpPost]
-        public ActionResult CreateCourse(Course newCourse, FormCollection fs)
+        public ActionResult CreateCourse(Course newCourse)
         {
             Get();
             ViewBag.categories = GetCategoryDropDown();
@@ -560,8 +554,6 @@ namespace Project.Controllers
             {
                 using (var bwCtx = new EF.CustomIdentityDbContext())
                 {
-
-
                     bwCtx.courses.Add(newCourse);
                     bwCtx.SaveChanges();
                 }
@@ -690,11 +682,11 @@ namespace Project.Controllers
                 var category = bwCtx.categories.FirstOrDefault(b => b.id == id);
                 //ef method to select only one or null if not found
 
-                if (category != null) // if a book is found, show edit view
+                if (category != null)
                 {
                     return View(category);
                 }
-                else // if no book is found, back to index
+                else
                 {
                     return RedirectToAction("CategoryIndex"); //redirect to action in the same controller
                 }
@@ -715,8 +707,7 @@ namespace Project.Controllers
                 using (var bwCtx = new EF.CustomIdentityDbContext())
                 {
                     bwCtx.Entry<CourseCategory>(category).State
-                        = System.Data.Entity.EntityState.Modified;
-                    //add book to context and mark it as modified to do update, not insert
+                        = System.Data.Entity.EntityState.Modified;                  
 
                     bwCtx.SaveChanges();
                 }
@@ -756,13 +747,13 @@ namespace Project.Controllers
                     .Include(b => b.courses)
                     .FirstOrDefault(b => b.Id == id);
 
-                if (Person != null) // if a book is found, show edit view
+                if (Person != null) 
                 {
 
                     PrepareViewBag();
                     return View(Person);
                 }
-                else // if no book is found, back to index
+                else 
                 {
                     return RedirectToAction("TraineeAcc"); //redirect to action in the same controller
                 }
@@ -824,7 +815,6 @@ namespace Project.Controllers
 
                 if (Person != null) // if a book is found, show edit view
                 {
-
                     PrepareViewBag();
                     return View(Person);
                 }
@@ -838,14 +828,10 @@ namespace Project.Controllers
         [HttpPost]
         public ActionResult AssignCourseT(string id, CustomUser newUser, FormCollection fc)
         {
-
-
             if (!ModelState.IsValid)
             {
-
                 TempData["trainerIds"] = fc["trainerIds[]"];
                 PrepareViewBag();
-
                 return View(newUser);
             }
             else
@@ -874,13 +860,10 @@ namespace Project.Controllers
             }
         }
 
-
-
         private void PrepareViewBag()
         {
             using (var bwCtx = new CustomIdentityDbContext())
             {
-
                 ViewBag.Person = bwCtx.courses.ToList();
             }
         }

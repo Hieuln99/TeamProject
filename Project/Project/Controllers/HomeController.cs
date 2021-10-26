@@ -349,6 +349,84 @@ namespace Project.Controllers
             return Content("Finished");
         }
 
+        public async Task<ActionResult> init2()
+        {
+            var context = new CustomIdentityDbContext();
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<CustomUser>(context);
+            var userManager = new UserManager<CustomUser>(userStore);
+
+            if (!await roleManager.RoleExistsAsync(SecurityRole.Trainer))
+            {
+                await roleManager.CreateAsync(new IdentityRole { Name = SecurityRole.Trainer });
+            }            
+            for (int i = 0; i <= 20; i++)
+            {
+                string Num, Num1;
+                Random rd = new Random();
+                Num = rd.Next(200, 300).ToString();
+                Num1 = rd.Next(100, 500).ToString();
+
+                var email = $"Trainer{i}@mail.com";
+                var phone = $"09{Num1}91{Num}";
+                var age = 0;
+                var dob = DateTime.Now;
+                var edu = "0";
+                var language = "0";
+                var toeic = 0;
+                var exp = "0";
+                var department = "0";
+                var location = "0";
+                var type = "External";
+                var workplace = "FPT";
+                var u = await userManager.FindByEmailAsync(email);
+                if (ModelState.IsValid)
+                {
+                    if (u == null)
+                    {
+                        var result = await userManager.CreateAsync(
+                            new CustomUser
+                            {
+                                UserName = email,
+                                Email = email,
+                                PhoneNumber = phone,
+                                name = email.Split('@')[0],
+                                age = age,
+                                dob = dob,
+                                edu = edu,
+                                language = language,
+                                toeic = toeic,
+                                exp = exp,
+                                department = department,
+                                location = location,
+                                type = type,
+                                workplace = workplace,
+                                PhoneNumberConfirmed = true,
+                                TwoFactorEnabled = true,
+                                LockoutEndDateUtc = dob,
+                                LockoutEnabled = false,
+                                AccessFailedCount = 0
+                            },
+                            "1230123"
+                            );
+                        if (result.Succeeded)
+                        {
+                            var User = await userManager.FindByEmailAsync(email);
+                            userManager.AddToRole(User.Id, SecurityRole.Trainer);
+                        }
+                    }
+                    else
+                    {
+                        return Content("failure");
+                    }
+
+                }
+            }
+            return Content("Finished");
+        }
+
         [HttpGet]
         public ActionResult Login()
         {

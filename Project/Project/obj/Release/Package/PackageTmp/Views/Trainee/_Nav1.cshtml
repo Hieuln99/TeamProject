@@ -1,0 +1,44 @@
+﻿<div class="nav">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="@Url.Action("Index","Trainee")">Trainee</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("TraineeCourse","Trainee")">Schedule</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("UpdateTraineeAcc", "Trainee")">Update Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ChangePassS", "Trainee")">Update Password</a>
+                    </li>
+                </ul>
+                <div style="float:right" id="navbarSupportedContent">
+                    <ul style="list-style-type: none; overflow: hidden; margin: 0; padding: 0;">
+                        <li style="float: left">
+                            <div style=" color:white; padding:10px">
+                                @ViewBag.Name
+                            </div>
+                        </li>
+
+                        <li style="float: right">
+                            <div style=" padding:10px">
+                                @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>

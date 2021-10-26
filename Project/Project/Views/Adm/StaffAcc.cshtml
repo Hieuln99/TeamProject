@@ -121,10 +121,7 @@
                     $('#deleteForm').attr('action', d[3]);
                 });
             });
-            $('#myInputT').on('keyup', function (event) {
-                event.preventDefault();
-                /* Act on the event */
-                console.log(1);
+            $('#myInputT').on('keyup', function () {
                 var input = $(this).val().toLowerCase();
                 $('#myTable tr').filter(function () {
 

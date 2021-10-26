@@ -161,7 +161,7 @@ namespace Project.Controllers
                     var result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), form.currentpass, form.newpass);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Login", "Home");
+                        return RedirectToAction("Index");
                     }
                 }
                 return View(form);

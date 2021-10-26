@@ -1,0 +1,34 @@
+﻿@model  Project.Models.LoginForm
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Home/_LayoutLogin.cshtml";
+}
+
+<div class="container">
+    <div class="hello">
+        <img src="https://ap.greenwich.edu.vn/FGW_logo_d.jpg" alt="" width="30%" height="auto">
+        <br>
+    </div>
+
+</div>
+<section class="style">
+    
+    <div class="container">
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", type ="password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-dark">Login</button>
+        }
+    </div>
+
+</section>

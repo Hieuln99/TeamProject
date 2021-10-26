@@ -1,0 +1,99 @@
+﻿@model Project.Models.CustomUser
+@{
+    ViewBag.Title = "AssignCourseT";
+    Layout = "~/Views/Shared/FormHome.cshtml";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" })
+
+}
+@{
+    //turn separated string into an int list.
+    List<int> selectSIds = new List<int>();
+    if (TempData["TrainerIds"] != null)
+    {
+        selectSIds = TempData["TrainerIds"].ToString().Split(',')
+                .Select(id => Int32.Parse(id))
+                .ToList();
+    }
+    else if (Model != null) // this is in Edit
+    {
+        selectSIds = Model.courses
+                   .Select(f => f.id)
+                   .ToList();
+    }
+    //check all previously-checked box.
+
+}
+<div class="container">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        <div class="row mt-2">
+
+            <div class="col-8">
+                <form>
+                    <h2>Assign Trainer</h2>
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.name)
+                    @Html.HiddenFor(m => m.Email)
+                    @Html.HiddenFor(m => m.UserName)
+                    @Html.HiddenFor(m => m.workplace)
+                    @Html.HiddenFor(m => m.language)
+                    @Html.HiddenFor(m => m.exp)
+                    @Html.HiddenFor(m => m.type)
+                    @Html.HiddenFor(m => m.edu)
+                    @Html.HiddenFor(m => m.dob)
+                    @Html.HiddenFor(m => m.PhoneNumber)
+                    @Html.HiddenFor(m => m.age)
+                    @Html.HiddenFor(m => m.department)
+                    @Html.HiddenFor(m => m.toeic)
+                    @Html.HiddenFor(m => m.location)
+                    @Html.HiddenFor(m => m.PasswordHash)
+                    @Html.HiddenFor(m => m.SecurityStamp)
+                <div class="form-group">
+                    <b style="font-size:20px;">Trainer Name</b>:
+                    @Html.DisplayFor(m => m.name)
+
+                </div>
+
+                    <div class="form-group">
+                        <b>ASSIGN TRAINER TO COURSE</b>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold mr-3">Course</label>
+
+
+                        @foreach (var f in ViewBag.Person)
+                        {
+                            <div class="border border-info btn-outline-info rounded">
+                                <div class="form-check input-box ">
+                                    <input class="form-check-input" type="checkbox" value="@f.id" id="@f.name" name="TrainerIds[]"
+                                           @(selectSIds.Contains(f.id) ? "checked" : string.Empty)>
+                                    <label class="form-check-label" for="@f.name">
+                                        @f.name
+                                    </label>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2">Assign</button>
+
+                </form>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+
