@@ -1,0 +1,167 @@
+﻿@model  Project.Models.TraineeRegisterForm
+
+@{
+    ViewBag.Title = "TraineeRegister";
+    Layout = "~/Views/Home/_LayoutLogin.cshtml";
+}
+
+<div class="nav">
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="@Url.Action("", "")">Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("StaffAcc", "Adm")">Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("TrainerAcc", "Adm")">Trainer</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Create New
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Register", "Home")">Staff</a>
+                            <a class="dropdown-item" href="@Url.Action("TrainerRegister", "Home")">Trainer</a>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="float:right" id="navbarSupportedContent">
+                <ul style="list-style-type: none; overflow: hidden; margin: 0; padding: 0;">
+                    <li style="float: left">
+                        <div style="color:white; padding:10px">
+                            @ViewBag.Name
+                        </div>
+                    </li>
+
+                    <li style="float: right">
+                        <div style=" padding:10px">
+                            @using (Html.BeginForm("Logout", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<section>
+    <div class="style">
+        <h1 class="pt-3 text-center">New Trainee</h1>
+
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.UserName)</b>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.Password)</b>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.ConfirmPassword)</b>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.Name)</b>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.age)</b>
+                @Html.EditorFor(m => m.age, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's age" } })
+                @Html.ValidationMessageFor(m => m.age, "", new { @class = "text-danger" })
+            </div>
+
+            <div cclass="form-group">
+                <b>@Html.LabelFor(m => m.dob)</b>
+                @Html.EditorFor(m => m.dob, new { htmlAttributes = new { @type="date", @class = "form-control", placeholder = "Input trainee's date of birth" } })
+                @Html.ValidationMessageFor(m => m.dob, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.edu)</b>
+                @Html.EditorFor(m => m.edu, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's school name" } })
+                @Html.ValidationMessageFor(m => m.edu, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.language)</b>
+                @Html.DropDownList("language", new List<SelectListItem>
+                {
+                new SelectListItem{Text= "C#"},
+                new SelectListItem{Text= "Python"},
+                new SelectListItem{Text= "HTML"},
+                new SelectListItem{Text= "PHP"},
+                new SelectListItem{Text= "C"},
+                new SelectListItem{Text= "C++"},
+                new SelectListItem{Text= "Nodejs"},
+                new SelectListItem{Text="Java"}
+                },
+                new { @class = "custom-select d-block w-100" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.toeic)</b>
+                @Html.EditorFor(m => m.toeic, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's score TOEIC" } })
+                @Html.ValidationMessageFor(m => m.toeic, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.exp)</b>
+                @Html.DropDownList("exp", new List<SelectListItem>
+                {
+                new SelectListItem{Text= "1 year"},
+                new SelectListItem{Text= "2 years"},
+                new SelectListItem{Text= "3 years"},
+                new SelectListItem{Text= "4 years"},
+                new SelectListItem{Text= "5 years"},
+                new SelectListItem{Text= "6 years"},
+                new SelectListItem{Text= "7 years"},
+                new SelectListItem{Text="More than 7 years"}
+                },
+                new { @class = "custom-select d-block w-100" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.department)</b>
+                @Html.EditorFor(m => m.department, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's department in center" } })
+                @Html.ValidationMessageFor(m => m.department, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <b>@Html.LabelFor(m => m.location)</b>
+                @Html.EditorFor(m => m.location, new { htmlAttributes = new { @class = "form-control", placeholder = "Input trainee's hometown" } })
+                @Html.ValidationMessageFor(m => m.location, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn btn-dark" data-toggle="button" aria-pressed="false" autocomplete="off">Submit</button>
+
+        }
+    <br />
+    <br />
+    </div>
+
+</section>

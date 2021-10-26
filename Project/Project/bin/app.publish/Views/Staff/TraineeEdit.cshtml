@@ -1,0 +1,128 @@
+﻿@model Project.Models.CustomUser
+@{
+    ViewBag.Title = "TraineeEdit";
+    Layout = "~/Views/Shared/FormHome.cshtml";
+}
+
+<div class="container">
+    <h1 class="display-4">Updating</h1>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" })
+    }
+
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.name, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.age, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.age,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.age, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.dob, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.dob,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.dob, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.edu, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.edu,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.edu, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.language)</b></label>
+            @Html.DropDownList("language", new List<SelectListItem>
+            {
+            new SelectListItem{Text= "C#"},
+            new SelectListItem{Text= "Python"},
+            new SelectListItem{Text= "HTML"},
+            new SelectListItem{Text= "PHP"},
+            new SelectListItem{Text= "C"},
+            new SelectListItem{Text= "C++"},
+            new SelectListItem{Text= "Nodejs"},
+            new SelectListItem{Text="Java"}
+            },
+            new { @class = "custom-select d-block w-100" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.toeic, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.toeic,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.toeic, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="exampleFormControlInput1" class="form-label"><b>@Html.LabelFor(m => m.exp)</b></label>
+            @Html.DropDownList("exp", new List<SelectListItem>
+            {
+            new SelectListItem{Text= "1 year"},
+            new SelectListItem{Text= "2 years"},
+            new SelectListItem{Text= "3 years"},
+            new SelectListItem{Text= "4 years"},
+            new SelectListItem{Text= "5 years"},
+            new SelectListItem{Text= "6 years"},
+            new SelectListItem{Text= "7 years"},
+            new SelectListItem{Text="More than 7 years"}
+            },
+            new { @class = "custom-select d-block w-100" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.department, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.department,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.department, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.location, htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.location,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+            @Html.ValidationMessageFor(m => m.location, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.HiddenFor(m => m.Email, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.HiddenFor(m => m.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(m => m.SecurityStamp, new { htmlAttributes = new { @class = "form-control"} })
+        @Html.HiddenFor(m => m.workplace, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
+        @Html.HiddenFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
+        @Html.HiddenFor(m => m.type, new { htmlAttributes = new { @class = "form-control", Value = "0"} })
+
+
+        <button type="submit" class="btn btn-dark">Submit</button>
+    }
+
+</div>
+
+
