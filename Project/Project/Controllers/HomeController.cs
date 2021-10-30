@@ -25,5 +25,10 @@ namespace Project.Controllers
         {
             return View();
         }
+
+        public ActionResult Index222()
+        {
+            return View();
+        }
     }
 }
