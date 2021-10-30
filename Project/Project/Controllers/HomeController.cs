@@ -21,5 +21,9 @@ namespace Project.Controllers
         {
             return View();
         }
+        public ActionResult Index22()
+        {
+            return View();
+        }
     }
 }
