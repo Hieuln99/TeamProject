@@ -13,7 +13,7 @@ namespace Project.Controllers
         {
             return View();
         }
-        public ActionResult Index1()
+        public ActionResult Index2()
         {
             return View();
         }
